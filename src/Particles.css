@@ -1,0 +1,38 @@
+.leaves-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+  perspective: 800px;
+}
+
+.leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 12px 2px 12px 2px;
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #581c87 100%);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+/* Size variants */
+.leaf--sm {
+  width: 10px;
+  height: 5px;
+}
+
+.leaf--md {
+  width: 16px;
+  height: 8px;
+}
+
+.leaf--lg {
+  width: 22px;
+  height: 11px;
+}

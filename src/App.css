@@ -1,0 +1,174 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #050a0a;
+  font-family: 'Inter', system-ui, sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(15, 15, 25, 0.35); /* Made more transparent to enhance blur effect */
+  backdrop-filter: blur(16px); /* Increased blur radius strongly */
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.text-neon {
+  color: #DAF013;
+}
+
+.bg-neon {
+  background-color: #DAF013;
+  background: #DAF013;
+  color: #050a0a;
+  box-shadow: 0 0 15px rgba(218, 240, 19, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.bg-neon:hover {
+  transform: scale(1.04);
+  background: #e6ff1b;
+  box-shadow: 0 0 25px rgba(218, 240, 19, 0.5);
+}
+
+/* Navbar Hover Effects */
+.nav-item {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  padding-bottom: 4px; /* Space for the animated underline */
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #DAF013 !important;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #DAF013;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(218, 240, 19, 0.5);
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.app-container {
+  position: relative;
+}
+
+/* ── Sections ─────────────────────────────── */
+.scene-section {
+  position: relative;
+  width: 100%;
+  height: 106vh; /* 100vh + 6vh for the overlapping wave area below the fold */
+  overflow: hidden;
+}
+
+.scene-section:first-child {
+  height: auto;
+  min-height: 106vh;
+}
+
+/* Apply overlap and wave clip-path to every section that follows another section */
+.scene-section + .scene-section {
+  margin-top: -6vh;
+  clip-path: url(#branch-clip);
+}
+
+.section-bg-wrapper {
+  position: absolute;
+  inset: -2% 0;
+  overflow: hidden;
+}
+
+.section-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* ── Hero overlay ─────────────────────────── */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px; /* Space for scrolling overlap */
+}
+
+.hero-title {
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 100;
+  letter-spacing: 1.2em;
+  text-indent: 1.2em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  text-shadow:
+    0 0 40px rgba(168, 85, 247, 0.4),
+    0 0 80px rgba(0, 255, 200, 0.15);
+  margin: 0;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50% { transform: translateY(8px) rotate(45deg); }
+}
