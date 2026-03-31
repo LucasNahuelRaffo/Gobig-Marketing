@@ -6,12 +6,8 @@ export default function Loader({ onComplete }) {
   const textRef = useRef(null);
   const barRef = useRef(null);
   const [progress, setProgress] = useState(0);
-  const hasRun = useRef(false);
 
   useEffect(() => {
-    if (hasRun.current) return;
-    hasRun.current = true;
-
     // Prevent scrolling while loading
     document.body.style.overflow = 'hidden';
 
@@ -59,7 +55,6 @@ export default function Loader({ onComplete }) {
     return () => {
       document.body.style.overflow = '';
       ctx.revert();
-      hasRun.current = false; // Reset for strict mode double-invokes if needed, but not necessary here if we want strictly once
     };
   }, [onComplete]);
 
