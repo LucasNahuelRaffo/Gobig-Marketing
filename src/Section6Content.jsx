@@ -67,8 +67,8 @@ export default function Section6Content() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center', // Now centered in available space
-        gap: '24px', // Tighter gap overall
-        padding: '30px 20px', // Minimized top/bottom padding
+        gap: '28px', // Slightly larger gap to breathe
+        padding: '140px 20px 40px', // Aggressively pad top to push down
         width: '100%',
         margin: '0 auto',
         maxWidth: '1200px' // Boxes width
@@ -164,16 +164,17 @@ export default function Section6Content() {
           background: '#DAF013',
           border: 'none',
           borderRadius: '16px',
-          padding: '20px 40px', // Compressed vertical padding
+          padding: '18px 36px', // Slightly less padding
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '4px', // Tighter
+          gap: '4px',
           cursor: 'pointer',
           boxShadow: '0 15px 40px rgba(218, 240, 19, 0.2)',
           transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          width: '100%',
-          margin: '0' // Zero margin, relying on gap
+          width: '100%', // take up to max width
+          maxWidth: '800px', // constrain width
+          margin: '0 auto'  // center it
         }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.02) translateY(-4px)';
@@ -184,10 +185,10 @@ export default function Section6Content() {
             e.currentTarget.style.boxShadow = '0 15px 40px rgba(218, 240, 19, 0.2)';
           }}
         >
-          <span style={{ color: '#050a0a', fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.5px' }}>
+          <span style={{ color: '#050a0a', fontSize: '1.4rem', fontWeight: '800', letterSpacing: '-0.3px' }}>
             No seas el dinosaurio de las clínicas
           </span>
-          <span style={{ color: '#050a0a', fontSize: '0.95rem', fontWeight: '500', fontStyle: 'italic', opacity: 0.8 }}>
+          <span style={{ color: '#050a0a', fontSize: '0.85rem', fontWeight: '500', fontStyle: 'italic', opacity: 0.8 }}>
             Aplica ahora y agenda tu llamada estratégica
           </span>
         </button>
