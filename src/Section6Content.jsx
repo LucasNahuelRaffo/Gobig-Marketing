@@ -4,6 +4,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
 import MarqueeLogoScroller from './MarqueeLogoScroller';
 
+import logoBarbara from './img/logos de Empresas/Barbara Chavez.png';
+import logoOrlando from './img/logos de Empresas/Dr. Orlando Santillan.png';
+import logoHuawei from './img/logos de Empresas/Huawei.png';
+import logoLuar from './img/logos de Empresas/Luar.png';
+import logoNovocentro from './img/logos de Empresas/Novocentro.png';
+import logoRenuev from './img/logos de Empresas/Renuev.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Section6Content() {
@@ -49,13 +56,12 @@ export default function Section6Content() {
   ];
 
   const partners = [
-    { src: 'https://svgl.app/library/procure.svg', alt: 'Procure', gradient: { from: '#668CFF', via: '#0049FF', to: '#003199' } },
-    { src: 'https://svgl.app/library/shopify.svg', alt: 'Shopify', gradient: { from: '#FFE766', via: '#FFCE00', to: '#B38F00' } },
-    { src: 'https://svgl.app/library/blender.svg', alt: 'Blender', gradient: { from: '#6690F0', via: '#255BE3', to: '#193B99' } },
-    { src: 'https://svgl.app/library/figma.svg', alt: 'Figma', gradient: { from: '#C4C2FF', via: '#9896FF', to: '#5B4DCC' } },
-    { src: 'https://svgl.app/library/spotify.svg', alt: 'Spotify', gradient: { from: '#FF66A1', via: '#FF007A', to: '#B3005A' } },
-    { src: 'https://svgl.app/library/lottielab.svg', alt: 'Lottielab', gradient: { from: '#D9FF5A', via: '#AFFF01', to: '#7A9900' } },
-    { src: 'https://svgl.app/library/google-cloud.svg', alt: 'Google Cloud', gradient: { from: '#8AA7FF', via: '#5F86FF', to: '#3A5ACC' } }
+    { src: logoBarbara, alt: 'Barbara Chavez', gradient: { from: '#668CFF', via: '#0049FF', to: '#003199' } },
+    { src: logoOrlando, alt: 'Dr. Orlando Santillan', gradient: { from: '#FFE766', via: '#FFCE00', to: '#B38F00' } },
+    { src: logoHuawei, alt: 'Huawei', gradient: { from: '#6690F0', via: '#255BE3', to: '#193B99' } },
+    { src: logoLuar, alt: 'Luar', gradient: { from: '#C4C2FF', via: '#9896FF', to: '#5B4DCC' } },
+    { src: logoNovocentro, alt: 'Novocentro', gradient: { from: '#FF66A1', via: '#FF007A', to: '#B3005A' } },
+    { src: logoRenuev, alt: 'Renuev', gradient: { from: '#D9FF5A', via: '#AFFF01', to: '#7A9900' } }
   ];
 
   return (
@@ -76,7 +82,7 @@ export default function Section6Content() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '140px 0 40px', // Removed horizontal padding and maxWidth to let Marquee stretch full width edge-to-edge
+        padding: '80px 0 20px', // Reduced top padding so CTA button appears in view
         width: '100%'
       }}>
 

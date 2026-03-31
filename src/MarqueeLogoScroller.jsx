@@ -25,11 +25,7 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
         style={{
           width: '100%',
           color: 'white',
-          borderRadius: '24px',
-          border: '1px solid rgba(255,255,255,0.05)',
           overflow: 'hidden',
-          background: 'rgba(15, 5, 20, 0.4)', // Glassy dark background to blend perfectly
-          backdropFilter: 'blur(10px)',
           marginBottom: '20px' // Space before the comparison boxes
         }}
         {...props}
@@ -125,7 +121,7 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
                     height: '50%',
                     width: 'auto',
                     objectFit: 'contain',
-                    filter: 'grayscale(1) brightness(100)', // Make them solid white initially to look uniform!
+                    filter: 'grayscale(1) opacity(0.6)', // Elegant dimmed gray initially
                     transition: 'filter 0.5s ease-out'
                   }}
                   className="marquee-logo-img"
