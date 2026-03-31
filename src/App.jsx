@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Particles from './Particles';
@@ -37,6 +37,10 @@ function App() {
   const containerRef = useRef(null);
   const sectionRefs = useRef([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  const handleLoaderComplete = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -104,7 +108,7 @@ function App() {
 
   return (
     <div className="app-container" ref={containerRef}>
-      <Loader onComplete={() => setIsLoaded(true)} />
+      <Loader onComplete={handleLoaderComplete} />
       
       {/* SVG Clip Path for organic section dividers */}
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
