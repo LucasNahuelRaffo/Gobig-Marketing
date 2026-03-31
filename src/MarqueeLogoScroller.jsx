@@ -25,7 +25,11 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
         style={{
           width: '100%',
           color: 'white',
+          borderRadius: '24px',
+          border: '1px solid rgba(255,255,255,0.05)',
           overflow: 'hidden',
+          background: 'rgba(15, 5, 20, 0.4)',
+          backdropFilter: 'blur(10px)',
           marginBottom: '20px' // Space before the comparison boxes
         }}
         {...props}
@@ -34,10 +38,11 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
         <div style={{
           padding: '30px 40px',
           display: 'flex',
-          flexWrap: 'wrap',
-          gap: '20px',
+          flexDirection: 'column',
+          gap: '12px',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
+          textAlign: 'center',
           borderBottom: '1px solid rgba(255,255,255,0.05)'
         }}>
           <h2 style={{
@@ -45,7 +50,7 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
             fontWeight: '700',
             letterSpacing: '-1px',
             margin: 0,
-            maxWidth: '500px',
+            maxWidth: '100%',
             lineHeight: '1.2'
           }}>
             {title}
@@ -53,7 +58,7 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
           <p style={{
             color: 'rgba(255,255,255,0.6)',
             margin: 0,
-            maxWidth: '400px',
+            maxWidth: '600px',
             fontSize: '1rem',
             lineHeight: '1.5'
           }}>
@@ -96,33 +101,19 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
                   justifyContent: 'center',
                   borderRadius: '16px',
                   background: 'rgba(255,255,255,0.03)',
-                  overflow: 'hidden',
-                  cursor: 'pointer'
+                  overflow: 'hidden'
                 }}
               >
-                {/* Gradient background revealed on hover */}
-                <div
-                  className="marquee-gradient"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    opacity: 0,
-                    transform: 'scale(1.5)',
-                    transition: 'all 0.6s ease-out',
-                    background: `linear-gradient(to bottom right, ${logo.gradient.from}, ${logo.gradient.via}, ${logo.gradient.to})`
-                  }}
-                />
                 {/* Logo Image */}
                 <img
                   src={logo.src}
                   alt={logo.alt}
                   style={{
                     position: 'relative',
-                    height: '50%',
-                    width: 'auto',
-                    objectFit: 'contain',
-                    filter: 'grayscale(1) opacity(0.6)', // Elegant dimmed gray initially
-                    transition: 'filter 0.5s ease-out'
+                    height: '100%',
+                    width: '100%',
+                    padding: '16px', // Give it a bit of padding so it doesn't touch the edges completely
+                    objectFit: 'contain'
                   }}
                   className="marquee-logo-img"
                 />

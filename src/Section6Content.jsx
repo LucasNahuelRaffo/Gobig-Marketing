@@ -86,14 +86,6 @@ export default function Section6Content() {
         width: '100%'
       }}>
 
-        {/* Marquee Scroller - Now full width natively */}
-        <MarqueeLogoScroller
-          title="Clínicas médicas en todo el mundo confían en nosotros"
-          description="Fundadores, equipos médicos y líderes en la salud de toda la región trabajan con nuestro sistema."
-          logos={partners}
-          speed="normal"
-        />
-
         {/* Inner Container for constrained elements */}
         <div style={{
           maxWidth: '1200px',
@@ -103,9 +95,16 @@ export default function Section6Content() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '28px',
-          marginTop: '28px' // Gap below marquee
+          gap: '28px'
         }}>
+          {/* Marquee Scroller - Restored inside container */}
+          <MarqueeLogoScroller
+            title="Clínicas médicas en todo el mundo confían en nosotros"
+            description="Fundadores, equipos médicos y líderes en la salud de toda la región trabajan con nuestro sistema."
+            logos={partners}
+            speed="normal"
+          />
+
           {/* Comparison Container */}
           <div style={{
             display: 'flex',
