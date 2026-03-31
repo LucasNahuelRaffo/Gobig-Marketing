@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
+import MarqueeLogoScroller from './MarqueeLogoScroller';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +48,16 @@ export default function Section6Content() {
     "Tu equipo opera el sistema de forma autónoma"
   ];
 
+  const partners = [
+    { src: 'https://svgl.app/library/procure.svg', alt: 'Procure', gradient: { from: '#668CFF', via: '#0049FF', to: '#003199' } },
+    { src: 'https://svgl.app/library/shopify.svg', alt: 'Shopify', gradient: { from: '#FFE766', via: '#FFCE00', to: '#B38F00' } },
+    { src: 'https://svgl.app/library/blender.svg', alt: 'Blender', gradient: { from: '#6690F0', via: '#255BE3', to: '#193B99' } },
+    { src: 'https://svgl.app/library/figma.svg', alt: 'Figma', gradient: { from: '#C4C2FF', via: '#9896FF', to: '#5B4DCC' } },
+    { src: 'https://svgl.app/library/spotify.svg', alt: 'Spotify', gradient: { from: '#FF66A1', via: '#FF007A', to: '#B3005A' } },
+    { src: 'https://svgl.app/library/lottielab.svg', alt: 'Lottielab', gradient: { from: '#D9FF5A', via: '#AFFF01', to: '#7A9900' } },
+    { src: 'https://svgl.app/library/google-cloud.svg', alt: 'Google Cloud', gradient: { from: '#8AA7FF', via: '#5F86FF', to: '#3A5ACC' } }
+  ];
+
   return (
     <div ref={containerRef} style={{
       display: 'flex',
@@ -71,6 +82,14 @@ export default function Section6Content() {
         margin: '0 auto',
         maxWidth: '1200px' // Boxes width
       }}>
+
+        {/* Marquee Scroller */}
+        <MarqueeLogoScroller
+          title="Clínicas médicas en todo el mundo confían en nosotros"
+          description="Fundadores, equipos médicos y líderes en la salud de toda la región trabajan con nuestro sistema."
+          logos={partners}
+          speed="normal"
+        />
 
         {/* Comparison Container */}
         <div style={{

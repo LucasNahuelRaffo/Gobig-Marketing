@@ -170,5 +170,18 @@ body {
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0) rotate(45deg); }
-  50% { transform: translateY(8px) rotate(45deg); }
+}
+
+/* Marquee Scroller Custom CSS */
+.marquee-track:hover {
+  animation-play-state: paused !important;
+}
+
+.marquee-logo-card:hover .marquee-gradient {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.marquee-logo-card:hover .marquee-logo-img {
+  filter: none !important; /* Restore original colors on hover */
 }
