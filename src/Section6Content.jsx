@@ -55,10 +55,8 @@ export default function Section6Content() {
       minHeight: '100vh',
       flex: 1,
       boxSizing: 'border-box',
-      position: 'relative',
-      overflowY: 'auto',
-      overflowX: 'hidden'
-    }} className="custom-scrollbar">
+      position: 'relative'
+    }}>
 
       {/* Main Content Area */}
       <div style={{
