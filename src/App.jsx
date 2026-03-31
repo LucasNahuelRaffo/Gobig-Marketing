@@ -12,6 +12,7 @@ import Section3Content from './Section3Content';
 import Section4Content from './Section4Content';
 import Section5Content from './Section5Content';
 import Section6Content from './Section6Content';
+import Footer from './Footer';
 import './App.css';
 
 import skyImg from './img/sky.png';
@@ -184,6 +185,9 @@ function App() {
           )}
         </section>
       ))}
+
+      {/* Extracted Footer directly at the bottom so it is not contained by scene bounds */}
+      <Footer />
     </div>
   );
 }
