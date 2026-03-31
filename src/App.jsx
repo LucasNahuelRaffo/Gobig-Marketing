@@ -36,6 +36,7 @@ const sections = [
 function App() {
   const containerRef = useRef(null);
   const sectionRefs = useRef([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -103,7 +104,7 @@ function App() {
 
   return (
     <div className="app-container" ref={containerRef}>
-      <Loader />
+      <Loader onComplete={() => setIsLoaded(true)} />
       
       {/* SVG Clip Path for organic section dividers */}
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
@@ -125,7 +126,7 @@ function App() {
           {section.id === 'panther' ? (
             <PantherCanvas />
           ) : section.video ? (
-            <SeamlessVideo src={section.video} poster={skyImg} crossfadeDuration={1.5} />
+            <SeamlessVideo src={section.video} poster={skyImg} crossfadeDuration={1.5} isPlaying={isLoaded} />
           ) : (
             <div className="section-bg-wrapper">
               <div

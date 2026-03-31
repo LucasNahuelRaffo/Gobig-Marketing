@@ -1,9 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5 }) {
+export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5, isPlaying = false }) {
   const video1Ref = useRef(null);
   const video2Ref = useRef(null);
   const [activeVideo, setActiveVideo] = useState(1);
+
+  useEffect(() => {
+    if (!video1Ref.current || !video2Ref.current) return;
+    const currentV = activeVideo === 1 ? video1Ref.current : video2Ref.current;
+    
+    if (isPlaying) {
+      if (currentV.paused) {
+        currentV.play().catch(() => {});
+      }
+    } else {
+      currentV.pause();
+    }
+  }, [isPlaying, activeVideo]);
 
   useEffect(() => {
     let reqId;
@@ -18,7 +31,7 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5 }) 
       // When the current video approaches its end minus the crossfade duration
       if (currentV.duration && currentV.currentTime >= currentV.duration - crossfadeDuration) {
         // Prepare and play the next video from the beginning
-        if (nextV.paused) {
+        if (nextV.paused && isPlaying) {
           nextV.currentTime = 0;
           nextV.play().catch(() => {});
         }
@@ -47,7 +60,7 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5 }) 
 
     reqId = requestAnimationFrame(checkTime);
     return () => cancelAnimationFrame(reqId);
-  }, [activeVideo, crossfadeDuration]);
+  }, [activeVideo, crossfadeDuration, isPlaying]);
 
   return (
     <div className="section-bg-wrapper" style={poster ? { backgroundImage: `url(${poster})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}>
@@ -56,7 +69,6 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5 }) 
         src={src}
         poster={poster}
         preload="auto"
-        autoPlay
         muted
         defaultMuted
         playsInline
