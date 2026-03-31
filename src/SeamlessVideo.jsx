@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function SeamlessVideo({ src, crossfadeDuration = 1.5 }) {
+export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5 }) {
   const video1Ref = useRef(null);
   const video2Ref = useRef(null);
   const [activeVideo, setActiveVideo] = useState(1);
@@ -50,12 +50,15 @@ export default function SeamlessVideo({ src, crossfadeDuration = 1.5 }) {
   }, [activeVideo, crossfadeDuration]);
 
   return (
-    <div className="section-bg-wrapper">
+    <div className="section-bg-wrapper" style={poster ? { backgroundImage: `url(${poster})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}>
       <video
         ref={video1Ref}
         src={src}
+        poster={poster}
+        preload="auto"
         autoPlay
         muted
+        defaultMuted
         playsInline
         className="section-bg"
         style={{
@@ -72,7 +75,9 @@ export default function SeamlessVideo({ src, crossfadeDuration = 1.5 }) {
       <video
         ref={video2Ref}
         src={src}
+        preload="auto"
         muted
+        defaultMuted
         playsInline
         className="section-bg"
         style={{

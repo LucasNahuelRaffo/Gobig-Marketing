@@ -125,7 +125,7 @@ function App() {
           {section.id === 'panther' ? (
             <PantherCanvas />
           ) : section.video ? (
-            <SeamlessVideo src={section.video} crossfadeDuration={1.5} />
+            <SeamlessVideo src={section.video} poster={skyImg} crossfadeDuration={1.5} />
           ) : (
             <div className="section-bg-wrapper">
               <div
