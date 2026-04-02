@@ -4,12 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
 import MarqueeLogoScroller from './MarqueeLogoScroller';
 
-import logoBarbara from './img/logos de Empresas/Barbara Chavez.png';
-import logoOrlando from './img/logos de Empresas/Dr. Orlando Santillan.png';
-import logoHuawei from './img/logos de Empresas/Huawei.png';
-import logoLuar from './img/logos de Empresas/Luar.png';
-import logoNovocentro from './img/logos de Empresas/Novocentro.png';
-import logoRenuev from './img/logos de Empresas/Renuev.png';
+import logoBarbara from './img/Logos de Empresas/Barbara Chavez.png';
+import logoOrlando from './img/Logos de Empresas/Dr. Orlando Santillan.png';
+import logoHuawei from './img/Logos de Empresas/Huawei.png';
+import logoLuar from './img/Logos de Empresas/Luar.png';
+import logoNovocentro from './img/Logos de Empresas/Novocentro.png';
+import logoRenuev from './img/Logos de Empresas/Renuev.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
