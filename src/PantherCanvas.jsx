@@ -21,8 +21,8 @@ export default function PantherCanvas() {
     const ctx = canvas.getContext('2d');
     
     // Set initial dimensions
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = containerRef.current.offsetWidth || window.innerWidth;
+    canvas.height = containerRef.current.offsetHeight || window.innerHeight;
 
     const images = [];
     const frameObj = { frame: 0 };
@@ -71,9 +71,11 @@ export default function PantherCanvas() {
 
     // Handle Resize
     const onResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      renderFrame(Math.round(frameObj.frame));
+      if (containerRef.current) {
+        canvas.width = containerRef.current.offsetWidth;
+        canvas.height = containerRef.current.offsetHeight;
+        renderFrame(Math.round(frameObj.frame));
+      }
     };
     window.addEventListener('resize', onResize);
 
@@ -103,7 +105,7 @@ export default function PantherCanvas() {
   }, []);
 
   return (
-    <div ref={containerRef} className="panther-canvas-container" style={{ width: '100%', height: '100%' }}>
+    <div ref={containerRef} className="panther-canvas-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
     </div>
   );

@@ -1,83 +1,191 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function Navbar() {
+export default function Navbar({ lang, setLang, t }) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navbar if scrolling up or at the very top
+      if (currentScrollY < lastScrollY || currentScrollY < 50) {
+        setIsVisible(true);
+      } 
+      // Hide navbar if scrolling down and past the top
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [isMobileMenuOpen]);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const LanguageSwitcher = () => (
+    <button
+      onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+      className="glass-panel"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '8px 12px',
+        borderRadius: '8px',
+        background: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        color: 'white',
+        fontSize: '0.8rem',
+        fontWeight: '600'
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+    >
+      <img 
+        src={lang === 'es' ? "https://flagcdn.com/w40/es.png" : "https://flagcdn.com/w40/us.png"} 
+        alt={lang === 'es' ? 'Spanish' : 'English'}
+        style={{ width: '20px', borderRadius: '2px' }}
+      />
+      {lang.toUpperCase()}
+    </button>
+  );
+
   return (
-    <nav className="navbar-container glass-panel" style={{
-      position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center', // mathematically center the links in the middle of the screen
-      padding: '0',
-      height: '90px', // Expandimos el Navbar para dar aire
-      width: '100%',
-      boxSizing: 'border-box',
-      opacity: 0, // For GSAP initial state
-      borderRadius: '0', // Overrides glass-panel rounded corners for full-width navbar
-      borderLeft: 'none',
-      borderRight: 'none',
-      borderTop: 'none',
-    }}>
-      {/* Decorative Trapezoid Line logically centered */}
-      <div style={{ position: 'absolute', left: 0, right: 0, bottom: '15px', height: '60px', display: 'flex', pointerEvents: 'none' }}>
-        {/* Left Line */}
-        <div style={{ flex: 1, borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
+    <>
+      <nav className="navbar-container glass-panel" style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center', 
+        padding: '0 20px', // slight horizontal padding, no vertical
+        height: '65px', // SLIMMED DOWN: reduced from 90px
+        width: '100%',
+        boxSizing: 'border-box',
+        opacity: 0, // For initial GSAP
+        borderRadius: '0',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderTop: 'none',
+        zIndex: 1000,
+        transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease',
+        transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+        pointerEvents: isVisible ? 'auto' : 'none'
+      }}>
 
-        {/* Center Trapezoid Tab */}
-        <div style={{ position: 'relative', width: '800px', height: '100%' }}>
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            border: '1px solid rgba(255,255,255,0.15)',
-            borderBottom: 'none',
-            borderRadius: '12px 12px 0 0',
-            transform: 'perspective(60px) rotateX(10deg)',
-            transformOrigin: 'bottom',
-            background: 'rgba(255,255,255,0.02)'
-          }} />
+        {/* 1. Left: Logo (Anchored absolutely to the left) */}
+        <div className="nav-logo text-neon" style={{ position: 'absolute', left: '5%', fontWeight: '900', letterSpacing: '0.25em', fontSize: '1.25rem', zIndex: 1002 }}>
+          GOBIG
         </div>
 
-        {/* Right Line */}
-        <div style={{ flex: 1, borderBottom: '1px solid rgba(255,255,255,0.15)' }} />
-      </div>
-
-      {/* 1. Left: Logo (Anchored absolutely to the left) */}
-      <div className="nav-logo text-neon" style={{ position: 'absolute', left: '5%', fontWeight: '900', letterSpacing: '0.25em', fontSize: '1.4rem', transform: 'translateY(6px)', marginBottom: '10px' }}>
-        GOBIG
-      </div>
-
-      {/* 2. Center: Links (Mathematically centered above the geometric tab) */}
-      <div className="nav-links" style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '40px',
-        color: 'rgba(255,255,255,0.85)',
-        fontSize: '0.95rem',
-        fontWeight: '500',
-        transform: 'translateY(8px)', // Empujamos los textos ABAJO para alejarlos drásticamente de la línea superior
-        position: 'relative',
-        width: '800px' // Limita la caja para asegurar alineación perfecta con la geometría
-      }}>
-        <a href="#home" className="nav-item">Home</a>
-        <a href="#service" className="nav-item">Service</a>
-        <a href="#testimonial" className="nav-item">Testimonials</a>
-        <a href="#contact" className="nav-item">Contact</a>
-      </div>
-
-      {/* 3. Right: CTA Button (Anchored absolutely to the right) */}
-      <div style={{ position: 'absolute', right: '5%', transform: 'translateY(6px)' }}>
-        <button className="bg-neon" style={{
-          padding: '12px 26px',
-          borderRadius: '8px',
-          marginBottom: '10px',
-          fontSize: '0.95rem',
-          fontWeight: '700',
-          color: '#050a0a',
-          border: 'none',
-          cursor: 'pointer',
+        {/* 2. Center: Links (Mathematically centered above the geometric tab) - DESKTOP ONLY */}
+        <div className="nav-links desktop-only" style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '40px',
+          color: 'rgba(255,255,255,0.85)',
+          fontSize: '0.9rem',
+          fontWeight: '500',
+          position: 'relative',
+          width: 'auto' // Allow organic width
         }}>
-          Agendar Llamada
+          <a href="#home" className="nav-item">{t.home}</a>
+          <a href="#service" className="nav-item">{t.service}</a>
+          <a href="#testimonial" className="nav-item">{t.testimonial}</a>
+          <a href="#contact" className="nav-item">{t.contact}</a>
+        </div>
+
+        {/* 3. Right: CTA Button + Language Toggle - DESKTOP ONLY */}
+        <div className="desktop-only" style={{ 
+          position: 'absolute', 
+          right: '5%', 
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px' 
+        }}>
+          <button 
+            onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+            className="bg-neon" 
+            style={{
+              padding: '10px 22px', // slimmed standard CTA
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              fontWeight: '700',
+              color: '#050a0a',
+              border: 'none',
+              cursor: 'pointer',
+            }}>
+            {t.cta}
+          </button>
+          <LanguageSwitcher />
+        </div>
+
+        {/* 4. Right: Language + Hamburger - MOBILE ONLY */}
+        <div className="mobile-only" style={{
+          position: 'absolute', 
+          right: '5%', 
+          display: 'none', /* handled by css */
+          alignItems: 'center',
+          gap: '15px'
+        }}>
+          <div style={{ zIndex: 1002 }}>
+            <LanguageSwitcher />
+          </div>
+          <button className={`hamburger-btn ${isMobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+          </button>
+        </div>
+      </nav>
+
+      {/* MOBILE OVERLAY MENU */}
+      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
+        <a href="#home" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.home}</a>
+        <a href="#service" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.service}</a>
+        <a href="#testimonial" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.testimonial}</a>
+        <a href="#contact" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.contact}</a>
+        
+        <button 
+          onClick={() => {
+            window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank');
+            toggleMobileMenu();
+          }}
+          className="bg-neon" 
+          style={{
+            padding: '16px 32px',
+            borderRadius: '12px',
+            fontSize: '1.2rem',
+            fontWeight: '800',
+            marginTop: '20px',
+            color: '#050a0a',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 10px 30px rgba(218, 240, 19, 0.2)'
+          }}>
+          {t.cta}
         </button>
       </div>
-    </nav>
+    </>
   );
 }

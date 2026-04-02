@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -28,7 +29,7 @@ const faqs = [
   }
 ];
 
-export default function Section3Content() {
+export default function Section3Content({ t }) {
   const [openIndex, setOpenIndex] = useState(0); // Primera abierta por defecto
   const containerRef = useRef(null);
 
@@ -56,16 +57,16 @@ export default function Section3Content() {
   }, []);
 
   return (
-    <div ref={containerRef} style={{
+    <div ref={containerRef} className="responsive-section-margin" style={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start', // Pulled up
       width: '100%',
       maxWidth: '900px',
       height: '100%',
-      margin: '0 auto',
-      padding: '10px 20px', // heavily compressed vertically
+      margin: '-45px auto 0', // LOWERED: reduced from -90px
+      padding: '30px 20px', // Added top padding to lower title
       boxSizing: 'border-box'
     }}>
 
@@ -83,16 +84,16 @@ export default function Section3Content() {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
         </svg>
-        <span style={{ color: '#DAF013', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '1px' }}>PREGUNTAS FRECUENTES</span>
+        <span style={{ color: '#DAF013', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '1px' }}>{t.badge}</span>
       </div>
 
       {/* FAQ Title */}
       <div className="faq-anim glass-panel" style={{
-        padding: '20px 30px',
+        padding: '12px 20px', // COMPRESSED: reduced from 20px 30px
         borderRadius: '12px',
         background: 'rgba(5, 10, 15, 0.5)',
         border: '1px solid rgba(255,255,255,0.08)',
-        marginBottom: '20px',
+        marginBottom: '10px', // COMPRESSED: reduced from 20px
         maxWidth: '800px',
         textAlign: 'center'
       }}>
@@ -104,7 +105,7 @@ export default function Section3Content() {
           textTransform: 'uppercase',
           letterSpacing: '1px'
         }}>
-          ¿Qué son los Filtros API y por qué es la estrategia más estable para generar pacientes calificados?
+          {t.title}
         </h2>
       </div>
 
@@ -118,19 +119,20 @@ export default function Section3Content() {
         marginBottom: '16px', // compressed
         fontWeight: '400'
       }}>
-        Resolvemos las dudas más comunes de nuestros clientes potenciales
+        {t.subtitle}
       </p>
+
 
       {/* FAQ Accordion List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginBottom: '20px' }}>
-        {faqs.map((faq, idx) => {
+        {t.faqs.map((faq, idx) => {
           const isOpen = openIndex === idx;
           return (
             <div key={idx} className="glass-panel faq-anim"
               onClick={() => setOpenIndex(isOpen ? -1 : idx)}
               style={{
                 cursor: 'pointer',
-                padding: '16px 24px', // reduced padding
+                padding: '12px 20px', // COMPRESSED: reduced from 16px 24px
                 borderRadius: '12px',
                 background: isOpen ? 'rgba(30, 40, 60, 0.4)' : 'rgba(5, 10, 15, 0.6)',
                 border: isOpen ? '1px solid #DAF013' : '1px solid rgba(255,255,255,0.05)',
@@ -175,9 +177,9 @@ export default function Section3Content() {
       {/* Bottom Features */}
       <div className="faq-anim" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {[
-          { text: '100% Garantizado', icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /> },
-          { text: '+200 clínicas atendidas', icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></> },
-          { text: '4.9/5 satisfacción', icon: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /> }
+          { text: t.features[0], icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /> },
+          { text: t.features[1], icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></> },
+          { text: t.features[2], icon: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /> }
         ].map((feature, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.8rem', fontWeight: '500' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -189,21 +191,23 @@ export default function Section3Content() {
       </div>
 
       {/* Hero CTA Button for Section 3 */}
-      <div className="faq-anim" style={{ marginTop: '24px', width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <button style={{
-          background: '#DAF013',
-          color: '#050a0a',
-          padding: '16px 36px',
-          borderRadius: '12px',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '4px',
-          boxShadow: '0 0 15px rgba(218, 240, 19, 0.15)',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+      <div className="faq-anim" style={{ marginTop: '10px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <button 
+          onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+          style={{
+            background: '#DAF013',
+            color: '#050a0a',
+            padding: '12px 30px', // COMPRESSED: reduced from 16px 36px
+            borderRadius: '12px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '2px', // COMPRESSED
+            boxShadow: '0 0 15px rgba(218, 240, 19, 0.15)',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.05) translateY(-3px)';
             e.currentTarget.style.boxShadow = '0 12px 30px rgba(218, 240, 19, 0.35)';
@@ -214,10 +218,10 @@ export default function Section3Content() {
           }}
         >
           <span style={{ fontSize: '1rem', fontWeight: '800', letterSpacing: '-0.3px' }}>
-            ¿Listo para llenar tu clínica de pacientes calificados?
+            {t.ctaTitle}
           </span>
           <span style={{ fontSize: '0.85rem', fontWeight: '500', opacity: 0.85, fontStyle: 'italic' }}>
-            "Aplica ahora y agenda tu llamada estratégica"
+            {t.ctaSub}
           </span>
         </button>
       </div>

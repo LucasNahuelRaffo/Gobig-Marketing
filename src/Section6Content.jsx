@@ -13,7 +13,7 @@ import logoRenuev from './img/logos de Empresas/Renuev.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Section6Content() {
+export default function Section6Content({ t }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -37,23 +37,7 @@ export default function Section6Content() {
     return () => ctx.revert();
   }, []);
 
-  const badList = [
-    "Contenido sin estrategia de conversión",
-    "Anuncios sin seguimiento post-clic",
-    "Más alcance, menos clientes reales",
-    "Leads que se enfrían sin respuesta",
-    "Reportes de vanidad (likes, impresiones)",
-    "Dependes de ellos para siempre"
-  ];
 
-  const goodList = [
-    "Sistema completo: tráfico → lead → cliente",
-    "Automatización de seguimiento y CRM",
-    "Foco en adquisición, conversión y retorno",
-    "Leads respondidos en minutos, no días",
-    "Métricas reales: costo por cliente adquirido",
-    "Tu equipo opera el sistema de forma autónoma"
-  ];
 
   const partners = [
     { src: logoBarbara, alt: 'Barbara Chavez', gradient: { from: '#668CFF', via: '#0049FF', to: '#003199' } },
@@ -65,14 +49,15 @@ export default function Section6Content() {
   ];
 
   return (
-    <div ref={containerRef} style={{
+    <div ref={containerRef} className="responsive-section-margin" style={{
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
       minHeight: '100vh',
       flex: 1,
       boxSizing: 'border-box',
-      position: 'relative'
+      position: 'relative',
+      margin: '-80px auto 0' // PULLED UP: adjusted to reach the red line
     }}>
 
       {/* Main Content Area */}
@@ -81,10 +66,18 @@ export default function Section6Content() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '80px 0 20px', // Reduced top padding so CTA button appears in view
+        justifyContent: 'flex-start', // Pulled up: start from top
+        padding: '15px 0 10px', // Tightened space
         width: '100%'
       }}>
+
+        {/* Marquee Scroller - Full width again */}
+        <MarqueeLogoScroller
+          title={t.marquee}
+          description={t.marqueeSub}
+          logos={partners}
+          speed="normal"
+        />
 
         {/* Inner Container for constrained elements */}
         <div style={{
@@ -95,16 +88,8 @@ export default function Section6Content() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '28px'
+          gap: '20px' // Reduced from 28px
         }}>
-          {/* Marquee Scroller - Restored inside container */}
-          <MarqueeLogoScroller
-            title="Clínicas médicas en todo el mundo confían en nosotros"
-            description="Fundadores, equipos médicos y líderes en la salud de toda la región trabajan con nuestro sistema."
-            logos={partners}
-            speed="normal"
-          />
-
           {/* Comparison Container */}
           <div style={{
             display: 'flex',
@@ -139,9 +124,9 @@ export default function Section6Content() {
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
-              Lo que te ofrecen los demás
+              {t.badTitle}
             </h3>
-            {badList.map((item, i) => (
+            {t.badList.map((item, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF4040" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -177,9 +162,9 @@ export default function Section6Content() {
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              Lo que GoBig construye
+              {t.goodTitle}
             </h3>
-            {goodList.map((item, i) => (
+            {t.goodList.map((item, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                   <polyline points="20 6 9 17 4 12"></polyline>
@@ -189,24 +174,26 @@ export default function Section6Content() {
             ))}
           </div>
         </div>
-        <b></b>
         {/* Huge CTA Button */}
-        <button className="s6-anim" style={{
-          background: '#DAF013',
-          border: 'none',
-          borderRadius: '16px',
-          padding: '18px 36px', // Slightly less padding
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '4px',
-          cursor: 'pointer',
-          boxShadow: '0 15px 40px rgba(218, 240, 19, 0.2)',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          width: '100%', // take up to max width
-          maxWidth: '800px', // constrain width
-          margin: '0 auto'  // center it
-        }}
+        <button 
+          onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+          className="s6-anim" 
+          style={{
+            background: '#DAF013',
+            border: 'none',
+            borderRadius: '16px',
+            padding: '16px 32px', // Slightly tightened
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '4px',
+            cursor: 'pointer',
+            boxShadow: '0 15px 40px rgba(218, 240, 19, 0.2)',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            width: '100%', // take up to max width
+            maxWidth: '650px', // Shortened width as requested
+            margin: '0 auto'  // center it
+          }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.02) translateY(-4px)';
             e.currentTarget.style.boxShadow = '0 20px 50px rgba(218, 240, 19, 0.35)';
@@ -217,10 +204,10 @@ export default function Section6Content() {
           }}
         >
           <span style={{ color: '#050a0a', fontSize: '1.4rem', fontWeight: '800', letterSpacing: '-0.3px' }}>
-            No seas el dinosaurio de las clínicas
+            {t.cta}
           </span>
           <span style={{ color: '#050a0a', fontSize: '0.85rem', fontWeight: '500', fontStyle: 'italic', opacity: 0.8 }}>
-            Aplica ahora y agenda tu llamada estratégica
+            {t.subcta}
           </span>
         </button>
 

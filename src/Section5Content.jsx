@@ -5,7 +5,7 @@ import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Section5Content() {
+export default function Section5Content({ t }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -29,30 +29,17 @@ export default function Section5Content() {
     return () => ctx.revert();
   }, []);
 
-  const teamMembers = [
-    {
-      name: "Martín Flores",
-      role: "Co-Founder & Estratega Digital",
-      description: "Especialista en captación de pacientes y estrategias de publicidad en Meta para clínicas médicas."
-    },
-    {
-      name: "Ricardo Almeida",
-      role: "Co-Founder & Growth Marketing",
-      description: "Experto en optimización de campañas, negociación de mercados y escalamiento de clínicas con Meta Ads."
-    }
-  ];
-
   return (
-    <div ref={containerRef} style={{
+    <div ref={containerRef} className="responsive-section-margin" style={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start', // Pulled up
       width: '100%',
       maxWidth: '900px',
       height: '100%',
-      margin: '0 auto',
-      padding: '10px 20px', // Reduced container padding
+      margin: '-60px auto 0', // LOWERED: reduced from -120px
+      padding: '40px 20px 0', // Added top space
       boxSizing: 'border-box'
     }}>
 
@@ -75,7 +62,7 @@ export default function Section5Content() {
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
         <span style={{ color: '#DAF013', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
-          Nuestro Equipo
+          {t.badge}
         </span>
       </div>
 
@@ -95,7 +82,7 @@ export default function Section5Content() {
           margin: 0,
           letterSpacing: '-0.5px'
         }}>
-          ¿Quiénes Somos?
+          {t.title}
         </h2>
       </div>
 
@@ -107,7 +94,7 @@ export default function Section5Content() {
         justifyContent: 'center',
         flexWrap: 'wrap'
       }}>
-        {teamMembers.map((member, idx) => (
+        {t.members.map((member, idx) => (
           <div key={idx} className="s5-anim" style={{
             width: '350px', // Restored width for a more premium look
             borderRadius: '20px',
@@ -133,8 +120,8 @@ export default function Section5Content() {
               borderBottom: '1px solid rgba(255,255,255,0.02)'
             }}>
               <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', padding: '0 20px', textAlign: 'center' }}>
-                [Pegar aquí foto de {member.name.split(' ')[0]}] <br/>
-                <small style={{opacity: 0.5}}>(Reemplazar div por &lt;img src="..." /&gt;)</small>
+                {t.photoText.replace('{name}', member.name.split(' ')[0])} <br/>
+                <small style={{opacity: 0.5}}>{t.replaceText}</small>
               </span>
             </div>
 

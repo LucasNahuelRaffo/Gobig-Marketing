@@ -1,24 +1,61 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import VturbPlayer from './VturbPlayer';
 import './App.css';
 
-export default function Section2Content() {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function Section2Content({ t, vturbPlayerId }) {
+  const containerRef = useRef(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.fromTo('.s2-anim',
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 95%', // Starts almost as soon as it enters viewport
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div style={{
+    <div ref={containerRef} className="responsive-section-margin" style={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      gap: '40px',
+      justifyContent: 'flex-start', // Pulled up
+      gap: '15px', // COMPRESSED: reduced from 40px
       width: '100%',
       maxWidth: '1000px',
       height: '100%',
-      margin: '0 auto',
-      padding: '40px 20px',
+      margin: '-50px auto 0', // PULLED UP: added -50px top margin
+      padding: '0 20px', // COMPRESSED: removed top padding
       boxSizing: 'border-box'
     }}>
 
       {/* Badge */}
-      <div className="glass-panel" style={{
+      <div className="glass-panel s2-anim" style={{
         padding: '12px 30px',
         borderRadius: '8px',
         background: 'rgba(5, 10, 15, 0.4)',
@@ -32,65 +69,51 @@ export default function Section2Content() {
           color: 'white',
           textTransform: 'uppercase'
         }}>
-          Badge de Confianza
+          {t.badge}
         </h3>
       </div>
 
-      {/* Video Cards Grid */}
-      <div style={{
-        display: 'flex',
-        gap: '24px',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        width: '100%'
-      }}>
-        {[1, 2, 3].map((item) => (
-          <div key={item} className="glass-panel" style={{
-            width: '280px',
-            height: '420px',
-            borderRadius: '16px',
-            background: 'rgba(5, 10, 15, 0.4)', // Darker glass background
+      {/* Vturb Testimonials Video - Inline for Desktop, Button for Mobile */}
+      {!isMobile ? (
+        <div className="s2-anim glass-panel" style={{
+          width: '100%',
+          maxWidth: '800px',
+          borderRadius: '16px',
+          padding: '12px',
+          background: 'rgba(5, 10, 15, 0.4)',
+          border: '1px solid rgba(255,255,255,0.05)'
+        }}>
+          <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '12px' }} />
+        </div>
+      ) : (
+        <button 
+          onClick={() => setIsVideoModalOpen(true)}
+          className="s2-anim glass-panel" 
+          style={{
+            padding: '14px 32px',
+            borderRadius: '12px',
+            fontSize: '1.1rem',
+            fontWeight: '800',
+            border: '1px solid rgba(255,255,255,0.2)',
+            color: 'white',
+            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
+            gap: '10px',
+            width: '100%',
             justifyContent: 'center',
-            cursor: 'pointer',
-            transition: 'transform 0.3s ease, border-color 0.3s ease',
-            border: '1px solid rgba(255,255,255,0.05)'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(218, 240, 19, 0.3)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'; }}
-          >
-            {/* Play Button */}
-            <div style={{
-              width: '56px',
-              height: '56px',
-              borderRadius: '50%',
-              border: '2px solid #DAF013',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(0,0,0,0.5)',
-              backdropFilter: 'blur(4px)',
-              transition: 'transform 0.3s ease'
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-            >
-               <div style={{
-                  width: 0, height: 0,
-                  borderTop: '10px solid transparent',
-                  borderBottom: '10px solid transparent',
-                  borderLeft: '16px solid #DAF013',
-                  marginLeft: '4px' // Optical centering for the triangle
-               }} />
-            </div>
-          </div>
-        ))}
-      </div>
+            background: 'rgba(5, 10, 15, 0.4)'
+          }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          {t.vsl || 'Watch Testimonials'}
+        </button>
+      )}
 
       {/* Bottom Text Panel */}
-      <div className="glass-panel" style={{
-        padding: '30px 40px',
+      <div className="glass-panel s2-anim" style={{
+        padding: '20px 40px', // COMPRESSED: reduced from 30px
         borderRadius: '12px',
         textAlign: 'center',
         background: 'rgba(5, 10, 15, 0.4)',
@@ -104,7 +127,7 @@ export default function Section2Content() {
           margin: '0 0 10px 0',
           lineHeight: '1.6'
         }}>
-          Todo está diseñado para que tomes decisiones informadas en minutos, no en semanas.
+          {t.text1}
         </p>
         <p style={{
           fontSize: '0.9rem',
@@ -113,9 +136,59 @@ export default function Section2Content() {
           margin: 0,
           lineHeight: '1.6'
         }}>
-          Combinado con la mentoría 1 a 1, esta herramienta te permite avanzar con velocidad y evitar los errores que cuestan miles de dólares.
+          {t.text2}
         </p>
       </div>
+
+      {/* MOBILE VIDEO MODAL (Portaled to body to avoid GSAP transforms) */}
+      {isVideoModalOpen && createPortal(
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100dvh',
+          backgroundColor: '#000',
+          zIndex: 99999, // Super high to clear particles
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0',
+          boxSizing: 'border-box'
+        }}>
+          <div style={{ width: '100vw', height: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="vturb-reel-mode" style={{ width: '100vw', height: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '0' }} />
+            </div>
+          </div>
+
+          <button 
+            onClick={() => setIsVideoModalOpen(false)}
+            style={{
+              position: 'absolute',
+              top: '25px',
+              right: '20px',
+              background: 'rgba(0,0,0,0.4)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '50%',
+              color: 'white',
+              cursor: 'pointer',
+              padding: '10px',
+              zIndex: 2147483647,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>,
+        document.body
+      )}
 
     </div>
   );

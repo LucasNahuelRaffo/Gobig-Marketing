@@ -13,6 +13,7 @@ import Section4Content from './Section4Content';
 import Section5Content from './Section5Content';
 import Section6Content from './Section6Content';
 import Footer from './Footer';
+import { translations } from './translations';
 import './App.css';
 
 import skyImg from './img/sky.png';
@@ -38,7 +39,10 @@ function App() {
   const containerRef = useRef(null);
   const sectionRefs = useRef([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [lang, setLang] = useState('en'); // Default English
   
+  const t = translations[lang];
+
   const handleLoaderComplete = useCallback(() => {
     setIsLoaded(true);
   }, []);
@@ -78,8 +82,8 @@ function App() {
             duration: 1,
             scrollTrigger: {
               trigger: section,
-              start: 'top 80%',
-              end: 'top 20%',
+              start: 'top 100%',
+              end: 'top 30%',
               scrub: true,
             },
           }
@@ -111,6 +115,9 @@ function App() {
     <div className="app-container" ref={containerRef}>
       <Loader onComplete={handleLoaderComplete} />
       
+      {/* Global Navbar - Sticky/Smart hide enabled in component */}
+      <Navbar lang={lang} setLang={setLang} t={t.navbar} />
+
       {/* SVG Clip Path for organic section dividers */}
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
         <defs>
@@ -144,50 +151,49 @@ function App() {
           {/* Place hero UI inside the first section to share stacking context with the video */}
           {i === 0 && (
             <div className="hero-overlay">
-              <Navbar />
-              <HeroContent />
+              <HeroContent t={t.hero} vturbPlayerId={t.vturbPlayers.vsl} />
             </div>
           )}
 
           {/* Section 2 UI over Canopy background */}
           {i === 1 && (
             <div className="hero-overlay">
-              <Section2Content />
+              <Section2Content t={t.section2} vturbPlayerId={t.vturbPlayers.testimonials} />
             </div>
           )}
 
           {/* Section 3 UI over Panther canvas */}
           {i === 2 && (
             <div className="hero-overlay">
-              <Section3Content />
+              <Section3Content t={t.section3} />
             </div>
           )}
 
           {/* Section 4 UI over Temple background */}
           {i === 3 && (
             <div className="hero-overlay">
-              <Section4Content />
+              <Section4Content t={t.section4} vturbPlayerId={t.vturbPlayers.faqs} />
             </div>
           )}
 
           {/* Section 5 UI over Roots background */}
           {i === 4 && (
             <div className="hero-overlay">
-              <Section5Content />
+              <Section5Content t={t.section5} />
             </div>
           )}
 
           {/* Section 6 UI over Fossils background */}
           {i === 5 && (
             <div className="hero-overlay" style={{ paddingBottom: 0, bottom: 0, height: '100%' }}>
-              <Section6Content />
+              <Section6Content t={t.section6} />
             </div>
           )}
         </section>
       ))}
 
       {/* Extracted Footer directly at the bottom so it is not contained by scene bounds */}
-      <Footer />
+      <Footer t={t.footer} navTranslations={t.navbar} />
     </div>
   );
 }

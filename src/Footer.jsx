@@ -1,6 +1,14 @@
 import React from 'react';
 
-export default function Footer() {
+export default function Footer({ t, navTranslations }) {
+  // Use translations from navbar if provided for consistency
+  const navLinks = navTranslations ? [
+    { name: navTranslations.home, key: 'home' },
+    { name: navTranslations.service, key: 'service' },
+    { name: navTranslations.testimonial, key: 'testimonial' },
+    { name: navTranslations.contact, key: 'contact' }
+  ] : [];
+
   return (
     <footer className="s6-anim" style={{
       width: '100%',
@@ -33,7 +41,7 @@ export default function Footer() {
             GOBIG
           </h2>
           <p style={{ margin: 0, fontSize: '0.8rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.4)', maxWidth: '90%' }}>
-            Ayudamos a clínicas médicas a conseguir +30 agendas calificadas con publicidad en Meta.
+            {t.description}
           </p>
           {/* Social Icons */}
           <div style={{ display: 'flex', gap: '8px' }}>
@@ -58,29 +66,25 @@ export default function Footer() {
 
         {/* Col 2: Navegación */}
         <div style={{ flex: '1 1 120px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Navegación</h4>
-          {['Inicio', 'Servicios', 'Testimonios', 'Blog', 'Contacto'].map(link => (
-            <a href="#" key={link} style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
+          <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.nav}</h4>
+          {navLinks.map(link => (
+            <a href="#" key={link.key} style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>
-              {link}
+              {link.name}
             </a>
           ))}
         </div>
 
         {/* Col 3: Legal */}
         <div style={{ flex: '1 1 160px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Legal</h4>
-          {['Política de Privacidad', 'Términos de Servicio', 'Aviso Legal'].map(link => (
-            <a href="#" key={link} style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
-              onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>
-              {link}
-            </a>
-          ))}
+          <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.legal}</h4>
+          <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.privacy}</a>
+          <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.dataRemoval}</a>
         </div>
 
         {/* Col 4: Contacto */}
         <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Contacto</h4>
+          <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.contact}</h4>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.5)' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
             <span style={{ fontSize: '0.8rem' }}>+52 55 1234 5678</span>
@@ -98,8 +102,7 @@ export default function Footer() {
 
       {/* Bottom Small Text */}
       <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '10px', maxWidth: '1200px', alignSelf: 'center', width: '100%', fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)' }}>
-        <div>© 2026 GoBig. Todos los derechos reservados.</div>
-        <div style={{ margin: '0 10px' }}>|</div>
+        <div>{t.rights}</div>
       </div>
     </footer>
   );

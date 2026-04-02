@@ -25,8 +25,8 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
         style={{
           width: '100%',
           color: 'white',
-          borderRadius: '24px',
-          border: '1px solid rgba(255,255,255,0.05)',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
           overflow: 'hidden',
           background: 'rgba(15, 5, 20, 0.4)',
           backdropFilter: 'blur(10px)',
@@ -36,10 +36,10 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
       >
         {/* Header Section */}
         <div style={{
-          padding: '30px 40px',
+          padding: '15px 40px', // Pulled up: reduced from 30px
           display: 'flex',
           flexDirection: 'column',
-          gap: '12px',
+          gap: '8px', // Tighter
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
@@ -82,7 +82,7 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
               width: 'max-content',
               alignItems: 'center',
               gap: '24px',
-              padding: '24px 24px 24px 0',
+              padding: '16px 24px 16px 0', // Pulled up: reduced from 24px
               animation: `marquee ${animationDuration} linear infinite`,
             }}
           >
@@ -93,13 +93,14 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
                 className="marquee-logo-card"
                 style={{
                   position: 'relative',
-                  height: '100px',
-                  width: '180px',
+                  height: '120px', // Enlarged as requested
+                  width: '210px',  // Slightly wider to maintain ratio
                   flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: '16px',
+                  border: '1px solid rgba(255,255,255,0.1)',
                   background: 'rgba(255,255,255,0.03)',
                   overflow: 'hidden'
                 }}
@@ -110,10 +111,10 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
                   alt={logo.alt}
                   style={{
                     position: 'relative',
-                    height: '100%',
-                    width: '100%',
-                    padding: '16px', // Give it a bit of padding so it doesn't touch the edges completely
-                    objectFit: 'contain'
+                    height: '85%', // Slightly less than 100% so we have room for the hover scale without clipping
+                    width: '85%',
+                    objectFit: 'contain',
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                   }}
                   className="marquee-logo-img"
                 />

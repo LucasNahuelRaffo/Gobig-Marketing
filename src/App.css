@@ -9,12 +9,37 @@ body {
 
 /* Glassmorphism Utilities */
 .glass-panel {
-  background: rgba(15, 15, 25, 0.35); /* Made more transparent to enhance blur effect */
-  backdrop-filter: blur(16px); /* Increased blur radius strongly */
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(15, 15, 25, 0.3); /* Made more transparent to enhance blur effect */
+  backdrop-filter: blur(20px); /* Increased blur radius strongly */
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.8), 
+    inset 0 0 30px rgba(255,255,255,0.015); /* Subtly lights up the edges inside */
+}
+
+/* Vignette effect for ALL sections to give depth */
+.scene-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 1; 
+}
+
+/* Add a top-down shadow at the beginning of each section for extra depth */
+.scene-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .text-neon {
@@ -91,7 +116,7 @@ body {
 .scene-section {
   position: relative;
   width: 100%;
-  height: 106vh; /* 100vh + 6vh for the overlapping wave area below the fold */
+  height: 110vh; /* Increased slightly to give more room for content */
   overflow: hidden;
 }
 
@@ -104,6 +129,7 @@ body {
 .scene-section + .scene-section {
   margin-top: -6vh;
   clip-path: url(#branch-clip);
+  filter: drop-shadow(0 -30px 40px rgba(0,0,0,0.95)); /* Stronger, softer shadow for 3D depth */
 }
 
 .section-bg-wrapper {
@@ -130,7 +156,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 100px; /* Space for scrolling overlap */
+  justify-content: flex-start; /* Ensure content starts from the top to avoid bottom clipping */
+  padding-top: 90px; /* Pull content up exactly to the red line */
+  padding-bottom: 70px;
+  z-index: 2; /* Ensures content is above vignette and top shadows */
 }
 
 .hero-title {
@@ -177,11 +206,123 @@ body {
   animation-play-state: paused !important;
 }
 
-.marquee-logo-card:hover .marquee-gradient {
-  opacity: 1 !important;
-  transform: scale(1) !important;
+.marquee-logo-img {
+  transform: scale(1.15); /* Base larger scale */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .marquee-logo-card:hover .marquee-logo-img {
-  filter: none !important; /* Restore original colors on hover */
+  transform: scale(1.35) !important; /* Even larger on hover/touch */
+}
+
+/* ── Responsive Mobile Utilities ─────────────────── */
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: flex !important;
+  }
+  
+  /* Reset scene sections overlapping on mobile to prevent squished content */
+  .scene-section {
+    height: auto !important;
+    min-height: 100vh;
+  }
+  
+  .scene-section + .scene-section {
+    margin-top: -2vh !important; /* Much smaller overlap on mobile */
+  }
+
+  .hero-overlay {
+    position: relative !important;
+    padding-top: 80px; 
+    padding-bottom: 80px;
+    height: auto !important;
+  }
+  
+  /* Make glass panels tighter on mobile to save space */
+  .glass-panel {
+    padding: 20px !important;
+    border-radius: 1rem;
+  }
+  
+  /* Responsive typography */
+  .hero-main-title {
+    font-size: 1.8rem !important;
+    letter-spacing: -1px !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem !important;
+  }
+
+  /* Universal section block spacing override */
+  .responsive-section-margin {
+    margin-top: -20px !important;
+  }
+}
+
+/* ── Mobile Menu Overlay (Glassmorphism) ────────── */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 10, 15, 0.7);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001; /* Above the overlay */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40px;
+  height: 35px;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+  transform-origin: 1px;
+}
+
+/* Hamburger animation states */
+.hamburger-btn.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg);
+}
+.hamburger-btn.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-btn.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg);
 }
