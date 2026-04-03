@@ -1,4 +1,5 @@
 import React from 'react';
+import logoImg from './img/logo_Gobig.png';
 
 export default function Footer({ t, navTranslations }) {
   // Use translations from navbar if provided for consistency
@@ -37,9 +38,7 @@ export default function Footer({ t, navTranslations }) {
 
         {/* Col 1: Brand & Social */}
         <div style={{ flex: '1 1 250px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <h2 style={{ color: '#DAF013', fontSize: '1.4rem', fontWeight: '900', letterSpacing: '3px', margin: 0 }}>
-            GOBIG
-          </h2>
+          <img src={logoImg} alt="GOBIG" style={{ height: '55px', width: 'auto', display: 'block', alignSelf: 'flex-start' }} />
           <p style={{ margin: 0, fontSize: '0.8rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.4)', maxWidth: '90%' }}>
             {t.description}
           </p>
@@ -78,8 +77,9 @@ export default function Footer({ t, navTranslations }) {
         {/* Col 3: Legal */}
         <div style={{ flex: '1 1 160px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.legal}</h4>
-          <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.privacy}</a>
-          <a href="#" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.dataRemoval}</a>
+          <a href="/legal.html" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.terms}</a>
+          <a href="/legal.html" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.privacy}</a>
+          <a href="/legal.html" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.dataRemoval}</a>
         </div>
 
         {/* Col 4: Contacto */}

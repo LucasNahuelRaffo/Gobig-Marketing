@@ -11,6 +11,12 @@ export default function Loader({ onComplete }) {
     // Prevent scrolling while loading
     document.body.style.overflow = 'hidden';
 
+    // Safety fallback: always unblock page after 8s max, even if GSAP fails
+    const safetyTimeout = setTimeout(() => {
+      document.body.style.overflow = '';
+      if (onComplete) onComplete();
+    }, 8000);
+
     const ctx = gsap.context(() => {
       // Animate letters in sequence
       const chars = textRef.current.querySelectorAll('.loader-char');
@@ -39,6 +45,7 @@ export default function Loader({ onComplete }) {
       const tl = gsap.timeline({
         delay: 2.5,
         onComplete: () => {
+          clearTimeout(safetyTimeout);
           document.body.style.overflow = '';
           if (onComplete) onComplete();
         }
@@ -53,6 +60,7 @@ export default function Loader({ onComplete }) {
     }, containerRef);
 
     return () => {
+      clearTimeout(safetyTimeout);
       document.body.style.overflow = '';
       ctx.revert();
     };

@@ -106,7 +106,21 @@ export default function PantherCanvas() {
 
   return (
     <div ref={containerRef} className="panther-canvas-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
+      {/* Canvas */}
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
+      
+      {/* Watermark Cover - Tapa la marca 'VEO' en la esquina inferior derecha (Sección 3) */}
+      <div style={{
+        position: 'absolute',
+        bottom: '-10px',
+        right: '-10px',
+        width: '250px',
+        height: '150px',
+        background: 'radial-gradient(circle at bottom right, rgba(2, 5, 8, 1) 0%, transparent 75%)',
+        filter: 'blur(12px)',
+        zIndex: 10,
+        pointerEvents: 'none'
+      }}></div>
     </div>
   );
 }

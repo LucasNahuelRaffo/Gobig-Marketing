@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logoImg from './img/logo_Gobig.png';
 
 export default function Navbar({ lang, setLang, t }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -94,8 +95,8 @@ export default function Navbar({ lang, setLang, t }) {
       }}>
 
         {/* 1. Left: Logo (Anchored absolutely to the left) */}
-        <div className="nav-logo text-neon" style={{ position: 'absolute', left: '5%', fontWeight: '900', letterSpacing: '0.25em', fontSize: '1.25rem', zIndex: 1002 }}>
-          GOBIG
+        <div className="nav-logo" style={{ position: 'absolute', left: '5%', zIndex: 1002 }}>
+          <img src={logoImg} alt="GOBIG" style={{ height: '50px', width: 'auto', display: 'block' }} />
         </div>
 
         {/* 2. Center: Links (Mathematically centered above the geometric tab) - DESKTOP ONLY */}

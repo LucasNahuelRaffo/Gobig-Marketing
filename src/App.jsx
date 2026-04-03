@@ -132,6 +132,7 @@ function App() {
       {sections.map((section, i) => (
         <section
           key={section.id}
+          id={section.id}
           className="scene-section"
           ref={(el) => (sectionRefs.current[i] = el)}
         >
@@ -147,6 +148,7 @@ function App() {
               />
             </div>
           )}
+
 
           {/* Place hero UI inside the first section to share stacking context with the video */}
           {i === 0 && (

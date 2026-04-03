@@ -67,7 +67,9 @@ export const translations = {
         '4.9/5 satisfacción'
       ],
       ctaTitle: '¿Listo para llenar tu clínica de pacientes calificados?',
-      ctaSub: '"Aplica ahora y agenda tu llamada estratégica"'
+      ctaSub: '"Aplica ahora y agenda tu llamada estratégica"',
+      marquee: 'Clínicas médicas en todo el mundo confían en nosotros',
+      marqueeSub: 'Fundadores, equipos médicos y líderes en la salud de toda la región trabajan con nuestro sistema.'
     },
     section4: {
       title: 'El Sistema en Acción',
@@ -129,7 +131,8 @@ export const translations = {
       contact: 'Contacto',
       rights: 'Gobig Marketing. Todos los derechos reservados.',
       privacy: 'Política de Privacidad',
-      dataRemoval: 'Eliminación de Datos'
+      dataRemoval: 'Eliminación de Datos',
+      terms: 'Términos y Condiciones'
     }
   },
   en: {
@@ -200,7 +203,9 @@ export const translations = {
         '4.9/5 satisfaction'
       ],
       ctaTitle: 'Ready to fill your clinic with qualified patients?',
-      ctaSub: '"Apply now and schedule your strategic call"'
+      ctaSub: '"Apply now and schedule your strategic call"',
+      marquee: 'Medical clinics worldwide trust us',
+      marqueeSub: 'Founders, medical teams and health leaders from the entire region work with our system.'
     },
     section4: {
       title: 'The System in Action',
@@ -262,7 +267,8 @@ export const translations = {
       contact: 'Contact',
       rights: 'Gobig Marketing. All rights reserved.',
       privacy: 'Privacy Policy',
-      dataRemoval: 'Data Removal'
+      dataRemoval: 'Data Removal',
+      terms: 'Terms & Conditions'
     }
   }
 };

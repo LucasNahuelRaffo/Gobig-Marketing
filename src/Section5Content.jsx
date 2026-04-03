@@ -3,10 +3,15 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
 
+import logoMartin from './img/martin.png';
+import logoRichi from './img/richi.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Section5Content({ t }) {
   const containerRef = useRef(null);
+  
+  const teamImages = [logoMartin, logoRichi];
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -109,21 +114,25 @@ export default function Section5Content({ t }) {
           onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-6px)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
           >
-            {/* Image Placeholder area */}
+            {/* Image block */}
             <div style={{
               width: '100%',
               height: '340px', // Extended height to fill the blank space marked by user
               background: 'linear-gradient(180deg, rgba(30, 20, 50, 0.8) 0%, rgba(10, 5, 20, 0.8) 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              overflow: 'hidden',
               borderBottom: '1px solid rgba(255,255,255,0.02)'
             }}>
-              <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', padding: '0 20px', textAlign: 'center' }}>
-                {t.photoText.replace('{name}', member.name.split(' ')[0])} <br/>
-                <small style={{opacity: 0.5}}>{t.replaceText}</small>
-              </span>
+              <img 
+                src={teamImages[idx]} 
+                alt={member.name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
             </div>
+
 
             {/* Content area */}
             <div style={{

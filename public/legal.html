@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal - GOBIG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050a0a;
+            --accent-color: #DAF013;
+            --text-color: rgba(255, 255, 255, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        .legal-link {
+            display: block;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .legal-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .legal-link strong {
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GOBIG LEGAL</h1>
+        
+        <div class="section-title">ESPAÑOL / SPANISH</div>
+        
+        <a href="https://docs.google.com/document/d/1nzcbBRrQe0l0tt4nIVSXB0HzZL6lGf4Aj2f2fuiRT5M/edit?usp=sharing" target="_blank" class="legal-link">
+            <strong>Condiciones</strong>
+            Términos de Condiciones y Servicios
+        </a>
+        
+        <a href="https://docs.google.com/document/d/1ApZueyRki_LQwXykNCNQqnHnQ8KuA3iZSkC41DHsV60/edit?usp=sharing" target="_blank" class="legal-link">
+            <strong>Privacidad</strong>
+            Términos de Privacidad
+        </a>
+        
+        <a href="https://docs.google.com/document/d/1b7aRx0IDdsM-qE7ClCfOo6_Jk-qtYCojlNEDBAYvN-c/edit?usp=sharing" target="_blank" class="legal-link">
+            <strong>Reembolso</strong>
+            Políticas de Reembolso
+        </a>
+
+        <div class="section-title">ENGLISH</div>
+        
+        <a href="https://docs.google.com/document/d/1_do2sd4ogHTu1uVxPj5wLGPxi-niPOAmYBZFe2p0wYg/edit?usp=sharing" target="_blank" class="legal-link">
+            <strong>Conditions</strong>
+            Terms and Conditions
+        </a>
+        
+        <a href="https://docs.google.com/document/d/1vkvKrboiPSBlItpwhqeV9coLOYevSC1suH8auKViYHk/edit?usp=sharing" target="_blank" class="legal-link">
+            <strong>Privacy</strong>
+            Privacy Policy
+        </a>
+        
+        <a href="https://docs.google.com/document/d/1tyBzA7zICRmtF1nvq_5Q5ZQpWHE_0aEYeBym-ngd1kQ/edit?usp=sharing" target="_blank" class="legal-link">
+            <strong>Refund</strong>
+            Refund Policy
+        </a>
+
+        <div class="footer">
+            &copy; 2026 GOBIG Marketing. Todos los derechos reservados.
+        </div>
+    </div>
+</body>
+</html>

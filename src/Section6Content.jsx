@@ -2,14 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
-import MarqueeLogoScroller from './MarqueeLogoScroller';
-
-import logoBarbara from './img/Logos de Empresas/Barbara Chavez.png';
-import logoOrlando from './img/Logos de Empresas/Dr. Orlando Santillan.png';
-import logoHuawei from './img/Logos de Empresas/Huawei.png';
-import logoLuar from './img/Logos de Empresas/Luar.png';
-import logoNovocentro from './img/Logos de Empresas/Novocentro.png';
-import logoRenuev from './img/Logos de Empresas/Renuev.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,17 +29,6 @@ export default function Section6Content({ t }) {
     return () => ctx.revert();
   }, []);
 
-
-
-  const partners = [
-    { src: logoBarbara, alt: 'Barbara Chavez', gradient: { from: '#668CFF', via: '#0049FF', to: '#003199' } },
-    { src: logoOrlando, alt: 'Dr. Orlando Santillan', gradient: { from: '#FFE766', via: '#FFCE00', to: '#B38F00' } },
-    { src: logoHuawei, alt: 'Huawei', gradient: { from: '#6690F0', via: '#255BE3', to: '#193B99' } },
-    { src: logoLuar, alt: 'Luar', gradient: { from: '#C4C2FF', via: '#9896FF', to: '#5B4DCC' } },
-    { src: logoNovocentro, alt: 'Novocentro', gradient: { from: '#FF66A1', via: '#FF007A', to: '#B3005A' } },
-    { src: logoRenuev, alt: 'Renuev', gradient: { from: '#D9FF5A', via: '#AFFF01', to: '#7A9900' } }
-  ];
-
   return (
     <div ref={containerRef} className="responsive-section-margin" style={{
       display: 'flex',
@@ -57,10 +38,11 @@ export default function Section6Content({ t }) {
       flex: 1,
       boxSizing: 'border-box',
       position: 'relative',
-      margin: '-80px auto 0' // PULLED UP: adjusted to reach the red line
+      margin: '60px auto 0' // Added positive margin
     }}>
 
       {/* Main Content Area */}
+
       <div style={{
         flex: '1 0 auto',
         display: 'flex',
@@ -71,13 +53,6 @@ export default function Section6Content({ t }) {
         width: '100%'
       }}>
 
-        {/* Marquee Scroller - Full width again */}
-        <MarqueeLogoScroller
-          title={t.marquee}
-          description={t.marqueeSub}
-          logos={partners}
-          speed="normal"
-        />
 
         {/* Inner Container for constrained elements */}
         <div style={{
