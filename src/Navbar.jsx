@@ -40,6 +40,22 @@ export default function Navbar({ lang, setLang, t }) {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      // Offset by navbar height (65px) to prevent overlap
+      const offsetPos = element.getBoundingClientRect().top + window.scrollY - 65;
+      window.scrollTo({
+        top: offsetPos,
+        behavior: 'smooth'
+      });
+    }
+    if (isMobileMenuOpen) {
+      toggleMobileMenu();
+    }
+  };
+
   const LanguageSwitcher = () => (
     <button
       onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
@@ -110,10 +126,10 @@ export default function Navbar({ lang, setLang, t }) {
           position: 'relative',
           width: 'auto' // Allow organic width
         }}>
-          <a href="#home" className="nav-item">{t.home}</a>
-          <a href="#service" className="nav-item">{t.service}</a>
-          <a href="#testimonial" className="nav-item">{t.testimonial}</a>
-          <a href="#contact" className="nav-item">{t.contact}</a>
+          <a href="#sky" onClick={(e) => scrollToSection(e, 'sky')} className="nav-item">{t.home}</a>
+          <a href="#roots" onClick={(e) => scrollToSection(e, 'roots')} className="nav-item">{t.service}</a>
+          <a href="#canopy" onClick={(e) => scrollToSection(e, 'canopy')} className="nav-item">{t.testimonial}</a>
+          <a href="#fossils" onClick={(e) => scrollToSection(e, 'fossils')} className="nav-item">{t.contact}</a>
         </div>
 
         {/* 3. Right: CTA Button + Language Toggle - DESKTOP ONLY */}
@@ -162,10 +178,10 @@ export default function Navbar({ lang, setLang, t }) {
 
       {/* MOBILE OVERLAY MENU */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
-        <a href="#home" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.home}</a>
-        <a href="#service" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.service}</a>
-        <a href="#testimonial" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.testimonial}</a>
-        <a href="#contact" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={toggleMobileMenu}>{t.contact}</a>
+        <a href="#sky" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'sky')}>{t.home}</a>
+        <a href="#roots" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'roots')}>{t.service}</a>
+        <a href="#canopy" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'canopy')}>{t.testimonial}</a>
+        <a href="#fossils" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'fossils')}>{t.contact}</a>
         
         <button 
           onClick={() => {

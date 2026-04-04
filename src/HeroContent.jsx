@@ -56,7 +56,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 'min(15px, 2vh)',
+      gap: 'min(10px, 1.2vh)',
       width: '100%',
       maxWidth: '1200px',
       margin: '0 auto',
@@ -67,7 +67,8 @@ export default function HeroContent({ t, vturbPlayerId }) {
 
       {/* Title */}
       <div className="glass-panel panel-animate" style={{
-        padding: 'min(15px, 2vh) 40px',
+        padding: isMobile ? '12px 15px' : 'min(15px, 2vh) 40px',
+        minHeight: isMobile ? 'auto' : '143px',
         width: '100%',
         maxWidth: '920px',
         flexShrink: 0,
@@ -78,7 +79,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
         alignItems: 'center',
         background: 'rgba(5, 10, 15, 0.5)',
       }}>
-        <h1 className="hero-main-title" style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)', fontWeight: '900', lineHeight: '1.15', margin: '0 0 8px 0', letterSpacing: '-1.5px', color: 'white' }}>
+        <h1 className="hero-main-title" style={{ fontSize: isMobile ? '1.35rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)', fontWeight: '900', lineHeight: '1.2', margin: '0 0 8px 0', letterSpacing: '-1px', color: 'white' }}>
           {t.title1} <span className="text-neon">{t.title2}</span> {t.title3} <br />
           {t.title4} <span className="text-neon">{t.title5}</span> {t.title6}
         </h1>
@@ -87,13 +88,53 @@ export default function HeroContent({ t, vturbPlayerId }) {
         </p>
       </div>
 
+      {/* VSL Instructions Banner */}
+      <div
+        className="glass-panel panel-animate"
+        style={{
+          width: '100%',
+          minHeight: isMobile ? 'auto' : '55px',
+          maxWidth: '450px',
+          margin: '0 auto',
+          background: 'rgba(5, 10, 15, 0.55)',
+          border: '1px solid rgba(255, 255, 255, 0.05)',
+          borderRadius: '12px',
+          padding: isMobile ? '12px 15px' : '12px 25px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          color: 'white',
+          opacity: 0,
+          boxSizing: 'border-box',
+          lineHeight: '1.4'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: isMobile ? '0.95rem' : '1.25rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <svg width={isMobile ? "20" : "24"} height={isMobile ? "20" : "24"} viewBox="0 0 24 24" fill="white" stroke="none">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span style={{ fontWeight: '900' }}>{t.bannerStep}</span>
+          <span style={{ fontWeight: '400' }}>
+            {t.bannerWatch1}
+            <span style={{ fontWeight: '900' }}>{t.bannerWatch2}</span>
+            {t.bannerWatch3}
+          </span>
+        </div>
+        <div style={{ fontSize: isMobile ? '0.85rem' : '1.1rem', color: 'rgba(255,255,255,0.8)', marginTop: '4px', fontWeight: '400' }}>
+          {t.bannerDesc}
+        </div>
+      </div>
+
       {/* Video Panel outer shell (stays in layout always) */}
       <div
         className="glass-panel panel-animate"
         style={{
-          padding: '10px',
+          padding: '8px',
           width: '100%',
-          maxWidth: 'min(920px, calc(50vh * 1.77))',
+          maxWidth: 'min(900px, calc(46vh * 1.77))',
           boxSizing: 'border-box',
           opacity: 0,
           background: 'rgba(5, 10, 15, 0.55)',
@@ -116,7 +157,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
         </div>
 
         {/* AMPLIAR button */}
-        {!isMobile && (
+        {!isVideoExpanded && isMobile && (
           <div
             onClick={() => setIsVideoExpanded(true)}
             style={{
@@ -155,7 +196,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
         onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
         className="bg-neon panel-animate"
         style={{
-          padding: '18px 55px',
+          padding: '12px 55px',
           borderRadius: '12px',
           fontSize: '1.25rem',
           fontWeight: '900',
@@ -208,20 +249,39 @@ export default function HeroContent({ t, vturbPlayerId }) {
             onClick={(e) => e.stopPropagation()}
             style={{
               position: 'relative',
-              width: '90vw',
+              width: isMobile ? '88vw' : '90vw',
+              height: isMobile ? '75vh' : 'auto',
               maxWidth: '1200px',
-              background: '#000',
-              borderRadius: '20px',
+              background: '#0a0f19',
+              borderRadius: '24px',
               overflow: 'hidden',
               boxShadow: '0 40px 120px rgba(0,0,0,0.95)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid rgba(255,255,255,0.1)'
             }}
           >
-            {/* 16:9 aspect ratio shell */}
-            <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+            {/* Aspect ratio shell or Full Height Container for Reel feel */}
+            <div style={{ 
+              position: 'relative', 
+              width: '100%', 
+              height: isMobile ? '100%' : 'auto',
+              paddingBottom: isMobile ? '0' : '56.25%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
               {/* Modal slot — the player gets moved here */}
               <div
                 ref={modalSlotRef}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+                style={{ 
+                  position: isMobile ? 'relative' : 'absolute', 
+                  inset: 0, 
+                  width: '100%', 
+                  height: isMobile ? 'auto' : '100%',
+                  aspectRatio: isMobile ? '16/9' : 'unset'
+                }}
               />
             </div>
           </div>
