@@ -39,13 +39,13 @@ export default function Section5Content({ t }) {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'flex-start', // Pulled up
+      justifyContent: 'flex-start',
       width: '100%',
       maxWidth: '900px',
-      height: '100%',
-      margin: '-60px auto 0', // LOWERED: reduced from -120px
-      padding: '40px 20px 0', // Added top space
-      boxSizing: 'border-box'
+      height: 'auto', // Fix: Changed from 100% to auto to allow page scroll
+      margin: '-60px auto 0',
+      padding: '40px 20px 0',
+      position: 'relative'
     }}>
 
       {/* Pill */}

@@ -109,13 +109,12 @@ export default function Section4Content({ t, vturbPlayerId }) {
       justifyContent: 'flex-start',
       width: '100%',
       maxWidth: '750px',
-      height: '100%',
+      height: 'auto', // Fix: Changed from 100% to auto to allow page scroll
       margin: isMobile ? '-30px auto 0' : '-90px auto 0',
       padding: isMobile ? '20px 16px 80px' : '40px 20px 90px',
-      boxSizing: 'border-box',
       gap: '12px',
-      overflowY: 'auto',
-      overflowX: 'hidden'
+      zIndex: 1,
+      position: 'relative'
     }}>
 
       {/* Section Title */}

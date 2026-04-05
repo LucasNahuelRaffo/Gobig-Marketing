@@ -157,7 +157,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
         </div>
 
         {/* AMPLIAR button */}
-        {!isVideoExpanded && isMobile && (
+        {!isVideoExpanded && (
           <div
             onClick={() => setIsVideoExpanded(true)}
             style={{
@@ -169,7 +169,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
               borderRadius: '8px',
               padding: '6px 14px',
               cursor: 'pointer',
-              zIndex: 10,
+              zIndex: 20,
               fontSize: '11px',
               fontWeight: '900',
               display: 'flex',
@@ -205,10 +205,11 @@ export default function HeroContent({ t, vturbPlayerId }) {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '12px',
-          opacity: 0,
+          opacity: 1, // Fix: Ensure it's visible by default
+          zIndex: 20, // Fix: Keep it above vignette
           boxShadow: '0 10px 30px rgba(218, 240, 19, 0.35)',
           color: '#000',
-          marginTop: '5px',
+          marginTop: '15px', // Increased space
           transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
         }}
         onMouseEnter={(e) => {

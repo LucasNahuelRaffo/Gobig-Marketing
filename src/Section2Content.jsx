@@ -75,10 +75,10 @@ export default function Section2Content({ t, vturbPlayerId }) {
       gap: '15px',
       width: '100%',
       maxWidth: '1000px',
-      height: '100%',
+      height: 'auto', // Fix: Changed from 100% to auto to allow page scroll
       margin: '-20px auto 0',
       padding: '10px 20px 0',
-      boxSizing: 'border-box'
+      position: 'relative'
     }}>
 
       {/* Badge */}
@@ -120,8 +120,8 @@ export default function Section2Content({ t, vturbPlayerId }) {
           </div>
         </div>
 
-        {/* Expand Trigger Button (Mobile only) */}
-        {!isVideoExpanded && isMobile && (
+        {/* Expand Trigger Button */}
+        {!isVideoExpanded && (
           <div 
             onClick={() => setIsVideoExpanded(true)}
             style={{
@@ -138,7 +138,7 @@ export default function Section2Content({ t, vturbPlayerId }) {
               alignItems: 'center',
               gap: '6px',
               cursor: 'pointer',
-              zIndex: 10,
+              zIndex: 20,
               boxShadow: '0 4px 15px rgba(218, 240, 19, 0.4)',
               letterSpacing: '0.5px'
             }}
