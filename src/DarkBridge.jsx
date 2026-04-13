@@ -546,7 +546,10 @@ export default function DarkBridge({ t, style, mode = 'standard' }) {
 
                       <button 
                         className="btn-glow" 
-                        onClick={() => setShowCaseDetails(true)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank');
+                        }}
                         style={{
                           marginTop: '20px',
                           alignSelf: 'flex-start',

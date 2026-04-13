@@ -106,7 +106,7 @@ export const translations = {
           '/img/case-study/image3.png',
           '/img/case-study/image4.png'
         ],
-        cta: 'Ver Caso de Éxito Completo'
+        cta: 'Agendar Llamada'
       }
     },
     darkBridge2: {
@@ -429,7 +429,7 @@ export const translations = {
           '/img/case-study/image3.png',
           '/img/case-study/image4.png'
         ],
-        cta: 'View Full Success Story'
+        cta: 'Schedule Call'
       }
     },
     darkBridge2: {
