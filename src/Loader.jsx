@@ -5,7 +5,16 @@ import loaderVideo from './videos/Pantalla_de_carga.mp4';
 export default function Loader({ onComplete }) {
   const containerRef = useRef(null);
 
+  const videoRef = useRef(null);
+
   useEffect(() => {
+    // Force play on mount to ensure it starts on mobile
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => {
+        console.warn("Autoplay was prevented:", err);
+      });
+    }
+
     // Prevent scrolling while loading
     document.body.style.overflow = 'hidden';
     window.scrollTo(0, 0);
@@ -62,6 +71,7 @@ export default function Loader({ onComplete }) {
       }}
     >
       <video
+        ref={videoRef}
         autoPlay
         muted
         playsInline
