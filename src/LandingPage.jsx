@@ -21,7 +21,7 @@ import './App.css';
 
 import skyImg from './img/sky.webp';
 import canopyImg from './img/canopy.png';
-import heroVideo from './videos/Fb880a87-9824-4F96-Bd59-55B56af241f4.mp4';
+import heroVideo from './videos/hero-background.mp4';
 import pantherImg from './img/panther.png';
 import lowerJungleImg from './img/lower-jungle.png';
 import rootsImg from './img/roots.png';
