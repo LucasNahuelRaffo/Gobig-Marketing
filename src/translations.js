@@ -57,13 +57,13 @@ export const translations = {
           image: '/img/testimonials/image1.png'
         },
         {
-          name: 'Dr. Miguel L.',
+          name: 'Dra. María Margarita',
           text: 'Lo que más destacaría es la rapidez con la que atienden inquietudes y hacen ajustes. Nuestra visibilidad en redes mejoró bastante y la pauta empezó a ser más eficiente.',
           stars: 5,
           image: '/img/testimonials/image2.jpg'
         },
         {
-          name: 'Dra. Dominique R.',
+          name: 'Luar',
           text: 'Antes hacíamos contenido y anuncios sin una estructura definida. Con GoBig hubo un cambio estratégico. Hemos ganado más visibilidad y se aprecia mucho la calidad de edición de los videos.',
           stars: 5,
           image: '/img/testimonials/image4.png'
@@ -380,13 +380,13 @@ export const translations = {
           image: '/img/testimonials/image1.png'
         },
         {
-          name: 'Dr. Miguel L.',
+          name: 'Dra. María Margarita',
           text: 'What stands out most is how quickly they address concerns and make adjustments. Our social media visibility has improved significantly, and our ad campaigns have become more efficient.',
           stars: 5,
           image: '/img/testimonials/image2.jpg'
         },
         {
-          name: 'Dr. Dominique R.',
+          name: 'Luar',
           text: 'We used to create content and ads without a clear structure. With GoBig, things changed because we started working in a much more strategic way. Production quality is excellent.',
           stars: 5,
           image: '/img/testimonials/image4.png'
