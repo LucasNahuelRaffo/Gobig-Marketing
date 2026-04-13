@@ -42,7 +42,7 @@ export const translations = {
     },
     darkBridge1: {
       type: 'showcase',
-      title: 'CASOS DE ÉXITO',
+      title: 'TESTIMONIOS',
       testimonials: [
         {
           name: 'Dra. Bárbara C.',
@@ -365,7 +365,7 @@ export const translations = {
     },
     darkBridge1: {
       type: 'showcase',
-      title: 'SUCCESS CASES',
+      title: 'TESTIMONIALS',
       testimonials: [
         {
           name: 'Dr. Bárbara C.',
