@@ -82,15 +82,17 @@ export default function HeroContent({ t, vturbPlayerId }) {
         background: 'rgba(5, 10, 15, 0.5)',
       }}>
         <h1 className="hero-main-title" style={{
-          fontSize: isMobile ? '1.18rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)',
+          fontSize: isMobile ? '1.12rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)',
           fontWeight: '900',
           lineHeight: '1.25',
           margin: '0 0 8px 0',
           letterSpacing: '-0.5px',
           color: 'white'
         }}>
-          {t.title1} <span className="text-neon">{t.title2}</span> {t.title3} {!isMobile && <br />}
-          {t.title4} <span className="text-neon">{t.title5}</span> {t.title6}
+          {t.title1} <span className="text-neon">{t.title2}</span> {isMobile && <br />}
+          {t.title3} {isMobile && <br />}
+          {t.title4} <span className="text-neon">{t.title5}</span> {isMobile && <br />}
+          {t.title6}
         </h1>
         <p className="hero-subtitle" style={{ fontSize: isMobile ? '0.85rem' : 'clamp(0.75rem, 1.6vh, 0.88rem)', color: 'rgba(255,255,255,0.7)', lineHeight: '1.5', margin: 0, fontWeight: '400', maxWidth: '750px' }}>
           {t.description}

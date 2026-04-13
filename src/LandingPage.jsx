@@ -93,7 +93,7 @@ export default function LandingPage({ lang, setLang }) {
       });
 
       // Hero entrance animations (orchestrated to run when loader slides up)
-      const heroTl = gsap.timeline({ delay: 3.5 });
+      const heroTl = gsap.timeline({ delay: 4.0 });
       
       const nav = document.querySelector('.navbar-container');
       if (nav) {
@@ -126,7 +126,7 @@ export default function LandingPage({ lang, setLang }) {
       <Loader onComplete={handleLoaderComplete} />
       
       {/* Global Navbar - Sticky/Smart hide enabled in component */}
-      <Navbar lang={lang} setLang={setLang} t={t.navbar} />
+      <Navbar lang={lang} setLang={setLang} t={t.navbar} isLoaded={isLoaded} />
 
       {/* SVG Clip Path for organic section dividers */}
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
