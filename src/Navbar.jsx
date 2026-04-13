@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from './img/logo_Gobig.png';
 
-export default function Navbar({ lang, setLang, t }) {
+export default function Navbar({ lang, setLang, t, isLoaded }) {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -100,7 +100,6 @@ export default function Navbar({ lang, setLang, t }) {
         height: '65px', // SLIMMED DOWN: reduced from 90px
         width: '100%',
         boxSizing: 'border-box',
-        opacity: 0, // For initial GSAP
         borderRadius: '0',
         borderLeft: 'none',
         borderRight: 'none',
@@ -108,7 +107,9 @@ export default function Navbar({ lang, setLang, t }) {
         zIndex: 1000,
         transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease',
         transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-        pointerEvents: isVisible ? 'auto' : 'none'
+        opacity: isLoaded ? (isVisible ? 1 : 0) : 0,
+        pointerEvents: isLoaded && isVisible ? 'auto' : 'none',
+        visibility: isLoaded ? 'visible' : 'hidden'
       }}>
 
         {/* 1. Center: Logo (Anchored absolutely to the center) */}

@@ -91,13 +91,24 @@ export default function LandingPage({ lang, setLang }) {
           }
         );
       });
+    }, containerRef);
 
-      // Hero entrance animations (orchestrated to run when loader slides up)
-      const heroTl = gsap.timeline({ delay: 4.0 });
+    return () => ctx.revert();
+  }, []);
+
+  // Hero entrance animations (Triggered only when loader is finished)
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const ctx = gsap.context(() => {
+      const heroTl = gsap.timeline({ delay: 0.2 });
       
       const nav = document.querySelector('.navbar-container');
       if (nav) {
-        heroTl.fromTo(nav, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
+        heroTl.fromTo(nav, 
+          { opacity: 0, y: -20 }, 
+          { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }
+        );
       }
 
       const panels = document.querySelectorAll('.panel-animate');
@@ -105,13 +116,13 @@ export default function LandingPage({ lang, setLang }) {
         heroTl.fromTo(panels, 
           { opacity: 0, y: 40 }, 
           { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }, 
-          '<0.2'
+          '<0.3'
         );
       }
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isLoaded]);
 
   return (
     <div className="app-container" ref={containerRef}>
