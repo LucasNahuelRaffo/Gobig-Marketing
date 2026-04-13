@@ -177,44 +177,7 @@ export default function Section4Content({ lang, t, vturbPlayerId, vturbPlayerId2
         )}
       </div>
 
-      {/* Additional videos - positioned between main video and features */}
-      {(vturbPlayerId3 || vturbPlayerId4) && (
-        <div className="s4-anim" style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap: '20px',
-          width: '100%',
-          maxWidth: '900px',
-          marginBottom: '20px'
-        }}>
-          {vturbPlayerId3 && (
-            <div className="glass-panel" style={{
-              flex: 1,
-              padding: '6px',
-              borderRadius: '12px',
-              background: 'rgba(10, 15, 25, 0.6)',
-              border: '1px solid rgba(218, 240, 19, 0.2)',
-              aspectRatio: '16/9',
-              overflow: 'hidden'
-            }}>
-              <VturbPlayer playerId={vturbPlayerId3} style={{ borderRadius: '8px', height: '100%' }} />
-            </div>
-          )}
-          {vturbPlayerId4 && (
-            <div className="glass-panel" style={{
-              flex: 1,
-              padding: '6px',
-              borderRadius: '12px',
-              background: 'rgba(10, 15, 25, 0.6)',
-              border: '1px solid rgba(218, 240, 19, 0.2)',
-              aspectRatio: '16/9',
-              overflow: 'hidden'
-            }}>
-              <VturbPlayer playerId={vturbPlayerId4} style={{ borderRadius: '8px', height: '100%' }} />
-            </div>
-          )}
-        </div>
-      )}
+
 
       {/* Decorative center line */}
       <div className="s4-anim" style={{
@@ -273,48 +236,7 @@ export default function Section4Content({ lang, t, vturbPlayerId, vturbPlayerId2
         ))}
       </div>
 
-      {/* Bottom Videos - Replaces Study Cases */}
-      {((vturbPlayerId2 && vturbPlayerId2 !== '') || (lang === 'es' && vturbPlayerId5 && vturbPlayerId5 !== '')) && (
-        <div className="s4-anim" style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap: '20px',
-          width: '100%',
-          maxWidth: '900px',
-          marginBottom: 0,
-          justifyContent: 'center'
-        }}>
-          {/* First bottom video */}
-          {vturbPlayerId2 && vturbPlayerId2 !== '' && (
-            <div className="glass-panel" style={{
-              flex: 1,
-              padding: '6px',
-              borderRadius: '16px',
-              background: 'rgba(10, 15, 25, 0.6)',
-              border: '1px solid rgba(218, 240, 19, 0.2)',
-              aspectRatio: '16/9',
-              overflow: 'hidden'
-            }}>
-              <VturbPlayer playerId={vturbPlayerId2} style={{ borderRadius: '12px', height: '100%' }} />
-            </div>
-          )}
 
-          {/* Second bottom video (Only for Spanish) */}
-          {lang === 'es' && vturbPlayerId5 && vturbPlayerId5 !== '' && (
-            <div className="glass-panel" style={{
-              flex: 1,
-              padding: '6px',
-              borderRadius: '16px',
-              background: 'rgba(10, 15, 25, 0.6)',
-              border: '1px solid rgba(218, 240, 19, 0.2)',
-              aspectRatio: '16/9',
-              overflow: 'hidden'
-            }}>
-              <VturbPlayer playerId={vturbPlayerId5} style={{ borderRadius: '12px', height: '100%' }} />
-            </div>
-          )}
-        </div>
-      )}
 
       {/* BACKDROP + CLOSE BUTTON when expanded */}
       {isVideoExpanded && createPortal(
