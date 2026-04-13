@@ -8,6 +8,7 @@ export default function Loader({ onComplete }) {
   useEffect(() => {
     // Prevent scrolling while loading
     document.body.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
 
     // Safety fallback: always unblock page after 8s max, even if GSAP fails
     const safetyTimeout = setTimeout(() => {
@@ -28,12 +29,14 @@ export default function Loader({ onComplete }) {
         }
       });
 
-      // Slide the entire loader up
+      // Slide the entire loader up and fade out
       tl.to(containerRef.current, { 
         yPercent: -100, 
+        opacity: 0,
         duration: 1.2, 
         ease: 'power4.inOut' 
       });
+
 
     }, containerRef);
 

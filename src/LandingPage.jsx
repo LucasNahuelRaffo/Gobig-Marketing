@@ -42,11 +42,14 @@ export default function LandingPage({ lang, setLang }) {
   const containerRef = useRef(null);
   const sectionRefs = useRef([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
   
   const t = translations[lang];
 
   const handleLoaderComplete = useCallback(() => {
     setIsLoaded(true);
+    // Remove loader from DOM after a very small buffer
+    setTimeout(() => setShowLoader(false), 100);
   }, []);
 
   useEffect(() => {
@@ -134,7 +137,8 @@ export default function LandingPage({ lang, setLang }) {
         type="website"
       />
       <StructuredData />
-      <Loader onComplete={handleLoaderComplete} />
+      {showLoader && <Loader onComplete={handleLoaderComplete} />}
+      
       
       {/* Global Navbar - Sticky/Smart hide enabled in component */}
       <Navbar lang={lang} setLang={setLang} t={t.navbar} isLoaded={isLoaded} />
