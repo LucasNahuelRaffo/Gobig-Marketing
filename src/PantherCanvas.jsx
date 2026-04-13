@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 // Dynamically import all frames
-const frameModules = import.meta.glob('./img/panther_frames/*.png', { eager: true, query: '?url', import: 'default' });
+const frameModules = import.meta.glob('./img/panther_frames/*.webp', { eager: true, query: '?url', import: 'default' });
 
 // Extract URLs and sort them to ensure correct frame order
 const frameUrls = Object.keys(frameModules)
