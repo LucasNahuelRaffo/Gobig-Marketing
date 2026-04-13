@@ -264,9 +264,7 @@ export const translations = {
       features: [
         'Análisis profundo de tu ecosistema actual y detección de cuellos de botella',
         'Estrategia de escalado con proyección de ingresos predecibles',
-        'Implementación completa del sistema de Filtros API',
-        'Monitoreo dinámico del costo por lead calificado',
-        'Visibilidad total y panel de control en tiempo real'
+        'Implementación completa del sistema de Filtros API'
       ]
     },
     section5: {
@@ -587,9 +585,7 @@ export const translations = {
       features: [
         'In-depth analysis of your current ecosystem and bottleneck detection',
         'Scaling strategy with predictable income projection',
-        'Full implementation of the API Filters system',
-        'Dynamic monitoring of cost per qualified lead',
-        'Total visibility and real-time control panel'
+        'Full implementation of the API Filters system'
       ]
     },
     section5: {
