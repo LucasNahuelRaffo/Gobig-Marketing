@@ -20,12 +20,12 @@ import StructuredData from './components/StructuredData';
 import './App.css';
 
 import skyImg from './img/sky.webp';
-import canopyImg from './img/canopy.png';
+import canopyImg from './img/canopy.webp';
 import heroVideo from './videos/hero-background.mp4';
-import pantherImg from './img/panther.png';
-import lowerJungleImg from './img/lower-jungle.png';
-import rootsImg from './img/roots.png';
-import fossilsImg from './img/fossils.png';
+import pantherImg from './img/panther.webp';
+import lowerJungleImg from './img/lower-jungle.webp';
+import rootsImg from './img/roots.webp';
+import fossilsImg from './img/fossils.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 

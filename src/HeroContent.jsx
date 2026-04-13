@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import VturbPlayer from './VturbPlayer';
 import gsap from 'gsap';
 import './App.css';
-import skyImg from './img/sky.png';
+import skyImg from './img/sky.webp';
 
 export default function HeroContent({ t, vturbPlayerId }) {
   const [isVideoExpanded, setIsVideoExpanded] = useState(false);
