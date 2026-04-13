@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import logoImg from './img/logo_Gobig.png';
 
 export default function Navbar({ lang, setLang, t }) {
@@ -110,26 +111,16 @@ export default function Navbar({ lang, setLang, t }) {
         pointerEvents: isVisible ? 'auto' : 'none'
       }}>
 
-        {/* 1. Left: Logo (Anchored absolutely to the left) */}
-        <div className="nav-logo" style={{ position: 'absolute', left: '5%', zIndex: 1002 }}>
-          <img src={logoImg} alt="GOBIG" style={{ height: '50px', width: 'auto', display: 'block' }} />
-        </div>
-
-        {/* 2. Center: Links (Mathematically centered above the geometric tab) - DESKTOP ONLY */}
-        <div className="nav-links desktop-only" style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '40px',
-          color: 'rgba(255,255,255,0.85)',
-          fontSize: '0.9rem',
-          fontWeight: '500',
-          position: 'relative',
-          width: 'auto' // Allow organic width
+        {/* 1. Center: Logo (Anchored absolutely to the center) */}
+        <div className="nav-logo" style={{ 
+          position: 'absolute', 
+          left: '50%', 
+          transform: 'translateX(-50%)',
+          zIndex: 1002 
         }}>
-          <a href="#sky" onClick={(e) => scrollToSection(e, 'sky')} className="nav-item">{t.home}</a>
-          <a href="#roots" onClick={(e) => scrollToSection(e, 'roots')} className="nav-item">{t.service}</a>
-          <a href="#canopy" onClick={(e) => scrollToSection(e, 'canopy')} className="nav-item">{t.testimonial}</a>
-          <a href="#fossils" onClick={(e) => scrollToSection(e, 'fossils')} className="nav-item">{t.contact}</a>
+          <Link to="/" style={{ display: 'block' }}>
+            <img src={logoImg} alt="GOBIG" style={{ height: '50px', width: 'auto', display: 'block' }} />
+          </Link>
         </div>
 
         {/* 3. Right: CTA Button + Language Toggle - DESKTOP ONLY */}
@@ -157,31 +148,19 @@ export default function Navbar({ lang, setLang, t }) {
           <LanguageSwitcher />
         </div>
 
-        {/* 4. Right: Language + Hamburger - MOBILE ONLY */}
+        {/* 4. Right: Language - MOBILE ONLY (Hamburger removed) */}
         <div className="mobile-only" style={{
           position: 'absolute', 
           right: '5%', 
           display: 'none', /* handled by css */
-          alignItems: 'center',
-          gap: '15px'
+          alignItems: 'center'
         }}>
-          <div style={{ zIndex: 1002 }}>
-            <LanguageSwitcher />
-          </div>
-          <button className={`hamburger-btn ${isMobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}>
-            <div className="hamburger-line"></div>
-            <div className="hamburger-line"></div>
-            <div className="hamburger-line"></div>
-          </button>
+          <LanguageSwitcher />
         </div>
       </nav>
 
       {/* MOBILE OVERLAY MENU */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
-        <a href="#sky" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'sky')}>{t.home}</a>
-        <a href="#roots" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'roots')}>{t.service}</a>
-        <a href="#canopy" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'canopy')}>{t.testimonial}</a>
-        <a href="#fossils" className="nav-item" style={{ fontSize: '1.5rem', color: 'white' }} onClick={(e) => scrollToSection(e, 'fossils')}>{t.contact}</a>
         
         <button 
           onClick={() => {

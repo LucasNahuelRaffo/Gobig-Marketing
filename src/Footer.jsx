@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import logoImg from './img/logo_Gobig.png';
 
 export default function Footer({ t, navTranslations }) {
@@ -38,7 +38,9 @@ export default function Footer({ t, navTranslations }) {
 
         {/* Col 1: Brand & Social */}
         <div style={{ flex: '1 1 250px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <img src={logoImg} alt="GOBIG" style={{ height: '55px', width: 'auto', display: 'block', alignSelf: 'flex-start' }} />
+          <Link to="/">
+            <img src={logoImg} alt="GOBIG" style={{ height: '55px', width: 'auto', display: 'block', alignSelf: 'flex-start' }} />
+          </Link>
           <p style={{ margin: 0, fontSize: '0.8rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.4)', maxWidth: '90%' }}>
             {t.description}
           </p>
@@ -67,19 +69,19 @@ export default function Footer({ t, navTranslations }) {
         <div style={{ flex: '1 1 120px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.nav}</h4>
           {navLinks.map(link => (
-            <a href="#" key={link.key} style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
+            <Link to="/" key={link.key} style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* Col 3: Legal */}
         <div style={{ flex: '1 1 160px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.legal}</h4>
-          <a href="/legal.html" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.terms}</a>
-          <a href="/legal.html" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.privacy}</a>
-          <a href="/legal.html" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.dataRemoval}</a>
+          <Link to="/legal/terms" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.terms}</Link>
+          <Link to="/legal/privacy" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.privacy}</Link>
+          <Link to="/legal/refund" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>{t.dataRemoval}</Link>
         </div>
 
         {/* Col 4: Contacto */}
@@ -87,11 +89,11 @@ export default function Footer({ t, navTranslations }) {
           <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.contact}</h4>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.5)' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            <span style={{ fontSize: '0.8rem' }}>+52 55 1234 5678</span>
+            <span style={{ fontSize: '0.8rem' }}>+1 3506308799</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.5)' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span style={{ fontSize: '0.8rem' }}>contacto@gobig.com</span>
+            <span style={{ fontSize: '0.8rem' }}>gobigagenciallc.com</span>
           </div>
         </div>
 
@@ -100,9 +102,24 @@ export default function Footer({ t, navTranslations }) {
       {/* Divider */}
       <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.05)', marginBottom: '12px', maxWidth: '1200px', alignSelf: 'center' }}></div>
 
-      {/* Bottom Small Text */}
-      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '10px', maxWidth: '1200px', alignSelf: 'center', width: '100%', fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)' }}>
-        <div>{t.rights}</div>
+      {/* Bottom Legal & Disclaimer */}
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column',
+        alignItems: 'center', 
+        gap: '16px', 
+        maxWidth: '1200px', 
+        alignSelf: 'center', 
+        width: '100%', 
+        fontSize: '0.7rem', 
+        color: 'rgba(255,255,255,0.3)',
+        textAlign: 'center',
+        lineHeight: '1.6'
+      }}>
+        <div>© 2026 · GoBig Agencia · GoBig Agency LLC · All rights reserved.</div>
+        <div style={{ maxWidth: '800px', color: 'rgba(255,255,255,0.2)' }}>
+          This site is not part of the Facebook website or Facebook Inc. Furthermore, this site is NOT endorsed by Facebook in any way. FACEBOOK is a registered trademark of FACEBOOK, Inc.
+        </div>
       </div>
     </footer>
   );

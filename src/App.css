@@ -2,7 +2,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   width: 100%;
   overflow-x: hidden;
@@ -21,14 +22,17 @@ html, body {
 
 /* Glassmorphism Utilities */
 .glass-panel {
-  background: rgba(15, 15, 25, 0.3); /* Made more transparent to enhance blur effect */
-  backdrop-filter: blur(20px); /* Increased blur radius strongly */
+  background: rgba(15, 15, 25, 0.3);
+  /* Made more transparent to enhance blur effect */
+  backdrop-filter: blur(20px);
+  /* Increased blur radius strongly */
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.5rem;
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.8), 
-    inset 0 0 30px rgba(255,255,255,0.015); /* Subtly lights up the edges inside */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.8),
+    inset 0 0 30px rgba(255, 255, 255, 0.015);
+  /* Subtly lights up the edges inside */
 }
 
 /* Vignette effect for ALL sections to give depth */
@@ -36,9 +40,9 @@ html, body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.5) 100%);
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.5) 100%);
   pointer-events: none;
-  z-index: 1; 
+  z-index: 1;
 }
 
 /* Add a top-down shadow at the beginning of each section for extra depth */
@@ -49,7 +53,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 15vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
   pointer-events: none;
   z-index: 1;
 }
@@ -65,6 +69,7 @@ html, body {
   box-shadow: 0 0 15px rgba(218, 240, 19, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
+
 .bg-neon:hover {
   transform: scale(1.04);
   background: #e6ff1b;
@@ -76,7 +81,8 @@ html, body {
   position: relative;
   color: inherit;
   text-decoration: none;
-  padding-bottom: 4px; /* Space for the animated underline */
+  padding-bottom: 4px;
+  /* Space for the animated underline */
   transition: color 0.3s ease;
 }
 
@@ -136,19 +142,467 @@ html, body {
 .scene-section:first-child {
   height: auto;
   min-height: 100vh;
-  overflow: visible; /* Allow scrolling if content is tall */
+  overflow: visible;
+  /* Allow scrolling if content is tall */
 }
 
 /* Apply overlap and wave clip-path to every section that follows another section */
-.scene-section + .scene-section {
+.scene-section+.scene-section {
   margin-top: -12vh;
-  clip-path: url(#branch-clip);
-  filter: drop-shadow(0 -30px 40px rgba(0,0,0,0.95)); /* Stronger, softer shadow for 3D depth */
+  clip-path: url(#wave-clip);
+  /* Changed to use the new smoother wave */
+  filter: drop-shadow(0 -30px 40px rgba(0, 0, 0, 0.95));
+  /* Stronger, softer shadow for 3D depth */
   position: relative;
-  z-index: 5;
 }
 
-/* Restored natural overlaps to prevent clipping content */
+/* Dark Bridge Inter-Section */
+.dark-bridge {
+  position: relative;
+  background-color: #050a0a;
+  width: 100%;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -12vh;
+  /* overlap with previous section */
+  clip-path: url(#wave-clip);
+  /* Smooth wave at top */
+}
+
+/* Adjust the inner content so it's vertically centered and ignores the wavy bits */
+.dark-bridge-inner {
+  padding: 18vh 20px 22vh;
+  /* Extra padding top/bottom to clear the waves */
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Make sure the section after the dark bridge overlaps it and uses the wave */
+.dark-bridge+.scene-section {
+  margin-top: -12vh !important;
+  clip-path: url(#wave-clip) !important;
+}
+
+/* Grid for bridge contents */
+.bridge-grid {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: left;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(218, 240, 19, 0.5);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(218, 240, 19, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonial-card .stars {
+  display: flex;
+  gap: 4px;
+}
+
+/* Specific positioning for Miguel L. (image2) to center the person in the circle */
+.testimonial-card .avatar img[src*="image2"] {
+  object-position: 20% center;
+}
+
+.testimonial-card .user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-card .avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #DAF013;
+  background: #fff;
+  /* Helps logos with white backgrounds */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.testimonial-card .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Default to cover for person photos */
+}
+
+/* Specific positioning for Dominique R. photo to show both people */
+.testimonial-card .avatar img[src*="image4"] {
+  object-position: 96% center;
+}
+
+/* Specific positioning for Orlando S. photo to avoid cutting the top of the head */
+.testimonial-card .avatar img[src*="image1"] {
+  object-position: center 20%;
+}
+
+.testimonial-card .user-name {
+  color: white;
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: -0.2px;
+}
+
+.testimonial-card .testimonial-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Result Cards */
+.result-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  padding: 0;
+  /* Image touches edges */
+}
+
+.dark-bridge {
+  background: #050a0a;
+  padding: 80px 0;
+  position: relative;
+  z-index: 10;
+  clear: both;
+}
+
+.showcase-bridge {
+  padding: 140px 0 160px 0;
+  /* Huge padding to avoid wave clipping */
+  overflow: visible;
+}
+
+.bridge-content {
+  position: relative;
+  z-index: 15;
+  width: 100%;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  /* Essential for symmetry and edge protection */
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+/* Carousel Clipping Fix */
+.testimonials-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.testimonials-carousel-viewport {
+  overflow: hidden;
+  /* CRITICAL: Clips the track */
+  flex: 1;
+  padding: 20px 0;
+  margin: 0 -40px;
+  /* Offset to allow card padding to act as gap */
+}
+
+.testimonials-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+
+.testimonials-track.no-transition {
+  transition: none !important;
+}
+
+.testimonials-track .testimonial-card-wrapper {
+  flex: 0 0 calc(33.333%);
+  /* 3 visible cards on desktop */
+  padding: 0 40px;
+  /* Creates an 80px total gap between cards */
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  /* Essential for uniform height */
+}
+
+.testimonial-card {
+  width: 100%;
+  height: 100%;
+  /* Fill the wrapper height */
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-text {
+  flex: 1;
+  /* Pushes the user profile to the bottom, ensuring uniform content distribution */
+  min-height: 100px;
+}
+
+.stars {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  color: #DAF013;
+  /* Neon green stars */
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .testimonials-track .testimonial-card-wrapper {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-carousel-wrapper {
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 80px; /* Extra space for the buttons at the bottom */
+  }
+
+  .testimonials-carousel-viewport {
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  .testimonials-track .testimonial-card-wrapper {
+    flex: 0 0 100%;
+    padding: 0 5px;
+  }
+
+  .carousel-control {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 15px !important;
+    transform: none !important;
+    width: 46px; /* Slightly larger targets for mobile thumbs */
+    height: 46px;
+  }
+
+  .carousel-control.prev {
+    left: calc(50% - 58px);
+  }
+
+  .carousel-control.next {
+    right: calc(50% - 58px);
+  }
+
+  .testimonial-card {
+    padding: 24px !important;
+    border-radius: 20px;
+    width: 100%;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    min-height: auto !important;
+    margin-bottom: 15px !important;
+  }
+
+  .testimonial-card .user-name {
+    font-size: 0.95rem !important;
+  }
+
+  .testimonial-card .avatar {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.carousel-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid #DAF013;
+  color: #DAF013;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  flex-shrink: 0;
+  backdrop-filter: blur(5px);
+}
+
+.carousel-control:hover {
+  background: #DAF013;
+  color: #050a0a;
+  box-shadow: 0 0 20px rgba(218, 240, 19, 0.4);
+  transform: scale(1.1);
+}
+
+.carousel-control:active {
+  transform: scale(0.95);
+}
+
+/* Ensure testimonials text doesn't height-shift the layout too much */
+.testimonial-text {
+  min-height: 80px;
+  font-size: 0.95rem;
+}
+
+.result-card .result-img {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-card .result-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.result-card:hover .result-img img {
+  transform: scale(1.1);
+}
+
+.result-card .result-content {
+  padding: 24px;
+}
+
+.result-card .result-title {
+  color: #DAF013;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.result-card .meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.result-card .meta-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 4px;
+}
+
+.result-card .meta-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.result-card .meta-value {
+  color: white;
+  font-weight: 700;
+}
+
+.result-card .result-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.result-card .main-stat {
+  color: #DAF013;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.result-card .sub-stat {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.result-card .sub-stat.neon {
+  color: #DAF013;
+}
+
+/* Original Stat Cards (Backward compatibility) */
+.stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 16px;
+  min-width: 220px;
+  flex: 1;
+}
+
+.stat-value {
+  color: white;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin: 0 0 10px 0;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 #lower-jungle.scene-section {
   margin-top: -10vh;
   z-index: 8;
@@ -195,15 +649,18 @@ html, body {
 
 /* ── Hero overlay ─────────────────────────── */
 .hero-overlay {
-  position: relative; /* Changed from absolute to allow section growth */
+  position: relative;
+  /* Changed from absolute to allow section growth */
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-top: min(100px, 12vh);
-  padding-bottom: 120px; /* Increased to ensure CTA is not covered by Section 2 overlap */
-  z-index: 10; /* Above vignette and section shadows */
+  padding-bottom: 120px;
+  /* Increased to ensure CTA is not covered by Section 2 overlap */
+  z-index: 10;
+  /* Above vignette and section shadows */
 }
 
 .hero-title {
@@ -242,7 +699,11 @@ html, body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0) rotate(45deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(45deg);
+  }
 }
 
 /* Marquee Scroller Custom CSS */
@@ -251,12 +712,14 @@ html, body {
 }
 
 .marquee-logo-img {
-  transform: scale(1.15); /* Base larger scale */
+  transform: scale(1.15);
+  /* Base larger scale */
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .marquee-logo-card:hover .marquee-logo-img {
-  transform: scale(1.35) !important; /* Even larger on hover/touch */
+  transform: scale(1.35) !important;
+  /* Even larger on hover/touch */
 }
 
 /* ── Responsive Mobile Utilities ─────────────────── */
@@ -268,40 +731,100 @@ html, body {
   .desktop-only {
     display: none !important;
   }
-  
+
   .mobile-only {
     display: flex !important;
   }
-  
+
   /* Reset scene sections overlapping on mobile to prevent squished content */
   .scene-section {
     height: auto !important;
     min-height: 100vh;
   }
-  
-  .scene-section + .scene-section {
-    margin-top: -2vh !important; /* Much smaller overlap on mobile */
+
+  .scene-section+.scene-section {
+    margin-top: -2vh !important;
+    /* Much smaller overlap on mobile */
   }
 
   .hero-overlay {
     position: relative !important;
-    padding-top: 80px; 
-    padding-bottom: 80px;
+    padding-top: 140px !important; /* Increased to clear waves and give more breathing room */
+    padding-bottom: 100px !important;
     height: auto !important;
   }
-  
+
+  /* Increase spacing for Dark Bridge content on mobile */
+  .dark-bridge {
+    padding-top: 120px !important;
+    padding-bottom: 120px !important;
+  }
+
+  .dark-bridge-inner {
+    padding-top: 20px !important;
+  }
+
+  .panther-grid-container {
+    padding: 0 20px !important;
+    gap: 20px !important;
+    margin-top: 300px !important; /* Maximized to ensure the panther is fully visible before content covers it */
+    margin-bottom: 80px !important;
+  }
+
+  .panther-card-left,
+  .panther-card-right {
+    padding: 24px !important;
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    background: rgba(5, 10, 15, 0.45) !important; /* More transparent on mobile */
+    border-radius: 24px !important;
+  }
+
+  .panther-card-left {
+    margin-top: -20px !important;
+  }
+
+  .panther-card-right {
+    margin-top: 20px !important; /* Creates a small gap to see the panther */
+  }
+
+  .panther-title {
+    font-size: 1.2rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .panther-description {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Keep hero video cover, but make it sticky 100vh so it doesn't get stretched/zoomed by the tall text content */
+  #sky .section-bg-wrapper {
+    position: absolute !important;
+    height: 100% !important;
+  }
+
+  #sky .section-bg {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    transform: scale(1) !important;
+    object-position: center !important;
+  }
+
   /* Make glass panels tighter on mobile to save space */
   .glass-panel {
     padding: 20px !important;
     border-radius: 1rem;
   }
-  
+
   /* Responsive typography */
   .hero-main-title {
     font-size: 1.8rem !important;
     letter-spacing: -1px !important;
   }
-  
+
   .hero-subtitle {
     font-size: 0.9rem !important;
   }
@@ -343,7 +866,8 @@ html, body {
   border: none;
   cursor: pointer;
   padding: 10px;
-  z-index: 1001; /* Above the overlay */
+  z-index: 1001;
+  /* Above the overlay */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -364,9 +888,143 @@ html, body {
 .hamburger-btn.open .hamburger-line:nth-child(1) {
   transform: rotate(45deg);
 }
+
 .hamburger-btn.open .hamburger-line:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger-btn.open .hamburger-line:nth-child(3) {
   transform: rotate(-45deg);
+}
+
+/* Featured Case Study Styles */
+.featured-case-card:hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  border-color: rgba(218, 240, 19, 0.4) !important;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 30px rgba(218, 240, 19, 0.15) !important;
+}
+
+.featured-card-visual img {
+  transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.featured-case-card:hover .featured-card-visual img {
+  transform: scale(1.05);
+}
+
+.case-modal-content {
+  animation: modalScaleIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow-x: hidden;
+}
+
+@keyframes modalScaleIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.story-content p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.modal-gallery img {
+  transition: transform 0.4s ease;
+  cursor: zoom-in;
+}
+
+.modal-gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* Mobile Adjustments for Featured Case */
+@media (max-width: 991px) {
+  .featured-case-card {
+    grid-template-columns: 1fr !important;
+    padding: 25px !important;
+  }
+  
+  .featured-card-visual {
+    height: 300px !important;
+  }
+  
+  .case-modal-content {
+    padding: 30px 20px !important;
+  }
+  
+  .modal-gallery {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .modal-gallery div {
+    height: 250px !important;
+  }
+}
+
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.btn-glow:hover::after {
+  opacity: 1;
+}
+
+/* Visual crop for screenshots with browser/taskbar UI */
+.image-crop-browser {
+  object-fit: cover !important;
+  object-position: center 65% !important;
+  transform: scale(1.25) !important;
+  transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+.featured-case-card:hover .image-crop-browser {
+  transform: scale(1.35) !important;
+}
+
+/* Modal Close Button */
+.modal-close-btn {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+
+.modal-close-btn:hover {
+  background: #DAF013;
+  color: #050a0a;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 20px rgba(218, 240, 19, 0.4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

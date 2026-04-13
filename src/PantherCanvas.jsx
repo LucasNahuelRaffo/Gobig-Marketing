@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,44 +12,48 @@ const frameUrls = Object.keys(frameModules)
   .sort()
   .map(key => frameModules[key]);
 
-export default function PantherCanvas() {
+export default function PantherCanvas({ isLoaded }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
+  const [images, setImages] = useState([]);
+  const [isReady, setIsReady] = useState(false);
+  const frameObj = useRef({ frame: 0 });
 
+  // Phase 1: Robust Image Loading
   useEffect(() => {
+    const loadedImages = [];
+    let count = 0;
+
+    const checkComplete = () => {
+      count++;
+      if (count === frameUrls.length) {
+        setImages(loadedImages);
+        setIsReady(true);
+      }
+    };
+
+    frameUrls.forEach((url, i) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = checkComplete;
+      img.onerror = checkComplete; // Count errors too to avoid hanging
+      loadedImages[i] = img;
+    });
+  }, []);
+
+  // Phase 2: Drawing and Animation
+  useEffect(() => {
+    if (!isLoaded || !isReady || !canvasRef.current) return;
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     
-    // Set initial dimensions
-    canvas.width = containerRef.current.offsetWidth || window.innerWidth;
-    canvas.height = containerRef.current.offsetHeight || window.innerHeight;
-
-    const images = [];
-    const frameObj = { frame: 0 };
-    let loadedCount = 0;
-
-    // Load images
-    for (let i = 0; i < frameUrls.length; i++) {
-      const img = new Image();
-      img.src = frameUrls[i];
-      img.onload = () => {
-        loadedCount++;
-        // Render the first frame once it's loaded to avoid blank canvas
-        if (loadedCount === 1) {
-          renderFrame(0);
-        }
-      };
-      images.push(img);
-    }
-
     const renderFrame = (index) => {
-      const img = images[index];
+      const img = images[Math.round(index)];
       if (!img || !img.complete) return;
 
-      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // We want the image to cover the canvas (like background-size: cover)
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
       
@@ -69,47 +73,54 @@ export default function PantherCanvas() {
       ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     };
 
-    // Handle Resize
+    // Set initial size and render first frame
+    canvas.width = containerRef.current.offsetWidth;
+    canvas.height = containerRef.current.offsetHeight;
+    renderFrame(0);
+
     const onResize = () => {
-      if (containerRef.current) {
-        canvas.width = containerRef.current.offsetWidth;
-        canvas.height = containerRef.current.offsetHeight;
-        renderFrame(Math.round(frameObj.frame));
-      }
+      canvas.width = containerRef.current.offsetWidth;
+      canvas.height = containerRef.current.offsetHeight;
+      renderFrame(frameObj.current.frame);
     };
     window.addEventListener('resize', onResize);
 
-    // Setup GSAP Canvas Animation
+    // Setup GSAP
     const ctxGsap = gsap.context(() => {
-      const triggerSection = containerRef.current.closest('section') || containerRef.current;
+      const parentSection = containerRef.current.closest('.scene-section');
       
       ScrollTrigger.create({
-        trigger: triggerSection,
-        start: 'top top',
-        end: '+=300%', // User scrolls for 3x the viewport height to see the full animation
-        pin: true,
-        scrub: 0.5, // Smooth scrubbing
-        animation: gsap.to(frameObj, {
-          frame: frameUrls.length - 1,
-          snap: 'frame',
-          ease: 'none',
-          onUpdate: () => renderFrame(Math.round(frameObj.frame))
-        })
+        trigger: parentSection || containerRef.current,
+        start: 'top 80%',    // Start as it enters clearly
+        end: 'center center', // End exactly when centered
+        scrub: 0.5,           // Smooth scrubbing
+        invalidateOnRefresh: true,
+        animation: gsap.fromTo(frameObj.current, 
+          { frame: 0 },
+          {
+            frame: images.length - 1,
+            snap: 'frame',
+            ease: 'none',
+            onUpdate: () => renderFrame(frameObj.current.frame)
+          }
+        )
       });
+      
+      // Safety refresh
+      setTimeout(() => ScrollTrigger.refresh(), 100);
     }, containerRef);
 
     return () => {
       window.removeEventListener('resize', onResize);
       ctxGsap.revert();
     };
-  }, []);
+  }, [isLoaded, isReady, images]);
 
   return (
     <div ref={containerRef} className="panther-canvas-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
-      {/* Canvas */}
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
       
-      {/* Watermark Cover - Tapa la marca 'VEO' en la esquina inferior derecha (Sección 3) */}
+      {/* Watermark Cover */}
       <div style={{
         position: 'absolute',
         bottom: '-10px',

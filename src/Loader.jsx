@@ -63,9 +63,11 @@ export default function Loader({ onComplete }) {
         muted
         playsInline
         style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover'
+          width: '100vw',
+          height: '100vh',
+          objectFit: window.innerWidth <= 768 ? 'fill' : 'cover', // 'fill' estira el video en móvil para completar la pantalla sin el zoom del 'cover'
+          transform: 'scale(1)',
+          transformOrigin: 'center center'
         }}
       >
         <source src={loaderVideo} type="video/mp4" />

@@ -36,7 +36,7 @@ const MarqueeLogoScroller = React.forwardRef(({ title, description, logos, speed
       >
         {/* Header Section */}
         <div style={{
-          padding: '15px 40px', // Pulled up: reduced from 30px
+          padding: '20px 40px 10px', // Adjusted to be tighter but balanced
           display: 'flex',
           flexDirection: 'column',
           gap: '8px', // Tighter

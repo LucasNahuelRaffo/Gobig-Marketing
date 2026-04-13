@@ -19,17 +19,16 @@ export default function VturbPlayer({
   useEffect(() => {
     if (!playerId) return;
 
-    // Use a global tracker to avoid double-appending the same script
+    // Force re-injection of the script to ensure it runs for the new DOM elements
     const scriptId = `vturb-script-${playerId}`;
-    let vturbScript = document.getElementById(scriptId);
+    const oldScript = document.getElementById(scriptId);
+    if (oldScript) oldScript.remove();
 
-    if (!vturbScript) {
-      vturbScript = document.createElement('script');
-      vturbScript.id = scriptId;
-      vturbScript.src = `https://scripts.converteai.net/${accountId}/players/${playerId}/v4/player.js`;
-      vturbScript.async = true;
-      document.head.appendChild(vturbScript);
-    }
+    const vturbScript = document.createElement('script');
+    vturbScript.id = scriptId;
+    vturbScript.src = `https://scripts.converteai.net/${accountId}/players/${playerId}/v4/player.js?instance=${instanceId.current}`;
+    vturbScript.async = true;
+    document.head.appendChild(vturbScript);
 
     let pollingTimeoutId = null;
 
@@ -52,18 +51,9 @@ export default function VturbPlayer({
     };
 
     vturbScript.addEventListener('load', () => {
+      vturbScript.dataset.loaded = 'true';
       pollingTimeoutId = setTimeout(() => tryAttachPlayListener(0), 800);
     });
-
-    // If script already loaded, start polling immediately
-    if (vturbScript && vturbScript.dataset.loaded === 'true') {
-      tryAttachPlayListener(0);
-    } else {
-        vturbScript.addEventListener('load', () => {
-            vturbScript.dataset.loaded = 'true';
-            pollingTimeoutId = setTimeout(() => tryAttachPlayListener(0), 800);
-        });
-    }
 
     const onOtherPlay = (e) => {
       // Pause if it's the same player ID but DIFFERENT instance, or just any other player
@@ -94,7 +84,13 @@ export default function VturbPlayer({
       <vturb-smartplayer
         id={`vid-${playerId}`}
         autoplay="false"
-        style={{ display: 'block', margin: '0 auto', width: '100%' }}
+        style={{ 
+          display: 'block', 
+          margin: '0 auto', 
+          width: '100%',
+          height: '100%',
+          aspectRatio: '16/9'
+        }}
       />
     </div>
   );

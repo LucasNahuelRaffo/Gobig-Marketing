@@ -5,6 +5,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import VturbPlayer from './VturbPlayer';
 import './App.css';
 
+// Utility function to get WebP image with fallback
+const getWebpImage = (path) => {
+  // In a real implementation, this would check for WebP support
+  // For now, we'll return the WebP path
+  const webpPath = path.replace(/\.(png|jpe?g)$/i, '.webp');
+  return {
+    src: webpPath,
+    srcSet: `${webpPath} 1x`,
+    type: 'image/webp'
+  };
+};
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Section2Content({ t, vturbPlayerId }) {
@@ -81,78 +93,95 @@ export default function Section2Content({ t, vturbPlayerId }) {
       position: 'relative'
     }}>
 
-      {/* Badge */}
+      {/* Title Badge (Marker 1) */}
       <div className="glass-panel s2-anim" style={{
-        padding: '12px 30px',
-        borderRadius: '8px',
-        background: 'rgba(5, 10, 15, 0.4)',
-        border: '1px solid rgba(255,255,255,0.08)'
+        padding: '14px 40px',
+        borderRadius: '12px',
+        background: 'rgba(5, 10, 15, 0.65)',
+        border: '1px solid rgba(255,255,255,0.12)',
+        width: '100%',
+        maxWidth: '750px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(10px)'
       }}>
         <h3 style={{
           margin: 0,
-          fontSize: '1rem',
-          fontWeight: '700',
-          letterSpacing: '3px',
+          fontSize: 'clamp(1rem, 3vw, 1.4rem)',
+          fontWeight: '900',
           color: 'white',
-          textTransform: 'uppercase'
+          textTransform: 'uppercase',
+          textAlign: 'center',
+          lineHeight: '1.2'
         }}>
-          {t.badge}
+          {t.title}
+          <span style={{ color: '#DAF013' }}>{t.titleAccent}</span>
         </h3>
       </div>
 
       {/* Vturb Testimonials Video Container */}
-      <div
-        className="s2-anim glass-panel"
-        style={{
-          width: '100%',
-          maxWidth: '800px',
-          borderRadius: '16px',
-          padding: isMobile ? '8px' : '12px',
-          background: 'rgba(5, 10, 15, 0.4)',
-          border: '1px solid rgba(255,255,255,0.05)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        <div ref={inlineSlotRef} style={{ width: '100%', position: 'relative' }}>
-          <div ref={playerWrapperRef} style={{ width: '100%', borderRadius: '12px', overflow: 'hidden' }}>
-            <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '12px' }} />
+      {vturbPlayerId && (
+        <div
+          className="s2-anim glass-panel"
+          style={{
+            width: '100%',
+            maxWidth: '800px',
+            borderRadius: '16px',
+            padding: isMobile ? '8px' : '12px',
+            background: 'rgba(5, 10, 15, 0.4)',
+            border: '1px solid rgba(255,255,255,0.05)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div ref={inlineSlotRef} style={{ width: '100%', position: 'relative' }}>
+            <div 
+              ref={playerWrapperRef} 
+              style={{ 
+                width: '100%', 
+                borderRadius: '12px', 
+                overflow: 'hidden',
+                aspectRatio: '16/9',
+                background: '#000'
+              }}
+            >
+              <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '12px', height: '100%' }} />
+            </div>
           </div>
-        </div>
 
-        {/* Expand Trigger Button */}
-        {!isVideoExpanded && (
-          <div 
-            onClick={() => setIsVideoExpanded(true)}
-            style={{
-              position: 'absolute',
-              bottom: '15px',
-              right: '15px',
-              background: 'rgba(218, 240, 19, 0.95)',
-              color: '#000',
-              padding: '8px 16px',
-              borderRadius: '100px',
-              fontSize: '0.75rem',
-              fontWeight: '800',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              cursor: 'pointer',
-              zIndex: 20,
-              boxShadow: '0 4px 15px rgba(218, 240, 19, 0.4)',
-              letterSpacing: '0.5px'
-            }}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <polyline points="9 21 3 21 3 15"></polyline>
-              <line x1="21" y1="3" x2="14" y2="10"></line>
-              <line x1="3" y1="21" x2="10" y2="14"></line>
-            </svg>
-            AMPLIAR
-          </div>
-        )}
-      </div>
+          {/* Expand Trigger Button */}
+          {!isVideoExpanded && (
+            <div 
+              onClick={() => setIsVideoExpanded(true)}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '15px',
+                background: 'rgba(218, 240, 19, 0.95)',
+                color: '#000',
+                padding: '8px 16px',
+                borderRadius: '100px',
+                fontSize: '0.75rem',
+                fontWeight: '800',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                cursor: 'pointer',
+                zIndex: 20,
+                boxShadow: '0 4px 15px rgba(218, 240, 19, 0.4)',
+                letterSpacing: '0.5px'
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+              AMPLIAR
+            </div>
+          )}
+        </div>
+      )}
 
       {/* MODAL PORTAL */}
       {isVideoExpanded && createPortal(
@@ -239,33 +268,44 @@ export default function Section2Content({ t, vturbPlayerId }) {
         document.body
       )}
 
-      {/* Bottom Text Panel */}
+      {/* Bottom Text Panel (Marker 2) */}
       <div className="glass-panel s2-anim" style={{
-        padding: '20px 40px',
+        padding: '25px 40px',
         borderRadius: '12px',
         textAlign: 'center',
         background: 'rgba(5, 10, 15, 0.4)',
         width: '100%',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        border: '1px solid rgba(255,255,255,0.05)'
       }}>
-        <p style={{
-          fontSize: '1rem',
-          fontWeight: '600',
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: '800',
           color: 'white',
-          margin: '0 0 10px 0',
-          lineHeight: '1.6'
+          margin: '0 0 15px 0',
+          lineHeight: '1.4'
         }}>
-          {t.text1}
-        </p>
-        <p style={{
-          fontSize: '0.9rem',
-          fontWeight: '400',
-          color: 'rgba(255,255,255,0.7)',
-          margin: 0,
-          lineHeight: '1.6'
+          {t.footerHeading}
+        </h3>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px'
         }}>
-          {t.text2}
-        </p>
+          {t.footerItems.map((item, idx) => (
+            <p key={idx} style={{
+              fontSize: '0.95rem',
+              fontWeight: idx < 2 ? '600' : '400',
+              color: idx < 2 ? 'white' : 'rgba(255,255,255,0.7)',
+              margin: 0,
+              lineHeight: '1.5'
+            }}>
+              {item === 'sin estrategia' ? (
+                <span>nuestros clientes, no pierden el tiempo hablando con curiosos, <strong>sin estrategia</strong></span>
+              ) : item}
+            </p>
+          ))}
+        </div>
       </div>
 
 

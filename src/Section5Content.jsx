@@ -43,7 +43,7 @@ export default function Section5Content({ t }) {
       width: '100%',
       maxWidth: '900px',
       height: 'auto', // Fix: Changed from 100% to auto to allow page scroll
-      margin: '-60px auto 0',
+      margin: '-70px auto 0',
       padding: '40px 20px 0',
       position: 'relative'
     }}>
@@ -128,7 +128,8 @@ export default function Section5Content({ t }) {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  objectPosition: 'center top'
                 }}
               />
             </div>

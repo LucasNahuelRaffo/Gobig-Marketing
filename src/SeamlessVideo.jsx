@@ -4,7 +4,9 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5, is
   const video1Ref = useRef(null);
   const video2Ref = useRef(null);
   const [activeVideo, setActiveVideo] = useState(1);
+  const [shouldLoadSecondary, setShouldLoadSecondary] = useState(false);
 
+  // Initial playback logic
   useEffect(() => {
     if (!video1Ref.current || !video2Ref.current) return;
     const currentV = activeVideo === 1 ? video1Ref.current : video2Ref.current;
@@ -12,12 +14,15 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5, is
     if (isPlaying) {
       if (currentV.paused) {
         currentV.play().catch(() => {});
+        // Start preloading the secondary video once the first one is confirmed playing
+        setShouldLoadSecondary(true);
       }
     } else {
       currentV.pause();
     }
   }, [isPlaying, activeVideo]);
 
+  // Seamless crossfade loop logic
   useEffect(() => {
     let reqId;
     const checkTime = () => {
@@ -31,6 +36,7 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5, is
       // When the current video approaches its end minus the crossfade duration
       if (currentV.duration && currentV.currentTime >= currentV.duration - crossfadeDuration) {
         // Prepare and play the next video from the beginning
+        // Ensure the next video is ready to play
         if (nextV.paused && isPlaying) {
           nextV.currentTime = 0;
           nextV.play().catch(() => {});
@@ -86,8 +92,8 @@ export default function SeamlessVideo({ src, poster, crossfadeDuration = 1.5, is
       />
       <video
         ref={video2Ref}
-        src={src}
-        preload="auto"
+        src={shouldLoadSecondary ? src : ""} // Only bind src when we want to start loading
+        preload={shouldLoadSecondary ? "auto" : "none"}
         muted
         defaultMuted
         playsInline
