@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logoImg from './img/logo_Gobig.png';
+import logoImg from './img/Logo_Nuevo.png';
 
 export default function Navbar({ lang, setLang, t, isLoaded }) {
   const [isVisible, setIsVisible] = useState(true);

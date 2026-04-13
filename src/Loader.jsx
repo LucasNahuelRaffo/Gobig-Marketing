@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import loaderVideo from './videos/Pantalla_de_carga.mp4';
-import logoImg from './img/logo_Gobig.png';
+import logoImg from './img/Logo_Nuevo.png';
 
 export default function Loader({ onComplete }) {
   const containerRef = useRef(null);
@@ -43,12 +43,12 @@ export default function Loader({ onComplete }) {
       });
 
       if (isMobile && logoBoxRef.current) {
-        // MOBILE ANIMATION: 4-stage progression
+        // MOBILE ANIMATION: 4-stage progression on BLACK background
         const states = [
-          { bg: '#efecf4', scale: 0.9, opacity: 0.4 },
-          { bg: '#dcd6e2', scale: 0.95, opacity: 0.7 },
-          { bg: '#a696b5', scale: 1.0, opacity: 0.9 },
-          { bg: '#4b2e58', scale: 1.05, opacity: 1.0 }
+          { bg: '#000000', scale: 0.85, opacity: 0.3 },
+          { bg: '#000000', scale: 0.95, opacity: 0.6 },
+          { bg: '#000000', scale: 1.05, opacity: 0.9 },
+          { bg: '#000000', scale: 1.0, opacity: 1.0 }
         ];
 
         // Animate through states
@@ -57,9 +57,9 @@ export default function Loader({ onComplete }) {
             backgroundColor: state.bg,
             scale: state.scale,
             opacity: state.opacity,
-            duration: 0.6,
-            ease: 'power2.inOut'
-          }, i * 0.6);
+            duration: 0.7,
+            ease: 'expo.out'
+          }, i * 0.7);
         });
 
         // Add a small pause at the end
@@ -104,14 +104,14 @@ export default function Loader({ onComplete }) {
         <div 
           ref={logoBoxRef}
           style={{
-            width: '140px',
-            height: '140px',
-            backgroundColor: '#efecf4',
-            borderRadius: '30px',
+            width: '180px',
+            height: '180px',
+            backgroundColor: '#000000',
+            borderRadius: '40px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
+            boxShadow: '0 0 60px rgba(255,255,255,0.05)',
             opacity: 0
           }}
         >
@@ -119,10 +119,8 @@ export default function Loader({ onComplete }) {
             src={logoImg} 
             alt="Logo" 
             style={{ 
-              width: '90px',
+              width: '120px',
               height: 'auto',
-              // Simple logic to invert logo color when background gets too dark
-              // Or keep it as is if it's the official branding
             }} 
           />
         </div>
