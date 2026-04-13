@@ -821,7 +821,7 @@ body {
 
   /* Responsive typography */
   .hero-main-title {
-    font-size: 1.65rem !important; /* Slightly smaller as requested */
+    font-size: 1.3rem !important; /* Adjusted to fit in exactly 4 lines */
     letter-spacing: -1px !important;
   }
 

@@ -82,7 +82,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
         background: 'rgba(5, 10, 15, 0.5)',
       }}>
         <h1 className="hero-main-title" style={{
-          fontSize: isMobile ? '1.12rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)',
+          fontSize: isMobile ? '1.3rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)',
           fontWeight: '900',
           lineHeight: '1.25',
           margin: '0 0 8px 0',
