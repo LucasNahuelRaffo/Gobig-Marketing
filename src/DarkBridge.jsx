@@ -431,13 +431,12 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                 {t.featuredCase && (
                   <div 
                     className="glass-card featured-case-card"
-                    onClick={() => setShowCaseDetails(true)}
                     style={{
                       display: 'grid',
                       gridTemplateColumns: window.innerWidth < 992 ? '1fr' : '1.2fr 1fr',
                       gap: '40px',
                       padding: '40px',
-                      cursor: 'pointer',
+                      cursor: 'default',
                       borderRadius: '24px',
                       background: 'rgba(255, 255, 255, 0.04)',
                       border: '1px solid rgba(255, 255, 255, 0.12)',
