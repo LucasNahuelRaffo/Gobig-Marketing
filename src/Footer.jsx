@@ -4,11 +4,22 @@ import logoImg from './img/logo_Gobig.png';
 export default function Footer({ t, navTranslations }) {
   // Use translations from navbar if provided for consistency
   const navLinks = navTranslations ? [
-    { name: navTranslations.home, key: 'home' },
-    { name: navTranslations.service, key: 'service' },
-    { name: navTranslations.testimonial, key: 'testimonial' },
-    { name: navTranslations.contact, key: 'contact' }
+    { name: navTranslations.home, target: 'sky' },
+    { name: navTranslations.service, target: 'lower-jungle' },
+    { name: navTranslations.testimonial, target: 'darkbridge1' }
   ] : [];
+
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const offsetPos = element.getBoundingClientRect().top + window.scrollY - 65;
+      window.scrollTo({
+        top: offsetPos,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <footer className="s6-anim" style={{
@@ -69,10 +80,16 @@ export default function Footer({ t, navTranslations }) {
         <div style={{ flex: '1 1 120px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <h4 style={{ color: 'white', fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>{t.nav}</h4>
           {navLinks.map(link => (
-            <Link to="/" key={link.key} style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
-              onMouseEnter={(e) => e.target.style.color = '#DAF013'} onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}>
+            <a 
+              href={`#${link.target}`} 
+              key={link.target} 
+              onClick={(e) => scrollToSection(e, link.target)}
+              style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.8rem', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.target.style.color = '#DAF013'} 
+              onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.5)'}
+            >
               {link.name}
-            </Link>
+            </a>
           ))}
         </div>
 

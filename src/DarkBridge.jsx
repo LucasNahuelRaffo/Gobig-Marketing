@@ -7,7 +7,7 @@ import './App.css';
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function DarkBridge({ t, style, mode = 'standard' }) {
+export default function DarkBridge({ id, t, style, mode = 'standard' }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isMoving, setIsMoving] = useState(false); // Throttle for clicks
@@ -137,6 +137,7 @@ export default function DarkBridge({ t, style, mode = 'standard' }) {
 
   return (
     <section 
+      id={id}
       className={`dark-bridge ${isShowcase ? 'showcase-bridge' : ''}`} 
       style={{ ...style, position: 'relative', overflow: 'visible' }}
     >
