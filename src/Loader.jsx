@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import loaderVideo from './videos/Pantalla_de_carga.mp4';
 import logoImg from './img/Logo_Nuevo.png';
+import loaderStrip from './img/img_pantalla_de_carga/image.png';
 
 export default function Loader({ onComplete }) {
   const containerRef = useRef(null);
@@ -43,24 +44,24 @@ export default function Loader({ onComplete }) {
       });
 
       if (isMobile && logoBoxRef.current) {
-        // MOBILE ANIMATION: 4-stage progression on BLACK background
-        const states = [
-          { bg: '#000000', scale: 0.85, opacity: 0.3 },
-          { bg: '#000000', scale: 0.95, opacity: 0.6 },
-          { bg: '#000000', scale: 1.05, opacity: 0.9 },
-          { bg: '#000000', scale: 1.0, opacity: 1.0 }
-        ];
+        // MOBILE ANIMATION: Cycle through the 4-stage sprite sheet
+        // backgroundPositionX: 0% (1st logo), 33.3% (2nd), 66.6% (3rd), 100% (4th)
+        const positions = ['0%', '33.33%', '66.66%', '100%'];
+        
+        // Initial reveal
+        tl.to(logoBoxRef.current, { opacity: 1, duration: 0.5 });
 
-        // Animate through states
-        states.forEach((state, i) => {
+        // Step through the sprites
+        positions.forEach((pos, i) => {
           tl.to(logoBoxRef.current, {
-            backgroundColor: state.bg,
-            scale: state.scale,
-            opacity: state.opacity,
-            duration: 0.7,
-            ease: 'expo.out'
-          }, i * 0.7);
+            backgroundPositionX: pos,
+            duration: 0.1, // Sudden change to next sprite
+            ease: 'none'
+          }, (i + 1) * 0.7); // Wait 0.7s between steps
         });
+
+        // Final scale up
+        tl.to(logoBoxRef.current, { scale: 1.1, duration: 0.5, ease: 'back.out(2)' });
 
         // Add a small pause at the end
         tl.to({}, { duration: 0.5 });
@@ -104,26 +105,19 @@ export default function Loader({ onComplete }) {
         <div 
           ref={logoBoxRef}
           style={{
-            width: '180px',
+            width: '180px', // Adjusted to match the square aspect ratio of the icons
             height: '180px',
-            backgroundColor: '#000000',
+            backgroundImage: `url(${loaderStrip})`,
+            backgroundSize: '400% 100%',
+            backgroundPosition: '0% 0%',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: 'transparent',
             borderRadius: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             boxShadow: '0 0 60px rgba(255,255,255,0.05)',
-            opacity: 0
+            opacity: 0,
+            transform: 'scale(1)'
           }}
-        >
-          <img 
-            src={logoImg} 
-            alt="Logo" 
-            style={{ 
-              width: '120px',
-              height: 'auto',
-            }} 
-          />
-        </div>
+        />
       ) : (
         <video
           ref={videoRef}
@@ -141,6 +135,10 @@ export default function Loader({ onComplete }) {
           <source src={loaderVideo} type="video/mp4" />
         </video>
       )}
+    </div>
+  );
+}
+
     </div>
   );
 }
