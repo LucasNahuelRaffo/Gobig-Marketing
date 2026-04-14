@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import loaderVideo from './videos/Pantalla_de_carga.mp4';
 import logoImg from './img/Logo_Nuevo.png';
-import loaderStrip from './img/img_pantalla_de_carga/image.png';
 
 export default function Loader({ onComplete }) {
   const containerRef = useRef(null);
@@ -44,27 +43,37 @@ export default function Loader({ onComplete }) {
       });
 
       if (isMobile && logoBoxRef.current) {
-        // MOBILE ANIMATION: Cycle through the 4-stage sprite sheet
-        // backgroundPositionX: 0% (1st logo), 33.3% (2nd), 66.6% (3rd), 100% (4th)
-        const positions = ['0%', '33.33%', '66.66%', '100%'];
-        
-        // Initial reveal
-        tl.to(logoBoxRef.current, { opacity: 1, duration: 0.5 });
+        // MOBILE PULSING ANIMATION: 4 stages of increasing clarity
+        const stages = [
+          { blur: 15, scale: 0.8, opacity: 0.2 },
+          { blur: 8, scale: 0.95, opacity: 0.5 },
+          { blur: 3, scale: 1.1, opacity: 0.8 },
+          { blur: 0, scale: 1.0, opacity: 1.0 }
+        ];
 
-        // Step through the sprites
-        positions.forEach((pos, i) => {
+        // Animate through pulses
+        stages.forEach((s, i) => {
+          // Surge pulse
           tl.to(logoBoxRef.current, {
-            backgroundPositionX: pos,
-            duration: 0.1, // Sudden change to next sprite
-            ease: 'none'
-          }, (i + 1) * 0.7); // Wait 0.7s between steps
+            filter: `blur(${s.blur}px)`,
+            scale: s.scale,
+            opacity: s.opacity,
+            duration: 0.6,
+            ease: 'power2.out'
+          }, i * 0.8);
+          
+          // Slight settle/pulsation feel
+          if (i < stages.length - 1) {
+            tl.to(logoBoxRef.current, {
+              scale: s.scale * 0.98,
+              duration: 0.2,
+              ease: 'sine.inOut'
+            }, (i * 0.8) + 0.6);
+          }
         });
 
-        // Final scale up
-        tl.to(logoBoxRef.current, { scale: 1.1, duration: 0.5, ease: 'back.out(2)' });
-
-        // Add a small pause at the end
-        tl.to({}, { duration: 0.5 });
+        // Add a small pause at the end to appreciate the sharp logo
+        tl.to({}, { duration: 0.7 });
       } else {
         // DESKTOP ANIMATION: Fixed wait for video
         tl.to({}, { duration: 3.5 });
@@ -105,19 +114,29 @@ export default function Loader({ onComplete }) {
         <div 
           ref={logoBoxRef}
           style={{
-            width: '180px', // Adjusted to match the square aspect ratio of the icons
+            width: '180px',
             height: '180px',
-            backgroundImage: `url(${loaderStrip})`,
-            backgroundSize: '400% 100%',
-            backgroundPosition: '0% 0%',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: 'transparent',
+            backgroundColor: '#000000', // Black box as requested
             borderRadius: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             boxShadow: '0 0 60px rgba(255,255,255,0.05)',
             opacity: 0,
-            transform: 'scale(1)'
+            transform: 'scale(0.8)',
+            filter: 'blur(20px)'
           }}
-        />
+        >
+          <img 
+            src={logoImg} 
+            alt="Logo" 
+            style={{ 
+              width: '120px',
+              height: 'auto',
+              display: 'block'
+            }} 
+          />
+        </div>
       ) : (
         <video
           ref={videoRef}
