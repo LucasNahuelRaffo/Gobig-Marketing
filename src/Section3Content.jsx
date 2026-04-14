@@ -6,12 +6,15 @@ import logoOrlando from './img/Logos de Empresas/Dr. Orlando Santillan.png';
 import logoLuar from './img/Logos de Empresas/Luar.png';
 import logoRenuev from './img/Logos de Empresas/Renuev.png';
 
-const partners = [
+const basePartners = [
   { src: logoBarbara, alt: 'Barbara Chavez' },
   { src: logoOrlando, alt: 'Dr. Orlando Santillan' },
   { src: logoLuar, alt: 'Luar' },
   { src: logoRenuev, alt: 'Renuev' },
 ];
+
+// Duplicate partners to ensure the marquee remains dense and continuous
+const partners = [...basePartners, ...basePartners, ...basePartners];
 
 export default function Section3Content({ t }) {
   const containerRef = useRef(null);
