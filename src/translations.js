@@ -2,13 +2,13 @@ export const translations = {
   es: {
     vturbPlayers: {
       vsl: '69c98af8e7e40985f5c85e55',       // Hero VSL (mismo para ES/EN)
-      testimonials: '',                        // Seccion 2 (Vacio por solicitud)
+      testimonials: '69c7778e94d36cec11763834', // Seccion 2 - Testimonio de Luar
       faqs: '69c7777d3a29b825b3b089bf',      // Section 4 - Caso de estudio Luar (ES)
       darkBridge2_video1: '69c9999aaa1b825b3b089aa', // Section 4 Video 1 (ES)
       darkBridge2_video2: '69cb657126958024656e0131', // Dr. Orlando (ES)
       darkBridge2_video3: '69c9999ccc3b825b3b089cc', // Section 4 Video 3 (ES)
       darkBridge2_video4: '69c9999ddd4b825b3b089dd', // Section 4 Video 4 (ES)
-      darkBridge2_video5: '69c7778e94d36cec11763834'  // Luar Testimonial (ES - Movido desde Seccion 2)
+      darkBridge2_video5: '69c7778e94d36cec11763834'  // Luar Testimonial (ES - duplicado para backup)
     },
     navbar: {
       home: 'Inicio',
@@ -328,7 +328,7 @@ export const translations = {
   en: {
     vturbPlayers: {
       vsl: '69c98af8e7e40985f5c85e55',       // Hero VSL
-      testimonials: '',                     // Section 2 (Empty per request)
+      testimonials: '69c7778e94d36cec11763834', // Restored Luar Testimonial
       faqs: '69cb65b36983e3eba6dee303',     // Sistema Follow Me Ads (EN - Single Video)
       darkBridge2_video1: '69c9999ccc3b825b3b089cc', // Section 4 Video 1 (EN)
       darkBridge2_video2: '',                     // Hidden per 'Single Video' request
