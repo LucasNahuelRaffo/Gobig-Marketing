@@ -240,7 +240,12 @@ export const translations = {
       ctaTitle: '¿Listo para llenar tu clínica de pacientes calificados?',
       ctaSub: '"Aplica ahora y agenda tu llamada estratégica"',
       marquee: 'Clínicas médicas de todo el mundo confían en nosotros',
-      marqueeSub: 'Fundadores, equipos médicos y líderes de salud de toda la región trabajan con nuestro sistema.'
+      marqueeSub: 'Fundadores, equipos médicos y líderes de salud de toda la región trabajan con nuestro sistema.',
+      pantherTitle1: 'Trabajamos con',
+      pantherTitle2: 'Personas Ocupadas y con',
+      pantherTitle3: 'Alto Poder Adquisitivo',
+      pantherTitle4: 'Todos los Días',
+      pantherDescription: 'Lo entendemos, y nuestro negocio está diseñado para personas como tú. Todo lo que te pidamos será eficiente y fácil de llevar a cabo. Y en las pocas cosas en las que sí necesitaremos tu apoyo, como videos de anuncios de respuesta directa, contenido y videos para el embudo, nos aseguraremos de que sea algo que puedas ejecutar con facilidad.'
     },
     section4: {
       title: 'El Sistema en Acción',
@@ -561,7 +566,12 @@ export const translations = {
       ctaTitle: 'Ready to fill your clinic with qualified patients?',
       ctaSub: '"Apply now and schedule your strategic call"',
       marquee: 'Medical clinics worldwide trust us',
-      marqueeSub: 'Founders, medical teams and health leaders from the entire region work with our system.'
+      marqueeSub: 'Founders, medical teams and health leaders from the entire region work with our system.',
+      pantherTitle1: 'We work with',
+      pantherTitle2: 'Busy Individuals and',
+      pantherTitle3: 'High Net Worth clients',
+      pantherTitle4: 'Every Day',
+      pantherDescription: "We get it, and our business is designed for people like you. Everything we ask of you will be efficient and easy to accomplish. And for the few things where we do need your support—such as direct-response ad videos, content, and funnel assets—we'll make sure it's something you can execute with ease."
     },
     section4: {
       title: 'The System in Action',

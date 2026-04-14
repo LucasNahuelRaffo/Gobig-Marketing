@@ -76,8 +76,8 @@ export default function Section3Content({ t }) {
             margin: 0,
             letterSpacing: '-0.5px'
           }}>
-            Trabajamos con <span style={{ color: '#DAF013' }}>Personas Ocupadas y con</span><br />
-            <span style={{ color: '#DAF013' }}>Alto Poder Adquisitivo</span> Todos los Días
+            {t.pantherTitle1} <span style={{ color: '#DAF013' }}>{t.pantherTitle2}</span><br />
+            <span style={{ color: '#DAF013' }}>{t.pantherTitle3}</span> {t.pantherTitle4}
           </h2>
         </div>
 
@@ -100,7 +100,7 @@ export default function Section3Content({ t }) {
             margin: 0,
             fontWeight: '400'
           }}>
-            Lo entendemos, y nuestro negocio está diseñado para personas como tú. Todo lo que te pidamos será eficiente y fácil de llevar a cabo. Y en las pocas cosas en las que sí necesitaremos tu apoyo, como videos de anuncios de respuesta directa, contenido y videos para el embudo, nos aseguraremos de que sea algo que puedas ejecutar con facilidad.
+            {t.pantherDescription}
           </p>
         </div>
       </div>
