@@ -102,7 +102,7 @@ export default function Loader({ onComplete }) {
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: '#000000',
+        backgroundColor: isMobile ? '#000000' : '#050a0a',
         zIndex: 9999,
         display: 'flex',
         alignItems: 'center',
