@@ -138,7 +138,3 @@ export default function Loader({ onComplete }) {
     </div>
   );
 }
-
-    </div>
-  );
-}
