@@ -21,6 +21,7 @@ import './App.css';
 
 import skyImg from './img/sky.webp';
 import canopyImg from './img/canopy.webp';
+import fondoHero from './img/Fondo_Hero.png';
 import heroVideo from './videos/hero-background.mp4';
 import pantherImg from './img/panther.webp';
 import lowerJungleImg from './img/lower-jungle.webp';
@@ -30,7 +31,7 @@ import fossilsImg from './img/fossils.webp';
 gsap.registerPlugin(ScrollTrigger);
 
 const sections = [
-  { id: 'sky', video: heroVideo, name: 'Sky - Starry Night' },
+  { id: 'sky', img: fondoHero, name: 'Hero Background' },
   { id: 'canopy', img: canopyImg, name: 'Upper Canopy' },
   { id: 'panther', img: pantherImg, name: 'Panther on Bridge' },
   { id: 'lower-jungle', img: lowerJungleImg, name: 'Lower Jungle' },
