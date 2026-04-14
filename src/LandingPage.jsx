@@ -21,17 +21,18 @@ import './App.css';
 
 import skyImg from './img/sky.webp';
 import canopyImg from './img/canopy.webp';
-import fondoHero from './img/Fondo_Hero.png';
 import heroVideo from './videos/hero-background.mp4';
 import pantherImg from './img/panther.webp';
 import lowerJungleImg from './img/lower-jungle.webp';
 import rootsImg from './img/roots.webp';
 import fossilsImg from './img/fossils.webp';
 
+import heroMobileImg from './img/Fondo_Hero.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const sections = [
-  { id: 'sky', img: fondoHero, name: 'Hero Background' },
+  { id: 'sky', video: heroVideo, name: 'Sky - Starry Night' },
   { id: 'canopy', img: canopyImg, name: 'Upper Canopy' },
   { id: 'panther', img: pantherImg, name: 'Panther on Bridge' },
   { id: 'lower-jungle', img: lowerJungleImg, name: 'Lower Jungle' },
@@ -44,6 +45,7 @@ export default function LandingPage({ lang, setLang }) {
   const sectionRefs = useRef([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
   const t = translations[lang];
 
@@ -51,6 +53,12 @@ export default function LandingPage({ lang, setLang }) {
     setIsLoaded(true);
     // Remove loader from DOM after a very small buffer
     setTimeout(() => setShowLoader(false), 100);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -164,7 +172,14 @@ export default function LandingPage({ lang, setLang }) {
             ref={(el) => (sectionRefs.current[i] = el)}
             style={{ zIndex: i * 2 }}
           >
-          {section.id === 'panther' ? (
+          {section.id === 'sky' && isMobile ? (
+            <div className="section-bg-wrapper">
+              <div
+                className="section-bg"
+                style={{ backgroundImage: `url(${heroMobileImg})` }}
+              />
+            </div>
+          ) : section.id === 'panther' ? (
             <PantherCanvas isLoaded={isLoaded} />
           ) : section.video ? (
             <SeamlessVideo src={section.video} poster={skyImg} crossfadeDuration={1.5} isPlaying={isLoaded} />
