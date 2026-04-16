@@ -142,8 +142,8 @@ export default function LandingPage({ lang, setLang }) {
       <SEO 
         title="GoBig - Agencia de Marketing Médico Especializada en Clínicas Estéticas" 
         description="GoBig ayuda a clínicas médicas a conseguir +30 agendas calificadas con publicidad en Meta. Sistema completo de captación, conversión y retención de pacientes de alto valor." 
-        image={`https://gobigagencia.com${ogPreviewImg}`} 
-        url="https://gobigagencia.com/" 
+        image={`https://www.gobigagencia.com${ogPreviewImg}?v=2`} 
+        url="https://www.gobigagencia.com/" 
         type="website"
       />
       <StructuredData />
