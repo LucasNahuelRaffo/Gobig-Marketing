@@ -28,6 +28,7 @@ import rootsImg from './img/roots.webp';
 import fossilsImg from './img/fossils.webp';
 
 import heroMobileImg from './img/Fondo_Hero.png';
+import ogPreviewImg from './img/og-preview.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -141,7 +142,7 @@ export default function LandingPage({ lang, setLang }) {
       <SEO 
         title="GoBig - Agencia de Marketing Médico Especializada en Clínicas Estéticas" 
         description="GoBig ayuda a clínicas médicas a conseguir +30 agendas calificadas con publicidad en Meta. Sistema completo de captación, conversión y retención de pacientes de alto valor." 
-        image="https://gobigagencia.com/hero-image.jpg" 
+        image={`https://gobigagencia.com${ogPreviewImg}`} 
         url="https://gobigagencia.com/" 
         type="website"
       />

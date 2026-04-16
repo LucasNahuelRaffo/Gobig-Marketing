@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import VturbPlayer from './VturbPlayer';
+import Particles from './Particles';
 import fondoFaq from './img/Fondo_2.jpg';
 import './App.css';
 
@@ -18,6 +19,8 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
   const [showCaseDetails, setShowCaseDetails] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const [caseIndex, setCaseIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const isMobile = visibleCards === 1;
 
@@ -111,9 +114,16 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
       });
       if (isCheckItem) {
         return (
-          <div key={idx} style={{ display: 'flex', gap: '12px', alignItems: 'center', margin: '8px 0', color: 'rgba(255,255,255,0.95)' }}>
-            <span className="text-neon" style={{ fontWeight: '900' }}>✓</span>
-            <span>{content}</span>
+          <div key={idx} style={{ 
+            display: 'flex', 
+            gap: '12px', 
+            alignItems: 'flex-start', 
+            margin: '8px 0', 
+            color: 'rgba(255,255,255,0.95)',
+            textAlign: 'left'
+          }}>
+            <span className="text-neon" style={{ fontWeight: '900', marginTop: '3px' }}>✓</span>
+            <span style={{ lineHeight: '1.5' }}>{content}</span>
           </div>
         );
       }
@@ -148,6 +158,22 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
     setTimeout(() => setIsMoving(false), 600); // Unlock after transition
   };
 
+  // --- SWIPE LOGIC ---
+  const minSwipeDistance = 50;
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchEnd = (callbackNext, callbackPrev) => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (Math.abs(distance) < minSwipeDistance) return;
+    if (distance > 0) callbackNext();
+    else callbackPrev();
+  };
+
+
   if (!t) return null;
 
   const isShowcase = mode === 'showcase' || t.type === 'showcase';
@@ -156,7 +182,7 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
     <section
       id={id}
       className={`dark-bridge ${isShowcase ? 'showcase-bridge' : ''}`}
-      style={{ ...style, position: 'relative', overflow: 'visible' }}
+      style={{ ...style, position: 'relative' }}
     >
       <div className="bridge-content">
         <div className="container">
@@ -175,7 +201,7 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
             {/* Main Title */}
           <h2 className="bridge-title text-neon" style={{
             fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-            paddingTop: '60px',
+            paddingTop: isMobile ? '20px' : '60px',
             marginBottom: isShowcase ? '60px' : '40px',
             fontWeight: '900',
             textTransform: 'uppercase',
@@ -399,6 +425,9 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                 className="testimonials-carousel-wrapper"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={() => onTouchEnd(handleNext, handlePrev)}
               >
                 <button className="carousel-control prev" onClick={handlePrev} aria-label="Previous">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M15 18l-6-6 6-6" /></svg>
@@ -456,6 +485,12 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                 <div 
                   className="testimonials-carousel-wrapper"
                   style={{ padding: isMobile ? '0 15px 80px' : '0 40px' }}
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={() => onTouchEnd(
+                    () => setCaseIndex(prev => Math.min(t.successCases.length - (isMobile ? 1 : 3), prev + 1)),
+                    () => setCaseIndex(prev => Math.max(0, prev - 1))
+                  )}
                 >
                   <button 
                     className="carousel-control prev" 
@@ -596,7 +631,7 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                     </svg>
                   </button>
                 </div>
-              )}    )}
+              )}
 
               {/* Success Story Modal */}
               {showCaseDetails && (
@@ -625,9 +660,11 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                       overflowY: 'auto',
                       padding: '50px',
                       position: 'relative',
-                      border: '1px solid rgba(218, 240, 19, 0.2)'
+                      border: '1px solid rgba(218, 240, 19, 0.2)',
+                      overflow: 'hidden'
                     }}
                   >
+                    <Particles count={isMobile ? 12 : 20} />
                     <button
                       className="modal-close-btn"
                       onClick={() => setShowCaseDetails(false)}
@@ -683,7 +720,15 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                         <h3 style={{ color: 'white', marginBottom: '20px' }}>Logros del Proyecto</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
                           {t.featuredCase.items.map((item, idx) => (
-                            <div key={idx} className="text-neon" style={{ fontWeight: '700' }}>✓ {item}</div>
+                            <div key={idx} className="text-neon" style={{ 
+                              fontWeight: '700',
+                              display: 'flex',
+                              gap: '8px',
+                              alignItems: 'flex-start'
+                            }}>
+                              <span style={{ marginTop: '2px' }}>✓</span>
+                              <span>{item}</span>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -696,6 +741,7 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
           </div>
         </div>
       </div>
+      <Particles count={isMobile ? 15 : 25} />
     </section>
   );
 }

@@ -209,18 +209,18 @@ export default function HeroContent({ t, vturbPlayerId }) {
         )}
       </div>
 
-      {/* Info Panel: Description + Objetivo / Garantía / Cupos */}
-      <div className="glass-panel panel-animate" style={{
-        padding: isMobile ? '16px 20px' : '22px 32px',
+      {/* Info Panel: Simplified text-only layout */}
+      <div className="panel-animate" style={{
+        padding: isMobile ? '0 10px' : '0 20px',
         width: '100%',
         maxWidth: '820px',
         boxSizing: 'border-box',
         opacity: 0,
-        background: 'rgba(5, 10, 15, 0.5)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '14px',
+        gap: '12px',
         textAlign: 'left',
+        marginTop: '10px'
       }}>
 
 
