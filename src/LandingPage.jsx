@@ -245,11 +245,11 @@ export default function LandingPage({ lang, setLang }) {
         </section>
 
         {/* --- Dark Bridge inter-sections --- */}
-        {i === 0 && t.darkBridge1 && <DarkBridge id="darkbridge1" t={t.darkBridge1} style={{ zIndex: i * 2 + 1 }} />}
-        {i === 1 && t.darkBridge2 && <DarkBridge t={t.darkBridge2} style={{ zIndex: i * 2 + 1 }} />}
-        {i === 2 && t.darkBridge3 && <DarkBridge t={t.darkBridge3} style={{ zIndex: i * 2 + 1 }} />}
-        {i === 3 && t.darkBridge4 && <DarkBridge t={t.darkBridge4} style={{ zIndex: i * 2 + 1 }} />}
-        {i === 4 && t.darkBridge5 && <DarkBridge t={t.darkBridge5} style={{ zIndex: i * 2 + 1 }} />}
+        {i === 0 && t.darkBridge1 && <DarkBridge id="darkbridge1" t={t.darkBridge1} lang={lang} style={{ zIndex: i * 2 + 1 }} />}
+        {i === 1 && t.darkBridge2 && <DarkBridge t={t.darkBridge2} lang={lang} style={{ zIndex: i * 2 + 1 }} />}
+        {i === 2 && t.darkBridge3 && <DarkBridge t={t.darkBridge3} lang={lang} style={{ zIndex: i * 2 + 1 }} />}
+        {i === 3 && t.darkBridge4 && <DarkBridge t={t.darkBridge4} lang={lang} style={{ zIndex: i * 2 + 1 }} />}
+        {i === 4 && t.darkBridge5 && <DarkBridge t={t.darkBridge5} lang={lang} style={{ zIndex: i * 2 + 1 }} />}
       </Fragment>
       ))}
 

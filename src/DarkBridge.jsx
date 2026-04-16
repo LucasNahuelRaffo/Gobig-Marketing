@@ -2,21 +2,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import VturbPlayer from './VturbPlayer';
+import fondoFaq from './img/Fondo_2.jpg';
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function DarkBridge({ id, t, style, mode = 'standard' }) {
+export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isMoving, setIsMoving] = useState(false); // Throttle for clicks
   const [visibleCards, setVisibleCards] = useState(window.innerWidth < 1024 ? (window.innerWidth < 768 ? 1 : 2) : 3);
-  
+
   const [isPaused, setIsPaused] = useState(false);
   const [showCaseDetails, setShowCaseDetails] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
-  
+  const [caseIndex, setCaseIndex] = useState(0);
+
+  const isMobile = visibleCards === 1;
+
   const testimonials = t?.testimonials || [];
   const totalItems = testimonials.length;
 
@@ -66,7 +70,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
       return () => clearInterval(timer);
     }
   }, [mode, t, isTransitioning, totalItems, isPaused]);
-  
+
   const scrollPosition = useRef(0);
 
   // Prevent body scroll when modal is open
@@ -101,20 +105,33 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
       const parts = processedLine.split(/(\*\*.*?\*\*)/g);
       const content = parts.map((part, i) => {
         if (part.startsWith('**') && part.endsWith('**')) {
-          return <strong key={i} style={{ color: '#DAF013', fontWeight: '900' }}>{part.slice(2, -2)}</strong>;
+          return <strong key={i} className="text-neon" style={{ fontWeight: '900' }}>{part.slice(2, -2)}</strong>;
         }
         return part;
       });
       if (isCheckItem) {
         return (
           <div key={idx} style={{ display: 'flex', gap: '12px', alignItems: 'center', margin: '8px 0', color: 'rgba(255,255,255,0.95)' }}>
-            <span style={{ color: '#DAF013', fontWeight: '900' }}>✓</span>
+            <span className="text-neon" style={{ fontWeight: '900' }}>✓</span>
             <span>{content}</span>
           </div>
         );
       }
-      return <span key={idx}>{content}{idx < lines.length - 1 ? <br/> : ''}</span>;
+      return <span key={idx}>{content}{idx < lines.length - 1 ? <br /> : ''}</span>;
     });
+  };
+
+  // Helper to parse results string into stats array
+  const parseResults = (resultsStr) => {
+    if (!resultsStr) return [];
+    const lines = resultsStr.split('\n').filter(line => line.trim());
+    return lines.map(line => {
+      const match = line.match(/^(.+?)\s+([\d$,+.%]+)\s*$/);
+      if (match) {
+        return { label: match[1].trim(), value: match[2].trim() };
+      }
+      return { label: '', value: line.trim() };
+    }).filter(stat => stat.value);
   };
 
   const handleNext = () => {
@@ -136,20 +153,31 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
   const isShowcase = mode === 'showcase' || t.type === 'showcase';
 
   return (
-    <section 
+    <section
       id={id}
-      className={`dark-bridge ${isShowcase ? 'showcase-bridge' : ''}`} 
+      className={`dark-bridge ${isShowcase ? 'showcase-bridge' : ''}`}
       style={{ ...style, position: 'relative', overflow: 'visible' }}
     >
       <div className="bridge-content">
         <div className="container">
-          {/* Main Title */}
-          <h2 className="bridge-title neon-text" style={{ 
-            color: '#DAF013', 
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)', 
-            paddingTop: '60px', 
-            marginBottom: isShowcase ? '60px' : '40px', 
-            fontWeight: '900', 
+          <div style={{
+            width: (isMobile && t.faqs) ? '100vw' : '100%',
+            marginLeft: (isMobile && t.faqs) ? 'calc(-50vw + 50%)' : '0',
+            marginRight: (isMobile && t.faqs) ? 'calc(-50vw + 50%)' : '0',
+            backgroundImage: (isMobile && t.faqs) ? `url(${fondoFaq})` : 'none',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: (isMobile && t.faqs) ? '40px' : '0',
+            paddingBottom: (isMobile && t.faqs) ? '40px' : '0',
+            boxSizing: 'border-box'
+          }}>
+            {/* Main Title */}
+          <h2 className="bridge-title text-neon" style={{
+            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+            paddingTop: '60px',
+            marginBottom: isShowcase ? '60px' : '40px',
+            fontWeight: '900',
             textTransform: 'uppercase',
             letterSpacing: '-1px',
             textAlign: 'center'
@@ -159,7 +187,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
 
           {!isShowcase ? (
             /* --- CASE 1: Standard / Pitch / FAQ Content --- */
-            <div className="standard-content" style={{ 
+            <div className="standard-content" style={{
               textAlign: 'center',
               maxWidth: '960px',
               margin: '0 auto',
@@ -184,21 +212,23 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
 
               {/* FAQ Accordion Grid */}
               {t.faqs && (
-                <div style={{ 
-                  width: '100%', 
-                  display: 'grid', 
-                  gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr', 
-                  gap: '20px', 
+                <div style={{
+                  width: '100%',
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '20px',
                   textAlign: 'left',
-                  alignItems: 'start' 
+                  alignItems: 'start',
+                  boxSizing: 'border-box',
+                  position: 'relative'
                 }}>
                   {t.faqs.map((faq, i) => (
-                    <div 
-                      key={i} 
-                      className="glass-card faq-card-grid" 
+                    <div
+                      key={i}
+                      className="glass-card faq-card-grid"
                       onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                      style={{ 
-                        padding: '24px', 
+                      style={{
+                        padding: '24px',
                         cursor: 'pointer',
                         background: activeFaq === i ? 'rgba(218, 240, 19, 0.08)' : 'rgba(255, 255, 255, 0.03)',
                         border: activeFaq === i ? '1px solid #DAF013' : '1px solid rgba(215, 230, 255, 0.1)',
@@ -213,16 +243,16 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '15px' }}>
-                        <h4 style={{ 
-                          color: activeFaq === i ? '#DAF013' : 'rgba(255,255,255,0.9)', 
-                          margin: 0, 
-                          fontSize: '1.1rem', 
+                        <h4 className={activeFaq === i ? "text-neon" : ""} style={{
+                          color: activeFaq === i ? undefined : 'rgba(255,255,255,0.9)',
+                          margin: 0,
+                          fontSize: '1.1rem',
                           fontWeight: '700',
                           lineHeight: '1.4'
                         }}>
                           {faq.question}
                         </h4>
-                        <div style={{ 
+                        <div style={{
                           width: '32px',
                           height: '32px',
                           borderRadius: '50%',
@@ -233,35 +263,35 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                           transition: 'all 0.3s ease',
                           flexShrink: 0
                         }}>
-                          <svg 
-                            width="14" 
-                            height="14" 
-                            viewBox="0 0 14 14" 
-                            style={{ 
-                              transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)', 
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            style={{
+                              transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                               transform: activeFaq === i ? 'rotate(45deg)' : 'rotate(0deg)',
-                              display: 'block' 
+                              display: 'block'
                             }}
                           >
-                            <path 
-                              d="M7 2V12M2 7H12" 
-                              stroke={activeFaq === i ? '#050a0a' : '#DAF013'} 
-                              strokeWidth="2.5" 
+                            <path
+                              d="M7 2V12M2 7H12"
+                              stroke={activeFaq === i ? '#050a0a' : '#DAF013'}
+                              strokeWidth="2.5"
                               strokeLinecap="round"
                             />
                           </svg>
                         </div>
                       </div>
                       {activeFaq === i && (
-                        <div style={{ 
+                        <div style={{
                           height: 'auto',
                           opacity: 0,
                           animation: 'fadeIn 0.4s forwards'
                         }}>
-                          <p style={{ 
-                            marginTop: '20px', 
-                            color: 'rgba(255,255,255,0.7)', 
-                            lineHeight: '1.6', 
+                          <p style={{
+                            marginTop: '20px',
+                            color: 'rgba(255,255,255,0.7)',
+                            lineHeight: '1.6',
                             fontSize: '0.95rem',
                             borderTop: '1px solid rgba(218, 240, 19, 0.2)',
                             paddingTop: '15px'
@@ -325,7 +355,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                   ))}
                 </div>
               )}
-              
+
               {/* Stats if available */}
               {t.stats && (
                 <div className="bridge-grid" style={{ marginTop: '20px' }}>
@@ -340,8 +370,8 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
 
               {/* Pitch CTA Button */}
               {t.cta && (
-                <button 
-                  className="btn-glow" 
+                <button
+                  className="btn-glow"
                   onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
                   style={{
                     marginTop: '20px',
@@ -365,19 +395,19 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
             /* --- CASE 2: Complex Showcase Bridge --- */
             <div className="showcase-content">
               {/* Testimonials Carousel Wrapper */}
-              <div 
+              <div
                 className="testimonials-carousel-wrapper"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
               >
                 <button className="carousel-control prev" onClick={handlePrev} aria-label="Previous">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M15 18l-6-6 6-6"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M15 18l-6-6 6-6" /></svg>
                 </button>
-                
+
                 <div className="testimonials-carousel-viewport">
-                  <div 
-                    className={`testimonials-track ${!isTransitioning ? 'no-transition' : ''}`} 
-                    style={{ 
+                  <div
+                    className={`testimonials-track ${!isTransitioning ? 'no-transition' : ''}`}
+                    style={{
                       transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`
                     }}
                   >
@@ -405,15 +435,15 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                 </div>
 
                 <button className="carousel-control next" onClick={handleNext} aria-label="Next">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M9 18l6-6-6-6"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M9 18l6-6-6-6" /></svg>
                 </button>
               </div>
 
               {/* Secondary Title Divider */}
-              <h3 className="section-subtitle" style={{ 
-                color: 'white', 
-                fontSize: '1.2rem', 
-                fontWeight: '900', 
+              <h3 className="section-subtitle" style={{
+                color: 'white',
+                fontSize: '1.2rem',
+                fontWeight: '900',
                 margin: '100px 0 50px 0',
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
@@ -421,158 +451,156 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
               }}>
                 {t.secondaryTitle}
               </h3>
-
-              {/* Results/Showcase Row - Now a single Featured Card */}
-              <div className="featured-case-container" style={{
-                maxWidth: '1200px',
-                margin: '0 auto',
-                width: '100%'
-              }}>
-                {t.featuredCase && (
-                  <div 
-                    className="glass-card featured-case-card"
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: window.innerWidth < 992 ? '1fr' : '1.2fr 1fr',
-                      gap: '40px',
-                      padding: '40px',
-                      cursor: 'default',
-                      borderRadius: '24px',
-                      background: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                      position: 'relative',
-                      overflow: 'hidden'
-                    }}
+              {/* Success Cases Carousel - Matching Testimonials Style */}
+              {t.successCases && (
+                <div 
+                  className="testimonials-carousel-wrapper"
+                  style={{ padding: isMobile ? '0 15px 80px' : '0 40px' }}
+                >
+                  <button 
+                    className="carousel-control prev" 
+                    onClick={() => setCaseIndex(prev => Math.max(0, prev - 1))}
+                    aria-label={lang === 'es' ? 'Anterior' : 'Previous'}
                   >
-                    {/* Visual Side */}
-                    <div className="featured-card-visual" style={{
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      height: '400px',
-                      position: 'relative',
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
-                    }}>
-                      <img 
-                        src={t.featuredCase.image} 
-                        alt={t.featuredCase.title}
-                        className="image-crop-browser"
-                        style={{
-                          width: '100%',
-                          height: '100%'
-                        }}
-                      />
-                      <div className="case-badge" style={{
-                        position: 'absolute',
-                        top: '20px',
-                        left: '20px',
-                        padding: '8px 16px',
-                        background: '#DAF013',
-                        color: '#050a0a',
-                        fontWeight: '900',
-                        fontSize: '0.8rem',
-                        borderRadius: '100px',
-                        textTransform: 'uppercase'
-                      }}>
-                        {t.featuredCase.badge}
-                      </div>
-                    </div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
 
-                    {/* Content Side */}
-                    <div className="featured-card-content" style={{
-                      textAlign: 'left',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      gap: '24px'
-                    }}>
-                      <div className="header-meta">
-                        <h4 style={{ 
-                          color: '#DAF013', 
-                          fontSize: '0.9rem', 
-                          fontWeight: '900', 
-                          letterSpacing: '2px',
-                          textTransform: 'uppercase',
-                          marginBottom: '8px'
-                        }}>{t.featuredCase.subtitle}</h4>
-                        <h2 style={{ 
-                          color: 'white', 
-                          fontSize: '2.5rem', 
-                          fontWeight: '900',
-                          lineHeight: '1.2',
-                          margin: '0'
-                        }}>{t.featuredCase.title}</h2>
-                      </div>
+                  <div className="testimonials-carousel-viewport">
+                    <div
+                      className="testimonials-track"
+                      style={{
+                        transform: `translateX(-${caseIndex * (isMobile ? 100 : 33.333)}%)`
+                      }}
+                    >
+                      {t.successCases.map((successCase, idx) => (
+                        <div key={idx} className="testimonial-card-wrapper" style={{ flex: isMobile ? '0 0 100%' : '0 0 33.333%' }}>
+                          <div 
+                            className="glass-card" 
+                            style={{ 
+                              width: '100%', 
+                              padding: '25px', 
+                              borderRadius: '20px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '20px',
+                              textAlign: 'left'
+                            }}
+                          >
+                            {/* Visual Side */}
+                            <div style={{
+                              borderRadius: '16px',
+                              overflow: 'hidden',
+                              height: isMobile ? '220px' : '260px',
+                              position: 'relative',
+                              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                              background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}>
+                              <div style={{
+                                width: '80px',
+                                height: '80px',
+                                borderRadius: '50%',
+                                background: '#DAF013',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '2rem',
+                                fontWeight: '900',
+                                color: '#050a0a'
+                              }}>
+                                {successCase.name.charAt(0)}
+                              </div>
+                            </div>
 
-                      <div className="pillars-list" style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '12px'
-                      }}>
-                        {t.featuredCase.items.map((item, idx) => (
-                          <div key={idx} style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            color: 'rgba(255,255,255,0.9)',
-                            fontSize: '1.1rem'
-                          }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DAF013" strokeWidth="3">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            {item}
+                            {/* Content Side */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                              <div>
+                                <h4 className="text-neon" style={{ fontSize: '0.75rem', fontWeight: '900', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '4px' }}>
+                                  SUCCESS STORY
+                                </h4>
+                                <h2 style={{ color: 'white', fontSize: '1.4rem', fontWeight: '900', margin: '0 0 4px 0' }}>
+                                  {successCase.name}
+                                </h2>
+                                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', margin: 0 }}>
+                                  {successCase.location}
+                                </p>
+                              </div>
+
+                              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.88rem', lineHeight: '1.6', margin: 0 }}>
+                                {successCase.description}
+                              </p>
+
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                <h5 className="text-neon" style={{ fontSize: '0.75rem', fontWeight: '900', margin: 0, textTransform: 'uppercase' }}>
+                                  {successCase.implementation ? (lang === 'es' ? 'Implementación' : 'Implementation') : (lang === 'es' ? 'Resultados' : 'Results')}
+                                </h5>
+                                <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8rem', whiteSpace: 'pre-line' }}>
+                                  {successCase.implementation}
+                                </div>
+                              </div>
+
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                <h5 className="text-neon" style={{ fontSize: '0.75rem', fontWeight: '900', margin: 0, textTransform: 'uppercase' }}>
+                                  Results
+                                </h5>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', marginTop: '4px' }}>
+                                  {parseResults(successCase.results).map((stat, statIdx) => (
+                                    <div key={statIdx} style={{ background: 'rgba(255,255,255,0.03)', padding: '8px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                      <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', textTransform: 'uppercase' }}>{stat.label}</div>
+                                      <div className="text-neon" style={{ fontSize: '0.9rem', fontWeight: '900' }}>{stat.value}</div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank');
+                                }}
+                                style={{
+                                  marginTop: '8px',
+                                  padding: '12px 24px',
+                                  background: '#DAF013',
+                                  border: 'none',
+                                  borderRadius: '10px',
+                                  fontWeight: '900',
+                                  color: '#050a0a',
+                                  cursor: 'pointer',
+                                  fontSize: '0.85rem',
+                                  textTransform: 'uppercase',
+                                  transition: 'all 0.3s ease',
+                                  alignSelf: 'center'
+                                }}
+                              >
+                                {lang === 'es' ? 'Ver Caso Completo' : 'View Full Case'}
+                              </button>
+                            </div>
                           </div>
-                        ))}
-                      </div>
-
-                      <div className="stats-row" style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '20px',
-                        marginTop: '10px'
-                      }}>
-                        {t.featuredCase.stats.map((stat, idx) => (
-                          <div key={idx} style={{
-                            background: 'rgba(255,255,255,0.03)',
-                            padding: '12px',
-                            borderRadius: '12px',
-                            border: '1px solid rgba(255,255,255,0.05)'
-                          }}>
-                             <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', textTransform: 'uppercase' }}>{stat.label}</div>
-                             <div style={{ color: '#DAF013', fontSize: '1.2rem', fontWeight: '900' }}>{stat.value}</div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <button 
-                        className="btn-glow" 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank');
-                        }}
-                        style={{
-                          marginTop: '20px',
-                          alignSelf: 'flex-start',
-                          padding: '16px 32px',
-                          background: '#DAF013',
-                          border: 'none',
-                          borderRadius: '12px',
-                          fontWeight: '900',
-                          color: '#050a0a',
-                          cursor: 'pointer',
-                          transition: 'all 0.3s ease'
-                        }}
-                      >
-                        {t.featuredCase.cta}
-                      </button>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                )}
-              </div>
+
+                  <button 
+                    className="carousel-control next" 
+                    onClick={() => setCaseIndex(prev => Math.min(t.successCases.length - (isMobile ? 1 : 3), prev + 1))}
+                    aria-label={lang === 'es' ? 'Siguiente' : 'Next'}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+                </div>
+              )}    )}
 
               {/* Success Story Modal */}
               {showCaseDetails && (
-                <div 
+                <div
                   className="case-modal-overlay"
                   onClick={() => setShowCaseDetails(false)}
                   style={{
@@ -587,7 +615,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                     padding: '20px'
                   }}
                 >
-                  <div 
+                  <div
                     className="case-modal-content glass-panel"
                     onClick={(e) => e.stopPropagation()}
                     style={{
@@ -600,7 +628,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                       border: '1px solid rgba(218, 240, 19, 0.2)'
                     }}
                   >
-                    <button 
+                    <button
                       className="modal-close-btn"
                       onClick={() => setShowCaseDetails(false)}
                       aria-label="Close modal"
@@ -612,7 +640,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                     </button>
 
                     <div style={{ textAlign: 'left' }}>
-                      <h4 style={{ color: '#DAF013', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '10px' }}>
+                      <h4 className="text-neon" style={{ letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '10px' }}>
                         {t.featuredCase.badge}
                       </h4>
                       <h1 style={{ color: 'white', fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: '900', margin: '0 0 30px' }}>
@@ -628,35 +656,35 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
                       }}>
                         {t.featuredCase.gallery.slice(2, 4).map((img, i) => (
                           <div key={i} style={{ borderRadius: '12px', overflow: 'hidden', height: '300px' }}>
-                             <img 
-                               src={img} 
-                               alt={`Gallery ${i}`} 
-                               className="image-crop-browser"
-                               style={{ width: '100%', height: '100%' }} 
-                             />
+                            <img
+                              src={img}
+                              alt={`Gallery ${i}`}
+                              className="image-crop-browser"
+                              style={{ width: '100%', height: '100%' }}
+                            />
                           </div>
                         ))}
                       </div>
 
                       <div className="story-content" style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.2rem', lineHeight: '1.8' }}>
-                         {t.featuredCase.story.map((para, idx) => (
-                           <p key={idx} style={{ marginBottom: '25px' }}>{para}</p>
-                         ))}
+                        {t.featuredCase.story.map((para, idx) => (
+                          <p key={idx} style={{ marginBottom: '25px' }}>{para}</p>
+                        ))}
                       </div>
 
                       {/* Highlights Recap */}
-                      <div style={{ 
-                        marginTop: '50px', 
-                        padding: '30px', 
-                        background: 'rgba(218, 240, 19, 0.05)', 
+                      <div style={{
+                        marginTop: '50px',
+                        padding: '30px',
+                        background: 'rgba(218, 240, 19, 0.05)',
                         borderRadius: '16px',
                         border: '1px solid rgba(218, 240, 19, 0.1)'
                       }}>
                         <h3 style={{ color: 'white', marginBottom: '20px' }}>Logros del Proyecto</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-                           {t.featuredCase.items.map((item, idx) => (
-                             <div key={idx} style={{ color: '#DAF013', fontWeight: '700' }}>✓ {item}</div>
-                           ))}
+                          {t.featuredCase.items.map((item, idx) => (
+                            <div key={idx} className="text-neon" style={{ fontWeight: '700' }}>✓ {item}</div>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -665,6 +693,7 @@ export default function DarkBridge({ id, t, style, mode = 'standard' }) {
               )}
             </div>
           )}
+          </div>
         </div>
       </div>
     </section>

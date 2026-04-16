@@ -1,14 +1,14 @@
 export const translations = {
   es: {
     vturbPlayers: {
-      vsl: '69c98af8e7e40985f5c85e55',       // Hero VSL (mismo para ES/EN)
+      vsl: '69dda36700f23bcc1850198a',       // Hero VSL (ES)
       testimonials: '69c7778e94d36cec11763834', // Seccion 2 - Testimonio de Luar
-      faqs: '69c7777d3a29b825b3b089bf',      // Section 4 - Caso de estudio Luar (ES)
-      darkBridge2_video1: '69c9999aaa1b825b3b089aa', // Section 4 Video 1 (ES)
+      faqs: '69de6c154a2ec0e475897211',      // FAQ Video (ES)
+      darkBridge2_video1: '69c7777d3a29b825b3b089bf', // Moved Diagram ES here
       darkBridge2_video2: '69cb657126958024656e0131', // Dr. Orlando (ES)
       darkBridge2_video3: '69c9999ccc3b825b3b089cc', // Section 4 Video 3 (ES)
       darkBridge2_video4: '69c9999ddd4b825b3b089dd', // Section 4 Video 4 (ES)
-      darkBridge2_video5: '69c7778e94d36cec11763834'  // Luar Testimonial (ES - duplicado para backup)
+      darkBridge2_video5: '69c7777d3a29b825b3b089bf'  // Moved Diagram ES here to show at bottom right
     },
     navbar: {
       home: 'Inicio',
@@ -24,7 +24,11 @@ export const translations = {
       title4: 'Con menos de',
       title5: '$1000USD',
       title6: 'en publicidad de Meta',
-      description: 'Te guiamos personalmente 1 a 1 durante todo el proceso, para comprar tu tiempo de vuelta, desde la selección de mercado, negociación, financiamiento, y administrar cada dólar en anuncios, todo hasta que adquieras 30 agendas. Sin importar si eres doctor o clínica, sin redes, sin quirófano y sin necesidad de viajar.',
+      descPart1: 'Te guiamos ',
+      descHighlight1: 'personalmente 1 a 1',
+      descPart2: ' durante todo el proceso, para comprar tu tiempo de vuelta, desde la selección de mercado, negociación, financiamiento, y administrar cada dólar en anuncios, todo hasta que ',
+      descHighlight2: 'adquieras 30 agendas.',
+      descPart3: ' Sin importar si eres doctor o clínica, sin redes, sin quirófano y sin necesidad de viajar.',
       badges: ['Sin quirófano', 'Guía personalizada 1 a 1', 'Sin redes sociales', 'Sin necesidad de viajar'],
       cta: 'Agendar Llamada Gratis',
       bannerStep: 'PASO 1:',
@@ -34,11 +38,11 @@ export const translations = {
       bannerDesc: 'para ver lo que incluye el Programa 1 a 1',
       vsl: 'Mirar VSL',
       objective: 'Objetivo:',
-      objectiveText: 'Conseguir +30 agendas calificadas para tu clínica con publicidad en Meta optimizada al máximo.',
+      objectiveText: 'Trabajar contigo paso a paso hasta conseguir tus primeras 30 agendas calificadas con una pequeña inversion en publicidad',
       guarantee: 'Garantía:',
-      guaranteeText: 'Acompañamiento 1 a 1 hasta lograr el objetivo. Si no lo alcanzas, seguimos trabajando contigo sin costo adicional.',
+      guaranteeText: 'Si en 90 días no logramos mejorar tu flujo de citas calificadas, seguimos trabajando contigo sin costo hasta que el sistema funcione correctamente',
       limited: 'Cupos Limitados:',
-      limitedText: 'Debido a que solo trabajamos con 4 empresas al mes.'
+      limitedText: 'Ya que nuestro trabajo es 100% personalizado No Podemos Trabajar Bajo la Demanda Regular del Mercado'
     },
     darkBridge1: {
       type: 'showcase',
@@ -107,7 +111,37 @@ export const translations = {
           '/img/case-study/image4.png'
         ],
         cta: 'Agendar Llamada'
-      }
+      },
+      successCases: [
+        {
+          name: 'Dr. Orlando Santillán',
+          location: 'Quito-Ecuador',
+          description: 'Creamos una estructura digital pensada para elevar su posicionamiento, filtrar mejor a sus prospectos y convertir el interés en citas pagadas.',
+          implementation: 'Contenido estratégico\nLanding personalizada\nCRM + automatizaciones\nMeta Ads + Pixel + API',
+          results: '$288,45 invertidos\n2 citas pagadas\n1 mes de pauta'
+        },
+        {
+          name: 'Luar',
+          location: 'Lima-Perú',
+          description: 'Creamos una estructura digital para mejorar la calidad del lead, automatizar respuestas y sostener una agenda más activa y organizada.',
+          implementation: 'Landing de conversión\nPixel + API\nChatbot para agendamiento\nCRM y seguimiento automatizado',
+          results: 'S/249.93 en pauta\n39,416 de alcance\n11 conversaciones por WhatsApp\n+190 registros visibles en calendario'
+        },
+        {
+          name: 'Dra. Bárbara Chávez',
+          location: 'Lima-Perú',
+          description: 'Validamos tracción real del mercado con campañas enfocadas en conversación y tráfico, y dejamos definida la siguiente fase para convertir mejor esa demanda.',
+          implementation: 'Campañas de conversación\nTráfico optimizado\nSeguimiento de conversiones',
+          results: 'S/ 693,74 invertidos\n147 conversaciones\n143 nuevos contactos\n88 conversaciones en suplementos a S/ 1,54'
+        },
+        {
+          name: 'Dra. Dominique Rueda',
+          location: 'Quito-Ecuador',
+          description: 'Validamos tracción real del mercado con campañas enfocadas en conversación y tráfico, y dejamos definida la siguiente fase para convertir mejor esa demanda.',
+          implementation: 'Campañas de conversación\nTráfico optimizado\nSeguimiento de conversiones',
+          results: 'S/ 693,74 invertidos\n147 conversaciones\n143 nuevos contactos'
+        }
+      ]
     },
     darkBridge2: {
       title: 'Preguntas Frecuentes',
@@ -200,8 +234,7 @@ export const translations = {
       badge: 'TRUST BADGE',
       footerHeading: '¿Que tienen en común estos resultados??',
       footerItems: [
-        'Ninguno invirtió a ciegas.',
-        'Todos siguieron un sistema probado',
+        'Ninguno invirtió a ciegas. Todos siguieron un sistema probado',
         'nuestros clientes, no pierden el tiempo hablando con curiosos, sin estrategia',
         'Nuestro equipo se encarga de solucionar TODO, desde prospectar, calificar, y agendar'
       ]
@@ -327,14 +360,14 @@ export const translations = {
   },
   en: {
     vturbPlayers: {
-      vsl: '69c98af8e7e40985f5c85e55',       // Hero VSL
-      testimonials: '69c7778e94d36cec11763834', // Restored Luar Testimonial
-      faqs: '69cb65b36983e3eba6dee303',     // Sistema Follow Me Ads (EN - Single Video)
+      vsl: '69c98af8e7e40985f5c85e55',       // Hero VSL (EN)
+      testimonials: '69cf0183f5c99568d7ad679a', // Section 2 Testimonial (EN)
+      faqs: '69c7a5bb96fd2c2d9b27a1cc',     // English FAQ Video
       darkBridge2_video1: '69c9999ccc3b825b3b089cc', // Section 4 Video 1 (EN)
-      darkBridge2_video2: '',                     // Hidden per 'Single Video' request
+      darkBridge2_video2: '69de852888720c90802c710f', // Section 4 bottom video (EN)
       darkBridge2_video3: '69c9999eee5b825b3b089ee', // Section 4 Video 3 (EN)
       darkBridge2_video4: '69c9999fff6b825b3b089ff', // Section 4 Video 4 (EN)
-      darkBridge2_video5: '69c9999aaa1b825b3b089aa'  // Placeholder (EN)
+      darkBridge2_video5: '69cb65b36983e3eba6dee303'  // Also here for safety
     },
     navbar: {
       home: 'Home',
@@ -350,7 +383,11 @@ export const translations = {
       title4: 'With less than',
       title5: '$1000USD',
       title6: 'in Meta advertising',
-      description: 'We guide you personally 1-on-1 throughout the process, to buy back your time, from market selection, negotiation, financing, and managing every dollar in ads, all until you acquire 30 appointments. No matter if you are a doctor or a clinic, without networks, without an operating room and without the need to travel.',
+      descPart1: 'We guide you ',
+      descHighlight1: 'personally 1-on-1',
+      descPart2: ' throughout the process, to buy back your time, from market selection, negotiation, financing, and managing every dollar in ads, all until you ',
+      descHighlight2: 'acquire 30 appointments.',
+      descPart3: ' No matter if you are a doctor or a clinic, without networks, without an operating room and without the need to travel.',
       badges: ['No operating room', '1-on-1 personalized guide', 'No social networks', 'No need to travel'],
       cta: 'Schedule Free Call',
       bannerStep: 'STEP 1:',
@@ -360,11 +397,11 @@ export const translations = {
       bannerDesc: 'to see what the 1-on-1 Program includes',
       vsl: 'Watch VSL',
       objective: 'Objective:',
-      objectiveText: 'Get +30 qualified appointments for your clinic with Meta advertising optimized to the maximum.',
+      objectiveText: 'Work with you step by step until you get your first 30 qualified appointments with a small advertising investment',
       guarantee: 'Guarantee:',
-      guaranteeText: '1-on-1 accompaniment until the goal is achieved. If you don\'t reach it, we continue working with you at no additional cost.',
+      guaranteeText: 'If in 90 days we don\'t manage to improve your flow of qualified appointments, we continue working with you at no cost until the system works correctly',
       limited: 'Limited Spots:',
-      limitedText: 'Because we only work with 4 companies per month.'
+      limitedText: 'Since our work is 100% personalized, we cannot work under the regular market demand'
     },
     darkBridge1: {
       type: 'showcase',
@@ -433,7 +470,37 @@ export const translations = {
           '/img/case-study/image4.png'
         ],
         cta: 'Schedule Call'
-      }
+      },
+      successCases: [
+        {
+          name: 'Dr. Orlando Santillán',
+          location: 'Quito-Ecuador',
+          description: 'We created a digital structure designed to elevate their positioning, better filter prospects, and convert interest into paid appointments.',
+          implementation: 'Strategic content\nCustom landing\nCRM + automations\nMeta Ads + Pixel + API',
+          results: '$288.45 invested\n2 paid appointments\n1 month of ads'
+        },
+        {
+          name: 'Luar',
+          location: 'Lima-Perú',
+          description: 'We created a digital structure to improve lead quality, automate responses, and maintain a more active and organized schedule.',
+          implementation: 'Conversion landing\nPixel + API\nChatbot for scheduling\nCRM and automated follow-up',
+          results: 'S/249.93 in ads\n39,416 reach\n11 WhatsApp conversations\n+190 calendar registrations'
+        },
+        {
+          name: 'Dra. Bárbara Chávez',
+          location: 'Lima-Perú',
+          description: 'We validated real market traction with campaigns focused on conversation and traffic, and defined the next phase to better convert that demand.',
+          implementation: 'Conversation campaigns\nOptimized traffic\nConversion tracking',
+          results: 'S/ 693.74 invested\n147 conversations\n143 new contacts\n88 supplement conversations at S/ 1.54'
+        },
+        {
+          name: 'Dra. Dominique Rueda',
+          location: 'Quito-Ecuador',
+          description: 'We validated real market traction with campaigns focused on conversation and traffic, and defined the next phase to better convert that demand.',
+          implementation: 'Conversation campaigns\nOptimized traffic\nConversion tracking',
+          results: 'S/ 693.74 invested\n147 conversations\n143 new contacts'
+        }
+      ]
     },
     darkBridge2: {
       title: 'Frequently Asked Questions',
@@ -526,8 +593,7 @@ export const translations = {
       badge: 'TRUST BADGE',
       footerHeading: 'What do these results have in common??',
       footerItems: [
-        'None invested blindly.',
-        'All followed a proven system',
+        'None invested blindly. All followed a proven system',
         'Our clients don\'t waste time talking to curious people, without a strategy',
         'Our team takes care of solving EVERYTHING, from prospecting to qualifying and scheduling'
       ]

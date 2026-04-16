@@ -36,8 +36,7 @@ const LegalPage = ({ lang }) => {
         <Link to="/" style={{ display: 'block' }}>
           <img src={logoImg} alt="GOBIG" style={{ height: '50px', width: 'auto' }} />
         </Link>
-        <Link to="/" style={{ 
-          color: '#DAF013', 
+        <Link className="text-neon" to="/" style={{ 
           textDecoration: 'none', 
           fontSize: '0.9rem', 
           fontWeight: '700',
@@ -84,10 +83,11 @@ const LegalPage = ({ lang }) => {
                 setActiveTab(tab.id);
                 navigate(`/legal/${tab.id}`);
               }}
+              className={activeTab === tab.id ? "text-neon" : ""}
               style={{
                 background: 'none',
                 border: 'none',
-                color: activeTab === tab.id ? '#DAF013' : 'rgba(255, 255, 255, 0.5)',
+                color: activeTab === tab.id ? undefined : 'rgba(255, 255, 255, 0.5)',
                 padding: '10px 15px',
                 fontSize: '0.9rem',
                 fontWeight: activeTab === tab.id ? '700' : '400',

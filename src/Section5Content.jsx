@@ -66,7 +66,7 @@ export default function Section5Content({ t }) {
           <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
-        <span style={{ color: '#DAF013', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
+        <span className="text-neon" style={{ fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
           {t.badge}
         </span>
       </div>
@@ -152,8 +152,7 @@ export default function Section5Content({ t }) {
               }}>
                 {member.name}
               </h3>
-              <span style={{
-                color: '#DAF013',
+              <span className="text-neon" style={{
                 fontSize: '0.85rem', // Legible subtitle
                 fontWeight: '700',
                 marginBottom: '12px' // Air underneath role

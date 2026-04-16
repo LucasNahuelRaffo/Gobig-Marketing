@@ -85,7 +85,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
           fontSize: isMobile ? '1.3rem' : 'clamp(1.7rem, 4.2vh, 2.7rem)',
           fontWeight: '900',
           lineHeight: '1.25',
-          margin: '0 0 8px 0',
+          margin: '0 0 10px 0',
           letterSpacing: '-0.5px',
           color: 'white'
         }}>
@@ -94,8 +94,8 @@ export default function HeroContent({ t, vturbPlayerId }) {
           {t.title4} <span className="text-neon">{t.title5}</span> {isMobile && <br />}
           {t.title6}
         </h1>
-        <p className="hero-subtitle" style={{ fontSize: isMobile ? '0.85rem' : 'clamp(0.75rem, 1.6vh, 0.88rem)', color: 'rgba(255,255,255,0.7)', lineHeight: '1.5', margin: 0, fontWeight: '400', maxWidth: '750px' }}>
-          {t.description}
+        <p className="hero-subtitle" style={{ fontSize: isMobile ? '0.82rem' : 'clamp(0.75rem, 1.6vh, 0.88rem)', color: 'rgba(255,255,255,0.7)', lineHeight: '1.55', margin: 0, fontWeight: '400', maxWidth: '750px' }}>
+          {t.descPart1}<span className="text-neon" style={{ fontWeight: '700' }}>{t.descHighlight1}</span>{t.descPart2}<span className="text-neon" style={{ fontWeight: '700' }}>{t.descHighlight2}</span>{t.descPart3}
         </p>
       </div>
 
@@ -170,7 +170,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
               background: '#000'
             }}
           >
-            <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '8px', height: '100%' }} />
+            <VturbPlayer key={vturbPlayerId} playerId={vturbPlayerId} style={{ borderRadius: '8px', height: '100%' }} />
           </div>
         </div>
 
@@ -207,6 +207,41 @@ export default function HeroContent({ t, vturbPlayerId }) {
             {t.expand || 'AMPLIAR'}
           </div>
         )}
+      </div>
+
+      {/* Info Panel: Description + Objetivo / Garantía / Cupos */}
+      <div className="glass-panel panel-animate" style={{
+        padding: isMobile ? '16px 20px' : '22px 32px',
+        width: '100%',
+        maxWidth: '820px',
+        boxSizing: 'border-box',
+        opacity: 0,
+        background: 'rgba(5, 10, 15, 0.5)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '14px',
+        textAlign: 'left',
+      }}>
+
+
+
+        {/* Objetivo */}
+        <div style={{ display: 'flex', gap: '6px', fontSize: isMobile ? '0.83rem' : '0.88rem', lineHeight: '1.55', flexWrap: 'wrap' }}>
+          <span className="text-neon" style={{ fontWeight: '900', flexShrink: 0 }}>{t.objective}</span>
+          <span style={{ color: 'rgba(255,255,255,0.72)', fontWeight: '400' }}>{t.objectiveText}</span>
+        </div>
+
+        {/* Garantía */}
+        <div style={{ display: 'flex', gap: '6px', fontSize: isMobile ? '0.83rem' : '0.88rem', lineHeight: '1.55', flexWrap: 'wrap' }}>
+          <span className="text-neon" style={{ fontWeight: '900', flexShrink: 0 }}>{t.guarantee}</span>
+          <span style={{ color: 'rgba(255,255,255,0.72)', fontWeight: '400' }}>{t.guaranteeText}</span>
+        </div>
+
+        {/* Cupos Limitados */}
+        <div style={{ display: 'flex', gap: '6px', fontSize: isMobile ? '0.83rem' : '0.88rem', lineHeight: '1.55', flexWrap: 'wrap' }}>
+          <span className="text-neon" style={{ fontWeight: '900', flexShrink: 0 }}>{t.limited}</span>
+          <span style={{ color: 'rgba(255,255,255,0.72)', fontWeight: '400' }}>{t.limitedText}</span>
+        </div>
       </div>
 
       {/* Action Button */}

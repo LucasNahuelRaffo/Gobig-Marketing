@@ -114,7 +114,7 @@ export default function Section2Content({ t, vturbPlayerId }) {
           lineHeight: '1.2'
         }}>
           {t.title}
-          <span style={{ color: '#DAF013' }}>{t.titleAccent}</span>
+          <span className="text-neon">{t.titleAccent}</span>
         </h3>
       </div>
 
@@ -144,7 +144,7 @@ export default function Section2Content({ t, vturbPlayerId }) {
                 background: '#000'
               }}
             >
-              <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '12px', height: '100%' }} />
+              <VturbPlayer key={vturbPlayerId} playerId={vturbPlayerId} style={{ borderRadius: '12px', height: '100%' }} />
             </div>
           </div>
 
@@ -270,41 +270,64 @@ export default function Section2Content({ t, vturbPlayerId }) {
 
       {/* Bottom Text Panel (Marker 2) */}
       <div className="glass-panel s2-anim" style={{
-        padding: '25px 40px',
-        borderRadius: '12px',
+        padding: isMobile ? '20px 24px' : '28px 48px',
+        borderRadius: '16px',
         textAlign: 'center',
         background: 'rgba(5, 10, 15, 0.4)',
         width: '100%',
         boxSizing: 'border-box',
-        border: '1px solid rgba(255,255,255,0.05)'
+        border: '1px solid rgba(255,255,255,0.07)'
       }}>
         <h3 style={{
-          fontSize: '1.2rem',
+          fontSize: isMobile ? '1rem' : '1.25rem',
           fontWeight: '800',
           color: 'white',
-          margin: '0 0 15px 0',
+          margin: '0 0 22px 0',
           lineHeight: '1.4'
         }}>
           {t.footerHeading}
         </h3>
+
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px'
+          gap: '14px',
         }}>
-          {t.footerItems.map((item, idx) => (
-            <p key={idx} style={{
-              fontSize: '0.95rem',
-              fontWeight: idx < 2 ? '600' : '400',
-              color: idx < 2 ? 'white' : 'rgba(255,255,255,0.7)',
-              margin: 0,
-              lineHeight: '1.5'
-            }}>
-              {item === 'sin estrategia' ? (
-                <span>nuestros clientes, no pierden el tiempo hablando con curiosos, <strong>sin estrategia</strong></span>
-              ) : item}
-            </p>
-          ))}
+          {t.footerItems.map((item, idx) => {
+            // For the last item, split at "TODO" (ES) or "EVERYTHING" (EN)
+            const splitKeywords = ['TODO', 'EVERYTHING'];
+            const keyword = splitKeywords.find(k => item.includes(k));
+
+            if (keyword) {
+              const splitIdx = item.indexOf(keyword) + keyword.length;
+              const before = item.slice(0, splitIdx);
+              const after = item.slice(splitIdx);
+              return (
+                <p key={idx} style={{
+                  margin: 0,
+                  fontSize: isMobile ? '0.88rem' : '0.95rem',
+                  fontWeight: '400',
+                  color: 'rgba(255,255,255,0.75)',
+                  lineHeight: '1.6',
+                }}>
+                  <span className="text-neon" style={{ fontWeight: '700' }}>{before}</span>
+                  {after}
+                </p>
+              );
+            }
+
+            return (
+              <p key={idx} style={{
+                margin: 0,
+                fontSize: isMobile ? '0.88rem' : '0.95rem',
+                fontWeight: idx === 0 ? '600' : '400',
+                color: idx === 0 ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.75)',
+                lineHeight: '1.6',
+              }}>
+                {item}
+              </p>
+            );
+          })}
         </div>
       </div>
 

@@ -136,7 +136,7 @@ export default function Section4Content({ lang, t, vturbPlayerId, vturbPlayerId2
       >
         <div ref={inlineSlotRef} style={{ width: '100%', position: 'relative' }}>
           <div ref={playerWrapperRef} style={{ width: '100%', borderRadius: '12px', overflow: 'hidden' }}>
-            <VturbPlayer playerId={vturbPlayerId} style={{ borderRadius: '12px' }} />
+            <VturbPlayer key={vturbPlayerId} playerId={vturbPlayerId} style={{ borderRadius: '12px' }} />
           </div>
         </div>
 
@@ -261,7 +261,7 @@ export default function Section4Content({ lang, t, vturbPlayerId, vturbPlayerId2
               aspectRatio: '16/9',
               overflow: 'hidden'
             }}>
-              <VturbPlayer playerId={vturbPlayerId2} style={{ borderRadius: '12px', height: '100%' }} />
+              <VturbPlayer key={vturbPlayerId2} playerId={vturbPlayerId2} style={{ borderRadius: '12px', height: '100%' }} />
             </div>
           )}
 
@@ -276,7 +276,7 @@ export default function Section4Content({ lang, t, vturbPlayerId, vturbPlayerId2
               aspectRatio: '16/9',
               overflow: 'hidden'
             }}>
-              <VturbPlayer playerId={vturbPlayerId5} style={{ borderRadius: '12px', height: '100%' }} />
+              <VturbPlayer key={vturbPlayerId5} playerId={vturbPlayerId5} style={{ borderRadius: '12px', height: '100%' }} />
             </div>
           )}
         </div>

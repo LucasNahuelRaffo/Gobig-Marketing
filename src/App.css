@@ -59,7 +59,11 @@ body {
 }
 
 .text-neon {
-  color: #DAF013;
+  background: linear-gradient(90deg, #F7FFB1 0%, #57CC03 56%, #DAF013 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .bg-neon {
@@ -798,29 +802,19 @@ body {
     line-height: 1.6 !important;
   }
 
-  /* Fix Hero background repeat/twice issue on mobile */
+  /* Keep hero video cover, but make it sticky 100vh so it doesn't get stretched/zoomed by the tall text content */
   #sky .section-bg-wrapper {
     position: absolute !important;
     height: 100% !important;
-    top: 0;
-    left: 0;
-    z-index: 1;
   }
 
   #sky .section-bg {
-    position: absolute !important; /* Changed from sticky to avoid the 'stuck' double background feel */
+    position: sticky !important;
     top: 0 !important;
-    height: 100% !important;
-    width: 100% !important;
-    background-size: cover !important;
-    background-position: center bottom !important; /* Ensure palm trees are anchored at the bottom */
-    transform: none !important;
-  }
-
-  /* Ensure the next section blends better */
-  #canopy.scene-section {
-    margin-top: -15vh !important;
-    padding-top: 15vh !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    transform: scale(1) !important;
+    object-position: center !important;
   }
 
   /* Make glass panels tighter on mobile to save space */

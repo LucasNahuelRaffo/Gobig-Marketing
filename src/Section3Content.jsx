@@ -76,8 +76,8 @@ export default function Section3Content({ t }) {
             margin: 0,
             letterSpacing: '-0.5px'
           }}>
-            {t.pantherTitle1} <span style={{ color: '#DAF013' }}>{t.pantherTitle2}</span><br />
-            <span style={{ color: '#DAF013' }}>{t.pantherTitle3}</span> {t.pantherTitle4}
+            {t.pantherTitle1} <span className="text-neon">{t.pantherTitle2}</span><br />
+            <span className="text-neon">{t.pantherTitle3}</span> {t.pantherTitle4}
           </h2>
         </div>
 
