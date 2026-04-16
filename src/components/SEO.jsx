@@ -14,8 +14,8 @@ const SEO = ({ title, description, image, url, type = "website" }) => {
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:image:secure_url" content={image} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      <meta property="og:image:width" content="1024" />
+      <meta property="og:image:height" content="1024" />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:site_name" content="GoBig Agency" />
 

@@ -6,6 +6,13 @@ import Particles from './Particles';
 import fondoFaq from './img/Fondo_2.jpg';
 import './App.css';
 
+// Success Cases Images
+import caseImg1 from './img/testimonios_4componentes/1.png';
+import caseImg2 from './img/testimonios_4componentes/2.png';
+import caseImg3 from './img/testimonios_4componentes/3.png';
+import caseImg4 from './img/testimonios_4componentes/4.png';
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -19,8 +26,8 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
   const [showCaseDetails, setShowCaseDetails] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const [caseIndex, setCaseIndex] = useState(0);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+  const touchStartRef = useRef(null);
+  const touchEndRef = useRef(null);
 
   const isMobile = visibleCards === 1;
 
@@ -29,6 +36,9 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
 
   // Triple the items to create a seamless loop
   const extendedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+
+  const caseImages = [caseImg1, caseImg2, caseImg3, caseImg4];
+
 
   // Initialize index to the middle set
   useEffect(() => {
@@ -161,13 +171,15 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
   // --- SWIPE LOGIC ---
   const minSwipeDistance = 50;
   const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    touchEndRef.current = null;
+    touchStartRef.current = e.targetTouches[0].clientX;
   };
-  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchMove = (e) => {
+    touchEndRef.current = e.targetTouches[0].clientX;
+  };
   const onTouchEnd = (callbackNext, callbackPrev) => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
+    if (!touchStartRef.current || !touchEndRef.current) return;
+    const distance = touchStartRef.current - touchEndRef.current;
     if (Math.abs(distance) < minSwipeDistance) return;
     if (distance > 0) callbackNext();
     else callbackPrev();
@@ -535,21 +547,17 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                               alignItems: 'center',
                               justifyContent: 'center'
                             }}>
-                              <div style={{
-                                width: '80px',
-                                height: '80px',
-                                borderRadius: '50%',
-                                background: '#DAF013',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '2rem',
-                                fontWeight: '900',
-                                color: '#050a0a'
-                              }}>
-                                {successCase.name.charAt(0)}
-                              </div>
+                              <img 
+                                src={caseImages[idx % caseImages.length]} 
+                                alt={successCase.name} 
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  objectFit: 'cover'
+                                }}
+                              />
                             </div>
+
 
                             {/* Content Side */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
