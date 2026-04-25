@@ -247,7 +247,7 @@ export default function HeroContent({ t, vturbPlayerId }) {
       {/* Action Button */}
       <div className="panel-animate" style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <button
-          onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+          onClick={() => window.open(t.ctaLink, '_blank')}
           className="bg-neon"
           style={{
             padding: '12px 55px',

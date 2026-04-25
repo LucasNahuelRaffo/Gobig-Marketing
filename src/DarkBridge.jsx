@@ -410,7 +410,7 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
               {t.cta && (
                 <button
                   className="btn-glow"
-                  onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+                  onClick={() => window.open(t.ctaLink, '_blank')}
                   style={{
                     marginTop: '20px',
                     padding: '20px 40px',
@@ -603,7 +603,7 @@ export default function DarkBridge({ id, t, lang, style, mode = 'standard' }) {
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank');
+                                  window.open(t.ctaLink, '_blank');
                                 }}
                                 style={{
                                   marginTop: '8px',

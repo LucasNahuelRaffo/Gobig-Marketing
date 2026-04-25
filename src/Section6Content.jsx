@@ -151,7 +151,7 @@ export default function Section6Content({ t }) {
         </div>
         {/* Huge CTA Button */}
         <button 
-          onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+          onClick={() => window.open(t.ctaLink, '_blank')}
           className="s6-anim" 
           style={{
             background: '#DAF013',

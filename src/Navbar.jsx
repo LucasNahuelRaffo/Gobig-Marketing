@@ -133,7 +133,7 @@ export default function Navbar({ lang, setLang, t, isLoaded }) {
           gap: '12px' 
         }}>
           <button 
-            onClick={() => window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank')}
+            onClick={() => window.open(t.ctaLink, '_blank')}
             className="bg-neon" 
             style={{
               padding: '10px 22px', // slimmed standard CTA
@@ -165,7 +165,7 @@ export default function Navbar({ lang, setLang, t, isLoaded }) {
         
         <button 
           onClick={() => {
-            window.open('https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC', '_blank');
+            window.open(t.ctaLink, '_blank');
             toggleMobileMenu();
           }}
           className="bg-neon" 

@@ -15,7 +15,8 @@ export const translations = {
       service: 'Servicio',
       testimonial: 'Testimonios',
       contact: 'Contacto',
-      cta: 'Agendar Llamada'
+      cta: 'Agendar Llamada',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC'
     },
     hero: {
       title1: 'Obtén',
@@ -31,6 +32,7 @@ export const translations = {
       descPart3: ' Sin importar si eres doctor o clínica, sin redes, sin quirófano y sin necesidad de viajar.',
       badges: ['Sin quirófano', 'Guía personalizada 1 a 1', 'Sin redes sociales', 'Sin necesidad de viajar'],
       cta: 'Agendar Llamada Gratis',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC',
       bannerStep: 'PASO 1:',
       bannerWatch1: 'Mira ',
       bannerWatch2: 'TODO',
@@ -205,7 +207,8 @@ export const translations = {
         'Piénsalo así: Un doctor serio no deja una decisión importante en manos de alguien que improvisa. Y tu crecimiento tampoco debería depender de una agencia que no entiende tu industria. **Haz clic abajo, aplica y agenda tu llamada estratégica.**',
         'Revisaremos tu situación, detectaremos fugas en tu proceso comercial y definiremos si GoBig es el socio correcto para ayudarte a crecer con más control, más autoridad y mejores pacientes.'
       ],
-      cta: 'Agenda tu Llamada Estratégica'
+      cta: 'Agenda tu Llamada Estratégica',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC'
     },
     darkBridge4: {
       title: 'LOS ÚNICOS 3 PASOS QUE NECESITAS ENTENDER PARA VER POR QUÉ NUESTRO SISTEMA FUNCIONA',
@@ -217,7 +220,8 @@ export const translations = {
         '**¿QUÉ LOGRAMOS CON TODO ESTO?**\n✓ Dejas de atraer "preguntones" y empiezas a atraer pacientes.\n✓ Tu marca se posiciona como una opción de autoridad, no de precio.\n✓ Tu equipo deja de perder tiempo en procesos manuales.\n✓ Tienes control total sobre cuánto inviertes y cuánto recuperas.',
         '**EN OTRAS PALABRAS:**\nInstalamos en tu clínica la misma infraestructura que usan las marcas que facturan millones. Y lo hacemos sin que tú tengas que aprender nada de **Desarrollo con código, Automation, n8n o Data Analysis**. Nosotros lo construimos, tú lo escalas.'
       ],
-      cta: 'Ver el Sistema en Acción'
+      cta: 'Ver el Sistema en Acción',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC'
     },
     darkBridge5: {
       title: 'AHORA LA PREGUNTA DEL MILLÓN ES ¿TU CLÍNICA ESTÁ LISTA PARA HACER ESTO BIEN?',
@@ -226,7 +230,8 @@ export const translations = {
         'Antes de empezar, primero revisamos si realmente podemos ayudarte. Porque en GoBig no trabajamos con cualquier clínica. Solo trabajamos con equipos comprometidos, que entienden que para crecer bien se necesita estrategia, estructura, seguimiento y ejecución seria.',
         'Piénsalo así: Si un paciente fuera a entrar a un procedimiento importante, no querría que todo dependiera de improvisación o “a ver qué pasa”. Querría entrar con alguien que ya entiende el proceso completo. Alguien que sabe cómo atraer, filtrar y hacer que la clínica crezca sin dañar su marca.'
       ],
-      cta: 'Completar Aplicación'
+      cta: 'Completar Aplicación',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC'
     },
     section2: {
       title: 'ECHA UN VISTAZO DE NUESTROS ',
@@ -345,6 +350,7 @@ export const translations = {
         "Tu equipo opera el sistema de forma autónoma"
       ],
       cta: 'QUIERO MI LLAMADA ESTRATÉGICA AHORA',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/pO8Nq6VBYNKCtYjNcOQC',
       subcta: '"Disponibilidad limitada: Últimas sesiones disponibles"'
     },
     footer: {
@@ -374,7 +380,8 @@ export const translations = {
       service: 'Service',
       testimonial: 'Testimonials',
       contact: 'Contact',
-      cta: 'Schedule Call'
+      cta: 'Schedule Call',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/EAZfYgo77UC0ufwWoUKi'
     },
     hero: {
       title1: 'Get',
@@ -390,6 +397,7 @@ export const translations = {
       descPart3: ' No matter if you are a doctor or a clinic, without networks, without an operating room and without the need to travel.',
       badges: ['No operating room', '1-on-1 personalized guide', 'No social networks', 'No need to travel'],
       cta: 'Schedule Free Call',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/EAZfYgo77UC0ufwWoUKi',
       bannerStep: 'STEP 1:',
       bannerWatch1: 'Watch ',
       bannerWatch2: 'ALL',
@@ -564,7 +572,8 @@ export const translations = {
         'Think of it like this: A serious doctor does not leave an important decision in the hands of someone who improvises. And your growth should not depend on an agency that does not understand your industry. **Click below, apply, and schedule your strategic call.**',
         'We will review your situation, detect leaks in your business process, and define if GoBig is the right partner to help you grow with more control, more authority, and better patients.'
       ],
-      cta: 'Schedule Strategic Call'
+      cta: 'Schedule Strategic Call',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/EAZfYgo77UC0ufwWoUKi'
     },
     darkBridge4: {
       title: 'THE ONLY 3 STEPS YOU NEED TO UNDERSTAND TO SEE WHY OUR SYSTEM WORKS',
@@ -576,7 +585,8 @@ export const translations = {
         '**WHAT DO WE ACHIEVE WITH ALL THIS?**\n✓ You stop attracting "price-shoppers" and start attracting patients.\n✓ Your brand positions as an authority option, not a price option.\n✓ Your team stops wasting time on manual processes.\n✓ You have total control over how much you invest and how much you recover.',
         '**IN OTHER WORDS:**\nWe install the same infrastructure in your clinic used by brands that bill millions. And we do it without you having to learn anything about **Code development, Automation, n8n, or Data Analysis**. We build it, you scale it.'
       ],
-      cta: 'See the System in Action'
+      cta: 'See the System in Action',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/EAZfYgo77UC0ufwWoUKi'
     },
     darkBridge5: {
       title: 'NOW THE MILLION DOLLAR QUESTION IS: IS YOUR CLINIC READY TO DO THIS RIGHT?',
@@ -585,7 +595,8 @@ export const translations = {
         'Before starting, we first check if we can actually help you. Because at GoBig, we do not work with just any clinic. We only work with committed teams who understand that to grow well, strategy, structure, follow-up, and serious execution are needed.',
         'Think of it like this: If a patient were going into an important procedure, they would not want everything to depend on improvisation or "let\'s see what happens." They would want to go in with someone who already understands the entire process. Someone who knows how to attract, filter, and make the clinic grow without damaging its brand.'
       ],
-      cta: 'Complete Application'
+      cta: 'Complete Application',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/EAZfYgo77UC0ufwWoUKi'
     },
     section2: {
       title: 'TAKE A LOOK AT OUR ',
@@ -704,6 +715,7 @@ export const translations = {
         "Your team operates the system autonomously"
       ],
       cta: 'I WANT MY STRATEGIC CALL NOW',
+      ctaLink: 'https://link.apisystem.tech/widget/survey/EAZfYgo77UC0ufwWoUKi',
       subcta: '"Limited availability: Last sessions available"'
     },
     footer: {
